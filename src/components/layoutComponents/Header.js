@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AuthService from '../../services/authService';
 
 const Header = () => {
     const isLoggedIn = AuthService.isLoggedIn();
-
+    const navigate = useNavigate();
     const handleLogout = () => {
         AuthService.logout();
-        // Thực hiện các tác vụ khác sau khi đăng xuất (nếu cần)
+        navigate('/login');
     };
 
     return (

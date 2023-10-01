@@ -11,7 +11,7 @@ const LoginPage = () => {
         };
       
         try {
-          const userInfo = await authService.login(credentials);
+          await authService.login(credentials);
           navigate('/');
         } catch (error) {
           console.error('Đăng nhập thất bại:', error);
