@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import AuthService from '../../services/authService';
-
+import logoImage from '../../assets/images/safamo.png';
 const Header = () => {
     const isLoggedIn = AuthService.isLoggedIn();
     const navigate = useNavigate();
@@ -10,10 +10,15 @@ const Header = () => {
         AuthService.logout();
         navigate('/login');
     };
-
+    const logoStyle = {
+        width: '150px', // Adjust the width to your preferred size
+        height: 'auto', // This ensures the aspect ratio is maintained
+    };
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <Link to="/" className="navbar-brand">Logo</Link>
+            <Link to="/" className="navbar-brand">
+            <img src={logoImage} alt="Safamo Logo" style={logoStyle} />
+            </Link>
 
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
@@ -33,7 +38,8 @@ const Header = () => {
             <div className="navbar-nav ml-auto">
                 {isLoggedIn ? (
                     <>
-                        <Link to="/profile" className="nav-item nav-link">Edit Profile</Link>
+                        <Link to="/rental_manage/properties" className="nav-item nav-link">Quản lý thuê</Link>
+                        <Link to="/profile" className="nav-item nav-link">Tài khoản</Link>
                         <button className="btn btn-outline-danger" onClick={handleLogout}>Đăng xuất</button>
                     </>
                 ) : (

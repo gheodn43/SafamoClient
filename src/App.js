@@ -8,10 +8,11 @@ import LandlordReqDetail from './components/RequestComponents/landlordRequestDet
 import NotFoundPage from './components/NotFoundPage';
 import ConfirmRegisterOtp from './components/AuthComponents/ConfirmRegisterOtp'
 import authService from './services/authService'
+import PropertyRegisStepper from './hooks/useStepper';
 
 function App() {
   const { roles } = authService.getUserInfo();
-  
+
   return (
     <Router>
       <div className="App">
@@ -25,6 +26,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/confirm-otp" element={<ConfirmRegisterOtp />} />
           <Route path="*" element={<NotFoundPage />} />
+          <Route path="/rental_manage/addProperty" element={<PropertyRegisStepper/>} />
         </Routes>
       </div>
     </Router>
