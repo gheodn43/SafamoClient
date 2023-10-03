@@ -4,6 +4,7 @@ import HomePage from './components/homePage';
 import AdminHomePage from './components/adminHomePage';
 import LoginPage from './components/AuthComponents/Login';
 import Register from './components/AuthComponents/Register';
+import LandlordReqDetail from './components/RequestComponents/landlordRequestDetail'
 import NotFoundPage from './components/NotFoundPage';
 import ConfirmRegisterOtp from './components/AuthComponents/ConfirmRegisterOtp'
 import authService from './services/authService'
@@ -19,6 +20,7 @@ function App() {
           {roles.includes('ADMIN') && (
             <Route path="/admin" element={<AdminHomePage />} />
           )}
+          <Route path="/requests/landlord_req_detail" element={<LandlordReqDetail />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/confirm-otp" element={<ConfirmRegisterOtp />} />

@@ -1,5 +1,6 @@
 import React from 'react';
 import AdminBaseLayout from './layoutComponents/AdminBaseLayout';
+import RentalRequestTable from './DataDisplayComponents/Tables/retalRequestTable'
 
 const AdminHomePage = () => {
   // Truy xuất thông tin người dùng từ localStorage
@@ -17,6 +18,7 @@ const AdminHomePage = () => {
         <h1>Xin chào, {storedUsername}</h1>
         <p>Vai trò: {roles.join(', ')}</p>
       </div>
+      <RentalRequestTable />
     </AdminBaseLayout>
   );
 };
