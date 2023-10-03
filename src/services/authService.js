@@ -41,18 +41,18 @@ const authService = {
       try {
         const accessToken = localStorage.getItem('accessToken');
         console.log(accessToken);
-  
+
         if (!accessToken) {
           reject("No access token found.");
           return;
         }
-  
+
         const xhr = new XMLHttpRequest();
         xhr.open('POST', 'http://localhost:8080/api/logout', true);
-  
+
         // Đặt tiêu đề yêu cầu nếu cần
         xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
-  
+
         xhr.onreadystatechange = function () {
           if (xhr.readyState === 4) {
             if (xhr.status === 200) {
@@ -65,15 +65,15 @@ const authService = {
             }
           }
         };
-  
+
         xhr.send();
       } catch (error) {
         reject(error);
       }
     });
   },
-  
-  
+
+
 
   isLoggedIn: () => {
     return !!localStorage.getItem('accessToken');

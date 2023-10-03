@@ -9,7 +9,7 @@ const BaseLayout = ({ children }) => {
       <Header />
 
       {children}
-
+{/* footer */}
     </div>
   );
 };
