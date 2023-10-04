@@ -3,7 +3,7 @@ import React from 'react';
 
 const Sidebar = () => {
   return (
-    <nav id="sidebar" className="bg-light col-md-2">
+    <nav id="sidebar" className="bg-light">
       <div className="sidebar-header">
       </div>
       <ul className="list-unstyled components">

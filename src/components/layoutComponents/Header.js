@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import AuthService from '../../services/authService';
 import logoImage from '../../assets/images/safamo.png';
-import '../../assets/styles/header.css';
 const Header = () => {
     const isLoggedIn = AuthService.isLoggedIn();
     const navigate = useNavigate();
