@@ -1,8 +1,9 @@
 import React from 'react';
 
+
 const Sidebar = () => {
   return (
-    <nav id="sidebar" className="bg-light">
+    <nav id="sidebar" className="bg-light col-md-2">
       <div className="sidebar-header">
       </div>
       <ul className="list-unstyled components">

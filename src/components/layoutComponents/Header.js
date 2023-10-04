@@ -2,9 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import AuthService from '../../services/authService';
-import '../../asset/style.css';
-
-
+import logoImage from '../../assets/images/safamo.png';
+import '../../assets/styles/header.css';
 const Header = () => {
     const isLoggedIn = AuthService.isLoggedIn();
     const navigate = useNavigate();
@@ -12,38 +11,43 @@ const Header = () => {
         AuthService.logout();
         navigate('/login');
     };
-
+    const logoStyle = {
+        width: '150px', // Adjust the width to your preferred size
+        height: 'auto', // This ensures the aspect ratio is maintained
+    };
     return (
-        <div>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <Link to="/" className="navbar-brand">Logo</Link>
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
+        <nav className="navbar navbar-expand-lg navbar-light bg-light custom-header">
+            <Link to="/" className="navbar-brand">
+            <img src={logoImage} alt="Safamo Logo" style={logoStyle} />
+            </Link>
 
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav">
-                        <li className="nav-item">
-                            <Link to="/rooms-for-rent" className="nav-link">Phòng cho thuê</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/shared-rooms" className="nav-link">Phòng ở ghép</Link>
-                        </li>
-                    </ul>
-                </div>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
+            </button>
 
-                <div className="navbar-nav ml-auto">
-                    {isLoggedIn ? (
-                        <>
-                            <Link to="/profile" className="nav-item nav-link">Edit Profile</Link>
-                            <button className="btn btn-outline-danger" onClick={handleLogout}>Đăng xuất</button>
-                        </>
-                    ) : (
-                        <Link to="/login" className="nav-item nav-link button-login">Đăng nhập</Link>
-                    )}
-                </div>
-            </nav>
-        </div>
+            <div className="collapse navbar-collapse" id="navbarNav">
+                <ul className="navbar-nav">
+                    <li className="nav-item">
+                        <Link to="/rooms-for-rent" className="nav-link">Phòng cho thuê</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to="/shared-rooms" className="nav-link">Phòng ở ghép</Link>
+                    </li>
+                </ul>
+            </div>
+
+            <div className="navbar-nav ml-auto">
+                {isLoggedIn ? (
+                    <>
+                        <Link to="/rental_manage/properties" className="nav-item nav-link">Quản lý thuê</Link>
+                        <Link to="/profile" className="nav-item nav-link">Tài khoản</Link>
+                        <button className="btn btn-logout" onClick={handleLogout}>Đăng xuất</button>
+                    </>
+                ) : (
+                    <Link to="/login" className="nav-item nav-link">Đăng nhập</Link>
+                )}
+            </div>
+        </nav>
     );
 };
 
