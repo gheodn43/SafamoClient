@@ -1,14 +1,13 @@
 import React from 'react';
 import Header from './Header';
 import Sidebar from './Sidebar';
+import Footer from './Footer'
 
 const AdminBaseLayout = ({ children }) => {
     return (
-        <div className="container-fluid">
-            <div className="row">
-                <Header />
-            </div>
-            <div className="row">
+        <div className="admin-page">
+            <div className='page-header'><Header /></div>
+            <div className="row page-content">
                 <div className="col-md-2">
                     <Sidebar />
                 </div>
@@ -16,6 +15,7 @@ const AdminBaseLayout = ({ children }) => {
                     {children}
                 </div>
             </div>
+            <div className='page-footer'><Footer/></div>
         </div>
     );
 };

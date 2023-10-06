@@ -7,9 +7,6 @@ const Header = () => {
     
     const isLoggedIn = AuthService.isLoggedIn();
     const navigate = useNavigate();
-
-
-
     const handleLogout = () => {
         AuthService.logout();
         navigate('/login');

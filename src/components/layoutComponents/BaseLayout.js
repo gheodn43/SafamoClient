@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Header from './Header';
+import Footer from './Footer'
 import RentalmanagerHeader from './RentalmanagerHeader';
 
 const BaseLayout = ({ children }) => {
@@ -21,6 +22,7 @@ const BaseLayout = ({ children }) => {
     <div>
       {isRentalManagerPage ? <RentalmanagerHeader /> : <Header />}
       {children}
+      <Footer/>
     </div>
   );
 };

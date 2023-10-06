@@ -14,7 +14,7 @@ const RentalmanagerHeader = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light"style={{ width: '100%'}}>
             <Link to="/rental_manage" className="navbar-brand">
-                <img src={logoImage} alt="Safamo Logo" style={{ width: '200px', height: 'auto' }} />
+                <img src={logoImage} alt="Safamo Logo" style={{ width: '150px', height: 'auto' }} />
             </Link>
 
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
