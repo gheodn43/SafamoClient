@@ -9,24 +9,33 @@ const RentalmanagerHeader = () => {
         AuthService.logout();
         navigate('/login');
     };
+
     return (
-        <div className="header-container">
-            <div className="logo-container">
-                <Link to="/rental_manage" className="navbar-brand">
-                    <img src={logoImage} alt="Safamo Logo" />
-                </Link>
-            </div>
-            <div className="menu-container">
-                <ul>
-                    <li><a href="/">Bất động sản</a></li>
-                    <li><a href="/requests">Yêu cầu</a></li>
+        <nav className="navbar navbar-expand-lg navbar-light bg-light"style={{ width: '100%'}}>
+            <Link to="/rental_manage" className="navbar-brand">
+                <img src={logoImage} alt="Safamo Logo" style={{ width: '200px', height: 'auto' }} />
+            </Link>
+
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
+            </button>
+
+            <div className="collapse navbar-collapse" id="navbarNav">
+                <ul className="navbar-nav">
+                    <li className="nav-item">
+                        <Link to="/" className="nav-link">Bất động sản</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to="/requests" className="nav-link">Yêu cầu</Link>
+                    </li>
                 </ul>
             </div>
-            <div className="right-menu-container">
-                <a href="/">Về Safamo</a>
+
+            <div className="navbar-nav ml-auto">
+                <Link to="/" className="nav-item nav-link">Về Safamo</Link>
                 <button className="btn btn-outline-danger" onClick={handleLogout}>Đăng xuất</button>
             </div>
-        </div>
+        </nav>
     );
 };
 

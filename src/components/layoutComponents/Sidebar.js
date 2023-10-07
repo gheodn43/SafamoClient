@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const Sidebar = () => {
   return (
     <nav id="sidebar" className="bg-light">

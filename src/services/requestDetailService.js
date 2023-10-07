@@ -1,4 +1,5 @@
-import api from "./api";
+import React from 'react';
+import api from './api';
 
 const requestDetailService = {
     landlordReqDetail: async () => {
@@ -9,6 +10,7 @@ const requestDetailService = {
         // trả về ResponseEntity<String>
         // yêu cầu tham số truyền vào user_id và request_id
       },
+      
 };
 
 export default requestDetailService;

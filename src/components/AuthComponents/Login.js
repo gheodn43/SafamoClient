@@ -11,8 +11,13 @@ const LoginPage = () => {
         };
       
         try {
-          await authService.login(credentials);
-          navigate('/');
+          const { roles } = await authService.login(credentials);
+    
+          if (roles.includes('ADMIN')) {
+            navigate('/admin');
+          } else {
+            navigate('/');
+          }
         } catch (error) {
           console.error('Đăng nhập thất bại:', error);
         }
