@@ -47,7 +47,7 @@ const authService = {
           return;
         }
         const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost:8080/api/logout', true);
+        xhr.open('POST', 'http://localhost:8081/api/logout', true);
         xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
 
         xhr.onreadystatechange = function () {
