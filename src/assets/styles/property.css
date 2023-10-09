@@ -1,0 +1,31 @@
+
+.property-creation{
+    position: fixed; /* Đảm bảo nó luôn hiển thị trên cùng */
+    width: 70%;
+    height: 80%;
+    top: 50%; /* Đặt phần trên của phần tử ở giữa màn hình */
+    left: 50%; /* Đặt phần bên trái của phần tử ở giữa màn hình */
+    transform: translate(-50%, -50%); /* Dịch chuyển phần tử để nằm chính giữa màn hình */
+    background-color: rgba(255, 255, 255); /* Màu nền mờ */
+    padding: 20px; /* Khoảng cách xung quanh nội dung */
+    border-radius: 10px; /* Bo tròn góc */
+    z-index: 1000; /* Đảm bảo nó hiển thị trên các phần tử khác */
+  }
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000; /* Đảm bảo lớp overlay hiển thị phía trên tất cả */
+  }
+  .next-step-btn{
+    float: right;
+  }
+.profile-photo{
+  width: 100%;
+  img{
+    width: 100%;
+  }
+}

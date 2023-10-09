@@ -10,7 +10,6 @@ const HomePage = () => {
   if (storedRolesJSON) {
     roles = JSON.parse(storedRolesJSON);
   }
-
   return (
     <BaseLayout>
       <div>

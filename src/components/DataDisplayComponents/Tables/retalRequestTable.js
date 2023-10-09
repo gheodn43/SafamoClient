@@ -31,7 +31,6 @@ const RentalRequestTable = () => {
       <table className="table">
         <thead>
           <tr>
-            <th>ID</th>
             <th>Tên người dùng</th>
             <th>Loại yêu cầu</th>
             <th>Mô tả</th>
@@ -43,7 +42,6 @@ const RentalRequestTable = () => {
         <tbody>
           {requests.map(request => (
             <tr key={request.id}>
-              <td>{request.id}</td>
               <td>{request.username}</td>
               <td>{request.requestRole}</td>
               <td>{request.description}</td>

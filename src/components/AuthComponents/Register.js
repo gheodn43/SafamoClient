@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import authService from '../../services/authService';
-
+import logoImage from '../../assets/images/safamo.png';
 const Register = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -11,7 +11,10 @@ const Register = () => {
         email: '',
         otp: '',
     });
-
+    const logoStyle = {
+        width: '150px',
+        height: 'auto',
+    };
     const [error, setError] = useState(null); // Trạng thái lưu thông báo lỗi
 
     const handleChange = (e) => {
@@ -41,6 +44,9 @@ const Register = () => {
     };
     return (
         <div className="container">
+            <div className='row justify-content-center mt-5'>
+                <Link to="/" className="navbar-brand "><img src={logoImage} alt="Safamo Logo" style={logoStyle} /></Link>
+            </div>
             <div className="row justify-content-center mt-5">
                 <div className="col-md-6">
                     <div className="card">

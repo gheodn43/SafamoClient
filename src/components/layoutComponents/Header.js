@@ -1,23 +1,26 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AuthService from '../../services/authService';
 import logoImage from '../../assets/images/safamo.png';
+
 const Header = () => {
+    
     const isLoggedIn = AuthService.isLoggedIn();
     const navigate = useNavigate();
     const handleLogout = () => {
         AuthService.logout();
         navigate('/login');
     };
+    const storedUsername = localStorage.getItem('username');
     const logoStyle = {
-        width: '150px', // Adjust the width to your preferred size
-        height: 'auto', // This ensures the aspect ratio is maintained
+        width: '150px',
+        height: 'auto',
     };
+
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{ width: '100%'}}>
             <Link to="/" className="navbar-brand">
-            <img src={logoImage} alt="Safamo Logo" style={logoStyle} />
+                <img src={logoImage} alt="Safamo Logo" style={logoStyle} />
             </Link>
 
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,8 +41,8 @@ const Header = () => {
             <div className="navbar-nav ml-auto">
                 {isLoggedIn ? (
                     <>
-                        <Link to="/rental_manage/properties" className="nav-item nav-link">Quản lý thuê</Link>
-                        <Link to="/profile" className="nav-item nav-link">Tài khoản</Link>
+                        <Link to="/rental_manage/property" className="nav-item nav-link">Quản lý thuê</Link>
+                        <Link to="/profile" className="nav-item nav-link">{storedUsername}</Link>
                         <button className="btn btn-outline-danger" onClick={handleLogout}>Đăng xuất</button>
                     </>
                 ) : (
@@ -51,4 +54,3 @@ const Header = () => {
 };
 
 export default Header;
-
