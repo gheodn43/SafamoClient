@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+//step1
 const PropertyBasicInfoForm = ({ propertyInfo, setPropertyInfo, onNextStep }) => {
   // State để theo dõi thông tin cơ bản của tài sản
   const [formValues, setFormValues] = useState({
@@ -80,7 +80,7 @@ const PropertyBasicInfoForm = ({ propertyInfo, setPropertyInfo, onNextStep }) =>
           </div>
         </div>
       </form>
-      <button onClick={handleNext}>Tiếp theo</button>
+      <button className='next-step-btn btn btn-primary' onClick={handleNext}>Tiếp theo</button>
     </div>
   );
 };

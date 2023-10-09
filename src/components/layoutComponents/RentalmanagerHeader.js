@@ -10,7 +10,7 @@ const RentalmanagerHeader = () => {
         AuthService.logout();
         navigate('/login');
     };
-
+    const storedUsername = localStorage.getItem('username');
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light"style={{ width: '100%'}}>
             <Link to="/rental_manage" className="navbar-brand">
@@ -23,17 +23,21 @@ const RentalmanagerHeader = () => {
 
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav">
-                    <li className="nav-item">
-                        <Link to="/" className="nav-link">Bất động sản</Link>
+                    <li className="nav-item  active ">
+                        <Link to="/rental_manage/property" className="nav-link">Bất động sản</Link>
+                    </li>
+                    <li className="nav-item ">
+                        <Link to="/requests" className="nav-link">Yêu cầu</Link>
                     </li>
                     <li className="nav-item">
-                        <Link to="/requests" className="nav-link">Yêu cầu</Link>
+                        <Link to="/myRoom" className="nav-link">phòng của tôi</Link>
                     </li>
                 </ul>
             </div>
 
             <div className="navbar-nav ml-auto">
                 <Link to="/" className="nav-item nav-link">Về Safamo</Link>
+                <Link to="/profile" className="nav-item nav-link">{storedUsername}</Link>
                 <button className="btn btn-outline-danger" onClick={handleLogout}>Đăng xuất</button>
             </div>
         </nav>
