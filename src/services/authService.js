@@ -4,11 +4,11 @@ const authService = {
   login: async (credentials) => {
     try {
       const response = await api.post('/auth/login', credentials);
-      const { accessToken, roles, username } = response.data;
+      const { accessToken, roles, username, user_id} = response.data;
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('roles', JSON.stringify(roles));
       localStorage.setItem('username', username);
-
+      localStorage.setItem('user_id',user_id);
       return { accessToken, roles, username };
     } catch (error) {
       throw error;

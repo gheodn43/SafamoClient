@@ -52,12 +52,6 @@ const PropertyCreation = () => {
             pictureUrl: uploadedPictureUrl
         });
         setStep(4);
-        // try {
-        //     const createdProperty = await propertyService.create(newProperty);
-        //     console.log("Property created:", createdProperty);
-        // } catch (error) {
-        //     console.error("Lỗi khi tạo tài sản:", error);
-        // }
     };
 
     const handleConfirmAll = () => {

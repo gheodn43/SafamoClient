@@ -1,5 +1,6 @@
 
-.property-creation{
+.property-creation,
+.landlordReq-creation{
     position: fixed; /* Đảm bảo nó luôn hiển thị trên cùng */
     width: 70%;
     height: 80%;
