@@ -8,7 +8,6 @@ const PropertiesPage = () => {
   return (
     <BaseLayout>
       <div>
-
         <PropertyProvider>
           <PropertyComponent />
         </PropertyProvider>
