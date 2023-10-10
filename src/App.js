@@ -11,6 +11,7 @@ import NotFoundPage from './components/NotFoundPage';
 import authService from './services/authService'
 import PropertyRegisStepper from './hooks/useStepper';
 import ImageUpload from './components/ImageUpload';
+import VNPayPaymentForm from './components/PaymentComponents/VNPayPaymentForm';
 
 function App() {
   const { roles } = authService.getUserInfo();
@@ -36,6 +37,11 @@ function App() {
       <div className="Image">
       <Routes>
       <Route path="/image" element={<ImageUpload/>} />
+      </Routes>
+      </div>
+      <div className="VNPay">
+      <Routes>
+      <Route path="/vnpay" element={<VNPayPaymentForm/>} />
       </Routes>
       </div>
     </Router>
