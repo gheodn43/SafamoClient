@@ -3,13 +3,14 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './components/homePage';
 import AdminHomePage from './components/adminHomePage';
 import PropertiesPage from './components/PropertiesPage'
+import RequestPage from './components/RequestPage'
 import LoginPage from './components/AuthComponents/Login';
 import Register from './components/AuthComponents/Register';
 import ConfirmRegisterOtp from './components/AuthComponents/ConfirmRegisterOtp'
 import LandlordReqDetail from './components/RequestComponents/landlordRequestDetail'
 import NotFoundPage from './components/NotFoundPage';
 import authService from './services/authService'
-import PropertyRegisStepper from './hooks/useStepper';
+
 
 function App() {
   const { roles } = authService.getUserInfo();
@@ -28,7 +29,7 @@ function App() {
           <Route path="/confirm-otp" element={<ConfirmRegisterOtp />} />
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/rental_manage/property" element={<PropertiesPage/>} />
-          <Route path="/rental_manage/addProperty" element={<PropertyRegisStepper/>} />
+          <Route path="/rental_manage/requests" element={<RequestPage/>} />
         </Routes>
       </div>
     </Router>

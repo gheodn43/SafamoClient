@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Image } from 'cloudinary-react';
+import ProgressBar from '../../ProcessComponents/processComponent'
 const PropertyImageUpload = ({ pictureUrl, onImageUpload }) => {
   const [image, setImage] = useState(null);
   const [url, setUrl] = useState("");
@@ -52,6 +53,8 @@ const PropertyImageUpload = ({ pictureUrl, onImageUpload }) => {
 
   return (
     <div>
+      <ProgressBar initialValue={43} targetValue={68} />
+      <h3>Tải ảnh về bất động sản của bạn</h3>
       <div className="container">
         <header className="row">
           <input

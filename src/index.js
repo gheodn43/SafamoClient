@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import './assets/styles/style.css'
+import './assets/styles/header.css'
 import './assets/styles/footer.css'
 import './assets/styles/sidebar.css'
 import './assets/styles/property.css'

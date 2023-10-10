@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import MapTilerComponent from '../../MapComponents/createPropertyMapComponent';
-
+import ProgressBar from '../../ProcessComponents/processComponent'
 const PropertyAddressConfirmation = ({ address, gpsAddress, onConfirmAddress, propertyInfo }) => {
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [latCoordinate, setLatCoordinate] = useState('');
@@ -24,14 +24,16 @@ const PropertyAddressConfirmation = ({ address, gpsAddress, onConfirmAddress, pr
   };
   return (
     <div>
+      <ProgressBar initialValue={20} targetValue={43} />
       <h3>Xác nhận địa chỉ</h3>
+      
       <fieldset disabled>
         <div className="form-group">
           <label htmlFor="disabledTextInput">Địa chỉ bạn đã cung cấp:</label>
           <input type="text" id="disabledTextInput" className="form-control" placeholder={address} />
         </div>
       </fieldset>
-      <div className='row mapping' style={{ height: "315px" }}>
+      <div className='row mapping' style={{ height: "260px" }}>
         <MapTilerComponent />
       </div>
       <div className='row'><label htmlFor="confirmedAddress">Di chuyển đến con trỏ tròn đến vị trí chính xác của bạn</label></div>

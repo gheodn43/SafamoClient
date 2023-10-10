@@ -3,12 +3,13 @@ import React, { useState } from 'react';
 import requestDetailService from '../../services/requestDetailService'
 
 const CreateLandlordRequest = () => {
-
+    const [responseData, setResponseData] = useState(null);
+    const [error, setError] = useState(null);
     const [landlordRequest, setLandlordRequest] = useState({
         description: '',
         user: null,
     })
-    const [agreeTerms, setAgreeTerms] = useState(false); 
+    const [agreeTerms, setAgreeTerms] = useState(false);
     const user_id = localStorage.getItem('user_id');
     const termsAndConditions = `
     Điều khoản và điều kiện:
@@ -17,13 +18,13 @@ const CreateLandlordRequest = () => {
     3. ...
     ...
 `;
-const handleDescriptionChange = (e) => {
-    const newDescription = e.target.value;
-    setLandlordRequest((prevLandlordRequest) => ({
-        ...prevLandlordRequest,
-        description: newDescription,
-    }));
-};
+    const handleDescriptionChange = (e) => {
+        const newDescription = e.target.value;
+        setLandlordRequest((prevLandlordRequest) => ({
+            ...prevLandlordRequest,
+            description: newDescription,
+        }));
+    };
 
     const handleAgreeTermsChange = (e) => {
         setAgreeTerms(e.target.checked);
@@ -32,15 +33,20 @@ const handleDescriptionChange = (e) => {
     const handleSubmit = async () => {
         if (agreeTerms) {
             try {
-                const response = await requestDetailService.sendLandlordReq(
-                    user_id, landlordRequest 
+                const res = await requestDetailService.sendLandlordReq(
+                    user_id, landlordRequest
                 );
-                if (response && response.message) {
-                    alert(response.message); // Hiển thị thông báo từ phản hồi
-                  } else {
-                    alert('Yêu cầu của bạn đã được gửi thành công.');
-                  }
+                setResponseData(res);
+
             } catch (error) {
+                if (error.response && error.response.status === 401) {
+                    const responseData = error.response.data;
+                    if (responseData) {
+                        setError(responseData);
+                    } else {
+                        setError('Unknown error occurred.');
+                    }
+                }
             }
         } else {
             alert('Vui lòng đọc và đồng ý với điều khoản.');
@@ -49,11 +55,12 @@ const handleDescriptionChange = (e) => {
 
     return (
         <div>
-            <h1>Tạo yêu cầu từ phía chủ nhà</h1>
             <div>
                 <label htmlFor="description">Mô tả yêu cầu:</label>
+                
                 <textarea
                     id="description"
+                    class="form-control" rows="3"
                     name="description"
                     value={landlordRequest.description}
                     onChange={handleDescriptionChange}
@@ -73,7 +80,18 @@ const handleDescriptionChange = (e) => {
                 />
                 <label htmlFor="agreeTerms">Tôi đã đọc và đồng ý với điều khoản.</label>
             </div>
-            <button onClick={handleSubmit}>Gửi Yêu Cầu</button>
+            <button className='btn btn-primary ' onClick={handleSubmit}>Gửi Yêu Cầu</button>
+            {error ? (
+                <div className="alert alert-danger" role="alert">
+                    {error}
+                </div>
+            ) : (
+                responseData && (
+                    <div className="alert alert-success" role="alert">
+                        {responseData}
+                    </div>
+                )
+            )}
         </div>
     );
 };

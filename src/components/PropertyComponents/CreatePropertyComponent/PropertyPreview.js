@@ -1,12 +1,13 @@
 import React from 'react';
-
+import ProgressBar from '../../ProcessComponents/processComponent'
 const PropertyPreview = ({ propertyInfo, onCreateNewProperty}) => {
     const handleCreateProperty = () =>{
         onCreateNewProperty();
     };
   return (
     <div>
-      <h2>Thông tin tài sản</h2>
+      <ProgressBar initialValue={68} targetValue={95} />
+      <h2> Xác nhận thông tin tài sản</h2>
       <p>Tên tài sản: {propertyInfo.propertyName}</p>
       <p>Địa chỉ: {propertyInfo.address}</p>
       <p>Đơn vị cho thuê: {propertyInfo.unitForRent}</p>
