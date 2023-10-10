@@ -1,14 +1,17 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const Sidebar = () => {
+
   return (
-    <div class="list-group" id="list-tab" role="tablist">
-      <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#dashboard" role="tab" aria-controls="dashboard">Thống kê</a>
-      <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#noticification" role="tab" aria-controls="noticification">Thông báo</a>
-      <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#property" role="tab" aria-controls="property">Bất động sản</a>
-      <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#report" role="tab" aria-controls="report">Báo cáo</a>
-      <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#tag" role="tab" aria-controls="tag">tags</a>
-      <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#user" role="tab" aria-controls="user">Người dùng</a>
+    <div className="list-group" id="list-tab" role="tablist">
+      <NavLink to="/admin" className="list-group-item list-group-item-action nav-link" activeClassName="active" >Thống kê</NavLink>
+      <NavLink to="/admin/notification" className="list-group-item list-group-item-action nav-link" activeClassName="active">Thông báo</NavLink>
+      <NavLink to="/admin/request" className="list-group-item list-group-item-action nav-link" activeClassName="active">Yêu cầu</NavLink>
+      <NavLink to="/admin/property" className="list-group-item list-group-item-action nav-link" activeClassName="active">Bất động sản</NavLink>
+      <NavLink to="/admin/report" className="list-group-item list-group-item-action nav-link" activeClassName="active"> Báo cáo</NavLink>
+      <NavLink to="/admin/tags" className="list-group-item list-group-item-action nav-link" activeClassName="active">Tags</NavLink>
+      <NavLink to="/admin/user" className="list-group-item list-group-item-action nav-link" activeClassName="active">Người dùng</NavLink>
     </div>
   );
 };

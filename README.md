@@ -1,6 +1,11 @@
-# Getting Started with Create React App
+# Getting Started with safamo
+>> git clone https://github.com/gheodn43/SafamoClient.git
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+>> cd safamo
+
+>> npm install
+
+>> npm start
 
 ## Available Scripts
 

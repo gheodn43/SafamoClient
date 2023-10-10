@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import apiGetListService from '../../../services/listService';
 import { useNavigate } from 'react-router-dom';
-const RentalRequestTable = () => {
+const LanlordRequestTable = () => {
   const [requests, setRequests] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
@@ -27,7 +27,7 @@ const RentalRequestTable = () => {
 
   return (
     <div>
-      <h2>Danh sách yêu cầu thuê</h2>
+      <h2>Danh sách yêu cầu Cấp quyền cho thuê</h2>
       <table className="table">
         <thead>
           <tr>
@@ -61,4 +61,4 @@ const RentalRequestTable = () => {
   );
 };
 
-export default RentalRequestTable;
+export default LanlordRequestTable;

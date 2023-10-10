@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import AuthService from '../../services/authService';
 import { Link } from 'react-router-dom';
 import logoImage from '../../assets/images/safamo_manager.png';
@@ -12,7 +12,7 @@ const RentalmanagerHeader = () => {
     };
     const storedUsername = localStorage.getItem('username');
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light"style={{ width: '100%'}}>
+        <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{ width: '100%' }}>
             <Link to="/rental_manage" className="navbar-brand">
                 <img src={logoImage} alt="Safamo Logo" style={{ width: '150px', height: 'auto' }} />
             </Link>
@@ -23,17 +23,24 @@ const RentalmanagerHeader = () => {
 
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav">
-                    <li className="nav-item  active ">
-                        <Link to="/rental_manage/property" className="nav-link">Bất động sản</Link>
-                    </li>
-                    <li className="nav-item ">
-                        <Link to="/requests" className="nav-link">Yêu cầu</Link>
+                    <li className="nav-item">
+                        <NavLink to="/rental_manage/property" className="nav-link" activeClassName="active">
+                            Bất động sản
+                        </NavLink>
                     </li>
                     <li className="nav-item">
-                        <Link to="/myRoom" className="nav-link">phòng của tôi</Link>
+                        <NavLink to="/rental_manage/requests" className="nav-link" activeClassName="active">
+                            Yêu cầu
+                        </NavLink>
+                    </li>
+                    <li className="nav-item">
+                        <NavLink to="/myRoom" className="nav-link" activeClassName="active">
+                            Phòng của tôi
+                        </NavLink>
                     </li>
                 </ul>
             </div>
+
 
             <div className="navbar-nav ml-auto">
                 <Link to="/" className="nav-item nav-link">Về Safamo</Link>

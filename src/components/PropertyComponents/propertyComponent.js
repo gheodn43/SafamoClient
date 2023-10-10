@@ -6,6 +6,12 @@ import CreateLandlordRequest from '../RequestComponents/createLandlordRequest';
 const PropertyComponent = () => {
   const [isCreationVisible, setIsCreationVisible] = useState(false);
   const [isRequestFormVisible, setIsRequestFormVisible] = useState(false);
+  const storedRolesJSON = localStorage.getItem('roles');
+
+  let roles = [];
+  if (storedRolesJSON) {
+    roles = JSON.parse(storedRolesJSON);
+  }
   const handleCreatePropertyClick = () => {
     setIsCreationVisible(true);
   };
@@ -30,11 +36,15 @@ const PropertyComponent = () => {
         <div className="property-header row">
           <div className='col-sm-7'>
             <h2>Bất động sản</h2>
-            <div className="alert alert-warning" role="alert">
-              Tài khoản chưa được mở khóa chức năng cho thuê.
-              <button type="button" className="btn btn-outline-secondary" 
-              onClick={handleCreateLandlordRequest} style={{ margin: '0 0 0 5px' }}>Gửi yêu cầu nâng cấp ngay !</button>
-            </div>
+            {/* chỉ xuất hiện khi user không phải là landlord */}
+            {/* còn nếu sau khi đăng ký thành công và đợi xét duyệt thì sao ? */}
+            {!roles.includes('LANDLORD') && (
+              <div className="alert alert-warning" role="alert">
+                Tài khoản chưa được mở khóa chức năng cho thuê.
+                <button type="button" className="btn btn-outline-secondary"
+                  onClick={handleCreateLandlordRequest} style={{ margin: '0 0 0 5px' }}>Gửi yêu cầu nâng cấp ngay !</button>
+              </div>
+            )}
           </div>
 
           <div className='col-sm-3'></div>
