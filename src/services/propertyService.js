@@ -36,9 +36,18 @@ const propertyService = {
         }
     },
 
+    CustomerGetOneProperty: async (request_id) => {
+        try {
+            const response = await api.get(`/properties/preview/${request_id.toString()}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
     adminDenieProperty: async (request_id) => {
         try {
-            const response = await api.get(`/properties/denie/${request_id.toString()}`);
+            const response = await api.post(`/properties/denie/${request_id.toString()}`);
             return response.data;
         } catch (error) {
             throw error;
@@ -47,7 +56,7 @@ const propertyService = {
       
     adminAcceptProperty: async (request_id) => {
         try {
-            const response = await api.get(`/properties/accept/${request_id.toString()}`);
+            const response = await api.post(`/properties/accept/${request_id.toString()}`);
             return response.data;
         } catch (error) {
             throw error;
@@ -56,7 +65,25 @@ const propertyService = {
 
     adminBlockProperty: async (request_id) => {
         try {
-            const response = await api.get(`/properties/block/${request_id.toString()}`);
+            const response = await api.post(`/properties/block/${request_id.toString()}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    adminUnblockProperty: async (request_id) => {
+        try {
+            const response = await api.post(`/properties/unblock/${request_id.toString()}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    customerEditProperty: async (request_id) => {
+        try {
+            const response = await api.post(`/properties/edit/${request_id.toString()}`);
             return response.data;
         } catch (error) {
             throw error;

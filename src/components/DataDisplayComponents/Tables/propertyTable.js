@@ -21,7 +21,7 @@ const PropertyTable = () => {  const [properties, setProperties] = useState([]);
   };
 
   const handleDetailClick = (requestId) => {
-    navigate(`/requests/landlord_req_detail`);
+    navigate(`/rental_manage/property_detail/${requestId}`);
   };
 
   const handleFilterClick = (newFilter) => {

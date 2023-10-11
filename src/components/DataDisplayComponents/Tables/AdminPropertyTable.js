@@ -32,7 +32,7 @@ const AdminPropertyTable = () => {
 
   return (
     <div>
-      <h2>Bất động sản của tôi</h2>
+      <h2>Bất động sản</h2>
       <ul className="nav nav-tabs">
         <li className={`nav-item ${filter === "Tất cả" ? "active" : ""}`}>
           <a className="nav-link" href="#" onClick={() => handleFilterClick("Tất cả")}>Tất cả</a>
@@ -46,8 +46,8 @@ const AdminPropertyTable = () => {
         <li className={`nav-item ${filter === "Bị từ chối" ? "active" : ""}`}>
           <a className="nav-link" href="#" onClick={() => handleFilterClick("Bị từ chối")}>Bị từ chối</a>
         </li>
-        <li className={`nav-item ${filter === "Bị Khóa" ? "active" : ""}`}>
-          <a className="nav-link" href="#" onClick={() => handleFilterClick("Bị Khóa")}>Bị khóa</a>
+        <li className={`nav-item ${filter === "Bị khóa" ? "active" : ""}`}>
+          <a className="nav-link" href="#bikhoa" onClick={() => handleFilterClick("Bị khóa")}>Bị khóa</a>
         </li>
         <li className={`nav-item ${filter === "Tạm ngưng hoạt động" ? "active" : ""}`}>
           <a className="nav-link" href="#" onClick={() => handleFilterClick("Tạm ngưng hoạt động")}>Tạm ngưng HĐ</a>

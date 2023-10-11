@@ -17,7 +17,7 @@ import LandlordReqDetail from './components/RequestComponents/landlordRequestDet
 import NotFoundPage from './components/NotFoundPage';
 import authService from './services/authService'
 import PropertyRegisStepper from './hooks/useStepper';
-
+import CustomerPropertyDetail from './components/PropertyComponents/CreatePropertyComponent/customerPropertyDetail';
 function App() {
   const { roles } = authService.getUserInfo();
   return (
@@ -44,6 +44,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/rental_manage/property" element={<PropertiesPage/>} />
           <Route path="/rental_manage/addProperty" element={<PropertyRegisStepper/>} />
+          <Route path="/rental_manage/property_detail/:requestId" element={<CustomerPropertyDetail/>} />
           
         </Routes>
 
