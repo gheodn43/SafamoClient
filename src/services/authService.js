@@ -4,11 +4,11 @@ const authService = {
   login: async (credentials) => {
     try {
       const response = await api.post('/auth/login', credentials);
-      const { accessToken, roles, username } = response.data;
+      const { accessToken, roles, username, user_id} = response.data;
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('roles', JSON.stringify(roles));
       localStorage.setItem('username', username);
-
+      localStorage.setItem('user_id',user_id);
       return { accessToken, roles, username };
     } catch (error) {
       throw error;
@@ -46,11 +46,8 @@ const authService = {
           reject("No access token found.");
           return;
         }
-
         const xhr = new XMLHttpRequest();
         xhr.open('POST', 'http://localhost:8080/api/logout', true);
-
-        // Đặt tiêu đề yêu cầu nếu cần
         xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
 
         xhr.onreadystatechange = function () {
@@ -60,9 +57,16 @@ const authService = {
               localStorage.removeItem('roles');
               localStorage.removeItem('username');
               resolve(xhr.responseText);
-            } else {
-              reject("Logout failed with status: " + xhr.status);
-            }
+            }else if (xhr.status === 401) {
+                // Unauthorized status received, clear the access token but don't consider it a failure.
+                localStorage.removeItem('accessToken');
+                localStorage.removeItem('roles');
+                localStorage.removeItem('username');
+                resolve("Logged out due to token expiration.");
+              } else {
+                // Other error status received.
+                reject("Logout failed with status: " + xhr.status);
+              }
           }
         };
 

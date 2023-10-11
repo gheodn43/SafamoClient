@@ -1,31 +1,18 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const Sidebar = () => {
+
   return (
-    <nav id="sidebar" className="bg-light">
-      <div className="sidebar-header">
-      </div>
-      <ul className="list-unstyled components">
-        <li>
-          <a href="#thongke">Thống kê</a>
-        </li>
-        <li>
-          <a href="#thongbao">Thông báo</a>
-        </li>
-        <li>
-          <a href="#batdongsan">Bất động sản</a>
-        </li>
-        <li>
-          <a href="#khieunai">Khiếu nại</a>
-        </li>
-        <li>
-          <a href="#tags">Tags</a>
-        </li>
-        <li>
-          <a href="#taikhoan">Tài khoản</a>
-        </li>
-      </ul>
-    </nav>
+    <div className="list-group" id="list-tab" role="tablist">
+      <NavLink to="/admin" className="list-group-item list-group-item-action nav-link" activeClassName="active" >Thống kê</NavLink>
+      <NavLink to="/admin/notification" className="list-group-item list-group-item-action nav-link" activeClassName="active">Thông báo</NavLink>
+      <NavLink to="/admin/request" className="list-group-item list-group-item-action nav-link" activeClassName="active">Yêu cầu</NavLink>
+      <NavLink to="/admin/property" className="list-group-item list-group-item-action nav-link" activeClassName="active">Bất động sản</NavLink>
+      <NavLink to="/admin/report" className="list-group-item list-group-item-action nav-link" activeClassName="active"> Báo cáo</NavLink>
+      <NavLink to="/admin/tags" className="list-group-item list-group-item-action nav-link" activeClassName="active">Tags</NavLink>
+      <NavLink to="/admin/user" className="list-group-item list-group-item-action nav-link" activeClassName="active">Người dùng</NavLink>
+    </div>
   );
 };
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import ProgressBar from '../../ProcessComponents/processComponent'
+//step1
 const PropertyBasicInfoForm = ({ propertyInfo, setPropertyInfo, onNextStep }) => {
   // State để theo dõi thông tin cơ bản của tài sản
   const [formValues, setFormValues] = useState({
@@ -29,12 +30,13 @@ const PropertyBasicInfoForm = ({ propertyInfo, setPropertyInfo, onNextStep }) =>
 
   return (
     <div>
+      <ProgressBar initialValue={0} targetValue={20} />
       <h3>Thêm thông tin cơ bản về tài sản của bạn</h3>
       <form>
         <div className="form-group">
           <label htmlFor="propertyName">Tên tài sản:</label>
           <input
-          className='form-control'
+            className='form-control'
             type="text"
             id="propertyName"
             name="propertyName"
@@ -45,7 +47,7 @@ const PropertyBasicInfoForm = ({ propertyInfo, setPropertyInfo, onNextStep }) =>
         <div className="form-group">
           <label htmlFor="address">Địa chỉ:</label>
           <input
-          className='form-control'
+            className='form-control'
             type="text"
             id="address"
             name="address"
@@ -80,7 +82,7 @@ const PropertyBasicInfoForm = ({ propertyInfo, setPropertyInfo, onNextStep }) =>
           </div>
         </div>
       </form>
-      <button onClick={handleNext}>Tiếp theo</button>
+      <button className='next-step-btn btn btn-primary' onClick={handleNext}>Tiếp theo</button>
     </div>
   );
 };

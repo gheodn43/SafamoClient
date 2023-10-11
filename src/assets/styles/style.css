@@ -1,5 +1,6 @@
 .row {
-    margin-top: 15px;
-    /* test grid */
-    /* border: solid 1px black; */
+    margin: 15px;
 }
+.progress-bar {
+    transition: width 0.3s ease-in-out; /* Điều chỉnh tốc độ và phong cách chuyển động */
+  }

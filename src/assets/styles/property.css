@@ -1,5 +1,6 @@
 
-.property-creation{
+.property-creation,
+.landlordReq-creation{
     position: fixed; /* Đảm bảo nó luôn hiển thị trên cùng */
     width: 70%;
     height: 80%;
@@ -20,11 +21,12 @@
     background-color: rgba(0, 0, 0, 0.7);
     z-index: 1000; /* Đảm bảo lớp overlay hiển thị phía trên tất cả */
   }
-  .map{
-    background-color: hsla(0, 0%, 50%, 0.607);
-    text-align: center;
-    color: white;
-    height: 300px;
-    margin-bottom: 10px;
-    border-radius: 8px;
+  .next-step-btn{
+    float: right;
   }
+.profile-photo{
+  width: 100%;
+  img{
+    width: 100%;
+  }
+}

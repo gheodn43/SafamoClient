@@ -1,44 +1,48 @@
 import React, { useState } from 'react';
-
-const PropertyAddressConfirmation = ({ address, onConfirmAddress }) => {
-  const [confirmedAddress, setConfirmedAddress] = useState('');
+import MapTilerComponent from '../../MapComponents/createPropertyMapComponent';
+import ProgressBar from '../../ProcessComponents/processComponent'
+const PropertyAddressConfirmation = ({ address, gpsAddress, onConfirmAddress, propertyInfo }) => {
   const [isConfirmed, setIsConfirmed] = useState(false);
-
-  // Xử lý xác nhận địa chỉ
-  const handleConfirm = () => {
-    setIsConfirmed(true);
-    // Gọi hàm callback để thông báo rằng địa chỉ đã được xác nhận
-    onConfirmAddress(confirmedAddress);
+  const [latCoordinate, setLatCoordinate] = useState('');
+  const [lngCoordinate, setLngCoordinate] = useState('');
+  let storedCoordinates = null;
+  const handleConfirmCoordinates = () => {
+    storedCoordinates = localStorage.getItem('markerCoordinates');
+    if (storedCoordinates) {
+      const { lat, lng } = JSON.parse(storedCoordinates);
+      setLatCoordinate(lat);
+      setLngCoordinate(lng);
+      setIsConfirmed(true);
+      console.log(lat);
+      console.log(lng);
+      console.log(propertyInfo.gpsAddress);
+    }
   };
-
+  const handleNext = () => {
+    onConfirmAddress({ lat: latCoordinate, lng: lngCoordinate });
+    console.log(propertyInfo.gpsAddress);
+  };
   return (
     <div>
+      <ProgressBar initialValue={20} targetValue={43} />
       <h3>Xác nhận địa chỉ</h3>
+      
       <fieldset disabled>
         <div className="form-group">
-          <label for="disabledTextInput">Địa chỉ bạn đã cung cấp:</label>
+          <label htmlFor="disabledTextInput">Địa chỉ bạn đã cung cấp:</label>
           <input type="text" id="disabledTextInput" className="form-control" placeholder={address} />
         </div>
       </fieldset>
-      <div className='container map'>
-        <p>API bản đồ tại đây</p>
-        <p>Người dùng có thể di chuyển con trỏ để xác định chính xác vị trí lại 1 lần nữa </p>
+      <div className='row mapping' style={{ height: "260px" }}>
+        <MapTilerComponent />
       </div>
-      <label htmlFor="confirmedAddress">Xác nhận lại địa chỉ:</label>
-      <input
-        type="text"
-        id="confirmedAddress"
-        value={confirmedAddress}
-        onChange={(e) => setConfirmedAddress(e.target.value)}
-      />
-      <button onClick={handleConfirm}>Xác nhận</button>
-      {isConfirmed && (
-        <div>
-          <p>Tọa độ chính xác</p>
-          <p>{confirmedAddress}</p>
-          {/* Hiển thị bản đồ hoặc thông tin xác nhận khác ở đây */}
-        </div>
-      )}
+      <div className='row'><label htmlFor="confirmedAddress">Di chuyển đến con trỏ tròn đến vị trí chính xác của bạn</label></div>
+      {isConfirmed ? (
+        <button className='next-step-btn btn btn-primary' onClick={handleNext}>Tiếp theo</button>
+      ) : (
+        <button className='next-step-btn btn btn-primary' onClick={handleConfirmCoordinates}>Xác nhận</button>
+        )}
+
     </div>
   );
 };

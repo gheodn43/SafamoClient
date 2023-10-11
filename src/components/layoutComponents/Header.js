@@ -10,7 +10,7 @@ const Header = () => {
         AuthService.logout();
         navigate('/login');
     };
-
+    const storedUsername = localStorage.getItem('username');
     const logoStyle = {
         width: '150px',
         height: 'auto',
@@ -41,7 +41,7 @@ const Header = () => {
                 {isLoggedIn ? (
                     <>
                         <Link to="/rental_manage/property" className="nav-item nav-link">Quản lý thuê</Link>
-                        <Link to="/profile" className="nav-item nav-link">Tài khoản</Link>
+                        <Link to="/profile" className="nav-item nav-link">{storedUsername}</Link>
                         <button className="btn btn-outline-danger" onClick={handleLogout}>Đăng xuất</button>
                     </>
                 ) : (

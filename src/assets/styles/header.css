@@ -1,35 +1,3 @@
-
-.navbar {
-    background-color: #f8f9fa; /* Light background color */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-}
-
-/* Logo style */
-.navbar-brand img {
-    width: 150px; /* Adjust the width to your preferred size */
-    height: auto; /* Maintain the aspect ratio */
-    display: block;
-}
-
-/* Navbar toggler style */
-.navbar-toggler {
-    border: none; /* Remove border */
-}
-
-/* Navbar links style */
-.navbar-nav .nav-link {
-    color: #333; /* Link color */
-    font-weight: bold; /* Bold font */
-    margin-right: 15px; /* Add spacing between links */
-}
-
-/* Logout button style */
-.btn-logout {
-    color: #fff; /* Text color */
-    background-color: #dc3545; /* Button color */
-    border: none; /* Remove border */
-}
-
-.btn-logout:hover {
-    background-color: #c82333; /* Hover color */
-}
+.nav-link.active {
+    color: rgb(208, 208, 221);
+  }
