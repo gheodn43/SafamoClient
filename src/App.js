@@ -8,6 +8,7 @@ import AdminNotification from './components/AdminComponents/AdminNotificationCom
 import AdminReport from './components/AdminComponents/AdminReportComponent';
 import AdminTag from './components/AdminComponents/AdminTagComponent';
 import AdminUser from './components/AdminComponents/AdminUserComponent';
+import AdminPropertyDetail from './components/PropertyComponents/propertyDetail';
 import PropertiesPage from './components/PropertiesPage'
 import LoginPage from './components/AuthComponents/Login';
 import Register from './components/AuthComponents/Register';
@@ -33,6 +34,7 @@ function App() {
             <Route path="/admin/report" element={<AdminReport />} />
             <Route path="/admin/tags" element={<AdminTag />} />
             <Route path="/admin/user" element={<AdminUser />} />
+            <Route path="/admin/property/detail/:requestId" element={<AdminPropertyDetail />} />
             </>
           )}
           <Route path="/requests/landlord_req_detail" element={<LandlordReqDetail />} />

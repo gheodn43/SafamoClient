@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import propertyService from '../../../services/propertyService';
 import { useNavigate } from 'react-router-dom';
+import propertyService from '../../../services/propertyService';
 
-const PropertyTable = () => {  const [properties, setProperties] = useState([]);
+
+const AdminPropertyTable = () => {
+  const [properties, setProperties] = useState([]);
   const [filter, setFilter] = useState("Tất cả");
   const navigate = useNavigate();
 
   useEffect(() => {
-    propertyService.getAllMyProperties()
+    propertyService.getAllProperties()
       .then(data => {
         setProperties(data);
       })
@@ -21,7 +23,7 @@ const PropertyTable = () => {  const [properties, setProperties] = useState([]);
   };
 
   const handleDetailClick = (requestId) => {
-    navigate(`/requests/landlord_req_detail`);
+    navigate(`/admin/property/detail/${requestId}`);
   };
 
   const handleFilterClick = (newFilter) => {
@@ -44,8 +46,8 @@ const PropertyTable = () => {  const [properties, setProperties] = useState([]);
         <li className={`nav-item ${filter === "Bị từ chối" ? "active" : ""}`}>
           <a className="nav-link" href="#" onClick={() => handleFilterClick("Bị từ chối")}>Bị từ chối</a>
         </li>
-        <li className={`nav-item ${filter === "Bị khóa" ? "active" : ""}`}>
-          <a className="nav-link" href="#" onClick={() => handleFilterClick("Bị khóa")}>Bị khóa</a>
+        <li className={`nav-item ${filter === "Bị Khóa" ? "active" : ""}`}>
+          <a className="nav-link" href="#" onClick={() => handleFilterClick("Bị Khóa")}>Bị khóa</a>
         </li>
         <li className={`nav-item ${filter === "Tạm ngưng hoạt động" ? "active" : ""}`}>
           <a className="nav-link" href="#" onClick={() => handleFilterClick("Tạm ngưng hoạt động")}>Tạm ngưng HĐ</a>
@@ -81,4 +83,4 @@ const PropertyTable = () => {  const [properties, setProperties] = useState([]);
   );
 };
 
-export default PropertyTable;
+export default AdminPropertyTable;

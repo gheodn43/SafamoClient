@@ -14,7 +14,7 @@ const PropertyPreview = ({ propertyInfo, onCreateNewProperty}) => {
       <p>Loại tài sản: {propertyInfo.propertyRole}</p>
       <p>Địa chỉ GPS: Lat - {propertyInfo.gpsAddress.lat}, Lng - {propertyInfo.gpsAddress.lng}</p>
       <p>URL tài sản: {propertyInfo.pictureUrl}</p>
-      <img src={propertyInfo.pictureUrl} alt="Ảnh tài sản" />
+      <img src={propertyInfo.pictureUrl} alt="Ảnh tài sản" style={{height: "200px"}}/>
       <button className='next-step-btn btn btn-primary' onClick={handleCreateProperty}>Xác nhận</button>
     </div>
   );

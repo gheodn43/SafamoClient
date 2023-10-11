@@ -17,7 +17,51 @@ const propertyService = {
             throw error;
         }
     },
+
+    getAllProperties: async () => {
+        try {
+            const response = await api.get('/properties/view_all');
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    adminGetOneProperty: async (request_id) => {
+        try {
+            const response = await api.get(`/properties/${request_id.toString()}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    adminDenieProperty: async (request_id) => {
+        try {
+            const response = await api.get(`/properties/denie/${request_id.toString()}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
       
+    adminAcceptProperty: async (request_id) => {
+        try {
+            const response = await api.get(`/properties/accept/${request_id.toString()}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    adminBlockProperty: async (request_id) => {
+        try {
+            const response = await api.get(`/properties/block/${request_id.toString()}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
 };
 
 export default propertyService;
