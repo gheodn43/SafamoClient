@@ -4,3 +4,8 @@
 .progress-bar {
     transition: width 0.3s ease-in-out; /* Điều chỉnh tốc độ và phong cách chuyển động */
   }
+.nav-item.active{
+    background-color: #bfecfe;
+    border-radius: 10px;
+    margin: 0 5px;
+}

@@ -20,6 +20,7 @@ import './assets/styles/sidebar.css';
 import './assets/styles/table.css';
 
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
