@@ -7,6 +7,9 @@ import './assets/styles/footer.css'
 import './assets/styles/sidebar.css'
 import './assets/styles/property.css'
 import './assets/styles/map.css'
+import 'jquery';
+import 'popper.js';
+import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css'; 
 import 'font-awesome/css/font-awesome.min.css'
 import '@maptiler/sdk/dist/maptiler-sdk.css';

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import propertyService from '../../../services/propertyService';
 import { useNavigate } from 'react-router-dom';
 
-const PropertyTable = () => {  const [properties, setProperties] = useState([]);
+const PropertyTable = () => {  
+  const [properties, setProperties] = useState([]);
   const [filter, setFilter] = useState("Tất cả");
   const navigate = useNavigate();
 
