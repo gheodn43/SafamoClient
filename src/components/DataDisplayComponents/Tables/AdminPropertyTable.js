@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import propertyService from '../../../services/propertyService';
 import { useNavigate } from 'react-router-dom';
+import propertyService from '../../../services/propertyService';
 
-const PropertyTable = () => {  
+
+const AdminPropertyTable = () => {
   const [properties, setProperties] = useState([]);
   const [filter, setFilter] = useState("Tất cả");
   const navigate = useNavigate();
 
   useEffect(() => {
-    propertyService.getAllMyProperties()
+    propertyService.getAllProperties()
       .then(data => {
         setProperties(data);
       })
@@ -22,7 +23,7 @@ const PropertyTable = () => {
   };
 
   const handleDetailClick = (requestId) => {
-    navigate(`/rental_manage/property_detail/${requestId}`);
+    navigate(`/admin/property/detail/${requestId}`);
   };
 
   const handleFilterClick = (newFilter) => {
@@ -31,7 +32,7 @@ const PropertyTable = () => {
 
   return (
     <div>
-      <h2>Bất động sản của tôi</h2>
+      <h2>Bất động sản</h2>
       <ul className="nav nav-tabs">
         <li className={`nav-item ${filter === "Tất cả" ? "active" : ""}`}>
           <a className="nav-link" href="#" onClick={() => handleFilterClick("Tất cả")}>Tất cả</a>
@@ -46,7 +47,7 @@ const PropertyTable = () => {
           <a className="nav-link" href="#" onClick={() => handleFilterClick("Bị từ chối")}>Bị từ chối</a>
         </li>
         <li className={`nav-item ${filter === "Bị khóa" ? "active" : ""}`}>
-          <a className="nav-link" href="#" onClick={() => handleFilterClick("Bị khóa")}>Bị khóa</a>
+          <a className="nav-link" href="#bikhoa" onClick={() => handleFilterClick("Bị khóa")}>Bị khóa</a>
         </li>
         <li className={`nav-item ${filter === "Tạm ngưng hoạt động" ? "active" : ""}`}>
           <a className="nav-link" href="#" onClick={() => handleFilterClick("Tạm ngưng hoạt động")}>Tạm ngưng HĐ</a>
@@ -82,4 +83,4 @@ const PropertyTable = () => {
   );
 };
 
-export default PropertyTable;
+export default AdminPropertyTable;

@@ -4,3 +4,23 @@
 .progress-bar {
     transition: width 0.3s ease-in-out; /* Điều chỉnh tốc độ và phong cách chuyển động */
   }
+.nav-item.active{
+    background-color: #bfecfe;
+    border-radius: 10px;
+    margin: 0 5px;
+}
+.hover-effect:hover {
+    transform: scale(1.1); /* Khi di chuột vào, phóng to 110% */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Hiệu ứng đổ bóng mờ */
+    transition: transform 0.2s, box-shadow 0.2s; /* Áp dụng hiệu ứng trong 0.2 giây */
+}
+
+.tag-card {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.tag-card.selected {
+    background-color: #007bff;
+    color: #fff;
+}
