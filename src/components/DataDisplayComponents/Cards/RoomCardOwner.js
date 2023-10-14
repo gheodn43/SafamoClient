@@ -1,13 +1,17 @@
 import React from 'react';
-
+import draftRentalPicture from '../../../assets/images/draftRentalPicture.png'
 const RoomCardOwner = ({ imageUrls, roomName, roomStatus, tags, roomPrice }) => {
     return (
-        <div className="card" style={{ width: "18rem" }}>
+        <div className="card hover-effect" style={{ width: "18rem", margin: "20px"}}>
             <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
                 <div className="carousel-inner">
                     {imageUrls.map((imageUrl, index) => (
                         <div key={index} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
-                            <img className="d-block w-100" src={imageUrl} alt={`Slide ${index + 1}`} />
+                            <img
+                                className="d-block w-100"
+                                src={imageUrls.length > 0 ? imageUrl: draftRentalPicture}
+                                alt={`Slide 1`}  
+                            />
                         </div>
                     ))}
                 </div>
