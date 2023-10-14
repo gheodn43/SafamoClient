@@ -18,26 +18,8 @@ import NotFoundPage from './components/NotFoundPage';
 import authService from './services/authService'
 import PropertyRegisStepper from './hooks/useStepper';
 import CustomerPropertyDetail from './components/PropertyComponents/CreatePropertyComponent/customerPropertyDetail';
-import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
-import PDFFile from './components/PDFFile';
-function PDFViewerPage() {
 
-  return (
-    <div>
-      <div>
-        <PDFFile />
-      </div>
-      <div>
-        <PDFViewer>
-          <PDFFile />
-        </PDFViewer>
-        <PDFDownloadLink document={<PDFFile />} fileName="FORM.pdf">
-          {({ loading }) => (loading ? 'Loading document...' : 'Download')}
-        </PDFDownloadLink>
-      </div>
-    </div>
-  );
-}
+
 function App() {
   const { roles } = authService.getUserInfo();
   return (
@@ -65,7 +47,7 @@ function App() {
           <Route path="/rental_manage/property" element={<PropertiesPage/>} />
           <Route path="/rental_manage/addProperty" element={<PropertyRegisStepper/>} />
           <Route path="/rental_manage/property_detail/:requestId" element={<CustomerPropertyDetail/>} />
-          <Route path="/pdf" element={<PDFViewerPage/>} />
+          
           
         </Routes>
         

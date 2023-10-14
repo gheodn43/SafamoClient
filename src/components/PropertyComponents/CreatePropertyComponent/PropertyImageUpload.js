@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Image } from 'cloudinary-react';
 import ProgressBar from '../../ProcessComponents/processComponent';
 
 const PropertyImageUpload = ({ pictureUrl, onImageUpload }) => {
