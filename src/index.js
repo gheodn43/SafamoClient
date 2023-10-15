@@ -6,6 +6,7 @@ import './assets/styles/header.css'
 import './assets/styles/footer.css'
 import './assets/styles/sidebar.css'
 import './assets/styles/property.css'
+import './assets/styles/room.css'
 import './assets/styles/map.css'
 import 'jquery';
 import 'popper.js';

@@ -18,6 +18,8 @@ import NotFoundPage from './components/NotFoundPage';
 import authService from './services/authService'
 import PropertyRegisStepper from './hooks/useStepper';
 import CustomerPropertyDetail from './components/PropertyComponents/CreatePropertyComponent/customerPropertyDetail';
+import RoomsValid from './components/RoomComponents/RoomsValid';
+import RoomValidDetail from './components/RoomComponents/RoomValidDetail';
 function App() {
   const { roles } = authService.getUserInfo();
   return (
@@ -37,14 +39,16 @@ function App() {
             <Route path="/admin/property/detail/:requestId" element={<AdminPropertyDetail />} />
             </>
           )}
+          <Route path="*" element={<NotFoundPage />} />
           <Route path="/requests/landlord_req_detail" element={<LandlordReqDetail />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/confirm-otp" element={<ConfirmRegisterOtp />} />
-          <Route path="*" element={<NotFoundPage />} />
           <Route path="/rental_manage/property" element={<PropertiesPage/>} />
           <Route path="/rental_manage/addProperty" element={<PropertyRegisStepper/>} />
           <Route path="/rental_manage/property_detail/:requestId" element={<CustomerPropertyDetail/>} />
+          <Route path="/rooms-for-rent" element={<RoomsValid/>} />
+          <Route path="/rooms-for-rent/:roomId" element={<RoomValidDetail/>} />
           
         </Routes>
 

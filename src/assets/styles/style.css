@@ -14,7 +14,6 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Hiệu ứng đổ bóng mờ */
     transition: transform 0.2s, box-shadow 0.2s; /* Áp dụng hiệu ứng trong 0.2 giây */
 }
-
 .tag-card {
     background-color: #f0f0f0;
     color: #333;
@@ -23,4 +22,21 @@
 .tag-card.selected {
     background-color: #007bff;
     color: #fff;
+}
+.card{
+    margin: 15px 0;
+}
+.tag-card-container {
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    height: 1.5rem;
+    margin: 5px;
+    padding: 0.5rem;
+    font-size: 12px;
+}
+
+.tag-name {
+    text-align: center;
+    margin: 0;
 }

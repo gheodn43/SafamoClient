@@ -92,7 +92,7 @@ const CustomerPropertyDetail = () => {
                     <div className='row'>
                         <h3>Danh sách phòng</h3>
                     </div>
-                    <div className='row'>
+                    <div className='row d-flex justify-content-around'>
                         <div className="card hover-effect" style={{ width: "18rem", margin: "20px" }}>
                             <img
                                 className="card-img-top "
