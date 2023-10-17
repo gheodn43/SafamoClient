@@ -8,6 +8,9 @@ import './assets/styles/sidebar.css'
 import './assets/styles/property.css'
 import './assets/styles/room.css'
 import './assets/styles/map.css'
+import 'react-datetime-picker/dist/DateTimePicker.css';
+import 'react-calendar/dist/Calendar.css';
+import 'react-clock/dist/Clock.css';
 import 'jquery';
 import 'popper.js';
 import 'bootstrap';

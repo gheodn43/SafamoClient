@@ -1,6 +1,23 @@
 import api from './api';
 
 const requestDetailService = {
+  requestsForAdmin: async () => {
+    try {
+      const response = await api.get('/rental_manage/requests/list');
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  requestsForSender: async () => {
+    try {
+      const response = await api.post('/rental_manage/request/get_all');
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
   sendLandlordReq: async (user_id, landlordRequest) => {
     try {
       const response = await api.post(`/rental_manage/req_landlord/${user_id.toString()}`, landlordRequest);

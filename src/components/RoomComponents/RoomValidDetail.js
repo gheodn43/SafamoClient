@@ -6,7 +6,8 @@ import TagCardIntoRoom from '../DataDisplayComponents/Cards/TagCardIntoRoom';
 import CarouselPicture from '../DataDisplayComponents/Carousel';
 import DisplayLocation from '../MapComponents/displayRoomLocation';
 import AuthService from '../../services/authService';
-
+import DateTimePicker from 'react-datetime-picker';
+import { format } from 'date-fns';
 const RoomValidDetail = () => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -16,7 +17,17 @@ const RoomValidDetail = () => {
     const [tags, setTags] = useState([]);
     const [error, setError] = useState(null);
     const [isRentalRequested, setIsRentalRequested] = useState(false);
+    const [value, setValue] = useState(new Date());
+    const [formattedDate, setFormattedDate] = useState('');
 
+    const handleDateChange = (newValue) => {
+        setValue(newValue);
+        if (newValue) {
+            setFormattedDate(format(newValue, 'yyyy-MM-dd HH:mm'));
+        } else {
+            setFormattedDate('');
+        }
+    };
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -113,11 +124,9 @@ const RoomValidDetail = () => {
                         </button>
                     </div>
                     <div className='col-md-4 d-flex justify-content-around'>
-                        <button className='btn btn-info' onClick={handleScheduleViewing}>
-                            <i className="fa fa-calendar" aria-hidden="true"></i>
-                            Đặt lịch xem phòng
+                        <button className='btn btn-info' >
+                            <DateTimePicker onChange={handleDateChange} value={value} />
                         </button>
-
                         {isRentalRequested ? (
                             <button className='btn btn-secondary' onClick={handleCancelRentalRequest}>
                                 <i className="fa fa-paper-plane" aria-hidden="true"></i>

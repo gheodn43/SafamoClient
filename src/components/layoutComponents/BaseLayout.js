@@ -11,7 +11,7 @@ const BaseLayout = ({ children }) => {
   const currentPath = location.pathname;
 
   useEffect(() => {
-    if (currentPath.includes('/rental_manage/')) {
+    if (currentPath.includes('/rental_manage')) {
       setIsRentalManagerPage(true);
     } else {
       setIsRentalManagerPage(false);
