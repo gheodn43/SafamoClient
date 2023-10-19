@@ -13,18 +13,27 @@ const LoginPage = () => {
       username: document.getElementById('username').value,
       password: document.getElementById('password').value,
     };
-
+    
     try {
       const { roles } = await authService.login(credentials);
-
-      if (roles.includes('ADMIN')) {
-        navigate('/admin');
+      const params = new URLSearchParams(window.location.search);
+      const returnTo = params.get('returnTo');
+      if (returnTo) {
+        // Điều hướng người dùng đến trang ban đầu sau khi đăng nhập
+        window.location.href = returnTo;
       } else {
-        navigate('/');
+        // Nếu không có tham số returnTo, điều hướng đến trang mặc định
+        if (roles.includes('ADMIN')) {
+          navigate('/admin');
+        } else {
+          navigate('/');
+        }
       }
     } catch (error) {
       console.error('Đăng nhập thất bại:', error);
     }
+
+
   };
   return (
 

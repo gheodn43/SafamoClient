@@ -1,13 +1,26 @@
 import React from 'react';
+import { Link , useLocation} from 'react-router-dom';
+import draftRentalPicture from '../../../assets/images/draftRentalPicture.png'
+import TagCardIntoRoom from './TagCardIntoRoom';
+const RoomCardOwner = ({ imageUrls, roomName, roomStatus, tags, roomPrice, roomId}) => {
+    const location = useLocation();
+    const isPropertyDetailPage = location.pathname.includes('/rental_manage/property_detail/');
 
-const RoomCardOwner = ({ imageUrls, roomName, roomStatus, tags, roomPrice }) => {
+    const detailLink = isPropertyDetailPage
+        ? `/room-edit/${roomId}`
+        : `/rooms-for-rent/${roomId}`;
+
     return (
-        <div className="card" style={{ width: "18rem" }}>
+        <div className="card hover-effect " style={{ width: "18rem" }}>
             <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
-                <div className="carousel-inner">
+                <div className="carousel-inner" style={{ height: "200px" }}>
                     {imageUrls.map((imageUrl, index) => (
                         <div key={index} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
-                            <img className="d-block w-100" src={imageUrl} alt={`Slide ${index + 1}`} />
+                            <img
+                                className="d-block w-100 h-100"
+                                src={imageUrls.length > 0 ? imageUrl : draftRentalPicture}
+                                alt={`Slide 1`}
+                            />
                         </div>
                     ))}
                 </div>
@@ -23,13 +36,21 @@ const RoomCardOwner = ({ imageUrls, roomName, roomStatus, tags, roomPrice }) => 
             <div className="card-body">
                 <h5 className="card-title">{roomName}</h5>
                 <p className="card-text">{roomStatus}</p>
-                <ul>
-                    {tags.map((tag, index) => (
-                        <li key={index}>{tag}</li>
-                    ))}
-                </ul>
-                <p className="card-text">Price: {roomPrice}</p>
-                <a href="#" className="btn btn-primary">Go somewhere</a>
+                <div className='row'>
+                    {
+                        tags.map((tag, index) => (
+                            <TagCardIntoRoom
+                                key={index}
+                                tagname={tag}
+                            />
+                        ))
+                    }
+                </div>
+                <p className="card-text">Giá thuê/ Tháng: {roomPrice + ' VNĐ'}</p>
+                <Link to={detailLink} className="btn btn-primary">
+                    <i className="fa fa-eye"></i>
+                    Xem chi tiết
+                </Link>
             </div>
         </div>
     );
