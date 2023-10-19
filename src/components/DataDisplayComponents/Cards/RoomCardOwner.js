@@ -1,8 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link , useLocation} from 'react-router-dom';
 import draftRentalPicture from '../../../assets/images/draftRentalPicture.png'
 import TagCardIntoRoom from './TagCardIntoRoom';
 const RoomCardOwner = ({ imageUrls, roomName, roomStatus, tags, roomPrice, roomId}) => {
+    const location = useLocation();
+    const isPropertyDetailPage = location.pathname.includes('/rental_manage/property_detail/');
+
+    const detailLink = isPropertyDetailPage
+        ? `/room-edit/${roomId}`
+        : `/rooms-for-rent/${roomId}`;
+
     return (
         <div className="card hover-effect " style={{ width: "18rem" }}>
             <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
@@ -40,7 +47,7 @@ const RoomCardOwner = ({ imageUrls, roomName, roomStatus, tags, roomPrice, roomI
                     }
                 </div>
                 <p className="card-text">Giá thuê/ Tháng: {roomPrice + ' VNĐ'}</p>
-                <Link to={`/rooms-for-rent/${roomId}`} className="btn btn-primary">
+                <Link to={detailLink} className="btn btn-primary">
                     <i className="fa fa-eye"></i>
                     Xem chi tiết
                 </Link>
