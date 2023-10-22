@@ -52,7 +52,7 @@ function App() {
           <Route path="/rental_manage/request" element={<RequestPage/>} />
           <Route path="/rental_manage/addProperty" element={<PropertyRegisStepper/>} />
           <Route path="/rental_manage/property_detail/:requestId" element={<CustomerPropertyDetail/>} />
-          <Route path="/room-edit/:roomId" element={<RoomDetail/>} />
+          <Route path="/rental_manage/room-edit/:roomId" element={<RoomDetail/>} />
           <Route path="/rooms-for-rent" element={<RoomsValid/>} />
           <Route path="/rooms-for-rent/:roomId" element={<RoomValidDetail/>} />
           

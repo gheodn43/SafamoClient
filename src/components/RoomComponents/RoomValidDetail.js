@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { setRentalStatus } from '../../redux/slices/roomRentalStatusSlice';
 import BaseLayout from '../layoutComponents/BaseLayout';
 import roomService from '../../services/roomService';
 import TagCardIntoRoom from '../DataDisplayComponents/Cards/TagCardIntoRoom';
@@ -7,25 +9,33 @@ import CarouselPicture from '../DataDisplayComponents/Carousel';
 import DisplayLocation from '../MapComponents/displayRoomLocation';
 import AuthService from '../../services/authService';
 import DateTimePicker from 'react-datetime-picker';
+import requestDetailService from '../../services/requestDetailService';
 import { format } from 'date-fns';
+
 const RoomValidDetail = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const isLoggedIn = AuthService.isLoggedIn();
+    const user_id = localStorage.getItem('user_id');
     const { roomId } = useParams();
     const [room, setRoom] = useState(null);
     const [tags, setTags] = useState([]);
     const [error, setError] = useState(null);
-    const [isRentalRequested, setIsRentalRequested] = useState(false);
     const [value, setValue] = useState(new Date());
     const [formattedDate, setFormattedDate] = useState('');
+    const isRentalRequested = useSelector((state) => state.roomRentalStatus[roomId]);
+    const dispatch = useDispatch();
 
     const handleDateChange = (newValue) => {
-        setValue(newValue);
-        if (newValue) {
-            setFormattedDate(format(newValue, 'yyyy-MM-dd HH:mm'));
+        if (isLoggedIn) {
+            if (newValue >= new Date()) {
+                setValue(newValue);
+                setFormattedDate(format(newValue, 'yyyy-MM-dd HH:mm'));
+            } else {
+                alert('Vui lòng chọn ngày hiện tại hoặc trong tương lai.');
+            }
         } else {
-            setFormattedDate('');
+            navigate(`/login?returnTo=${location.pathname}`);
         }
     };
     useEffect(() => {
@@ -45,30 +55,33 @@ const RoomValidDetail = () => {
     const handleGoBack = () => {
         window.history.back();
     };
-
-    const handleScheduleViewing = () => {
-        if (isLoggedIn) {
-            console.log("đã click");
-        } else {
-            // Lưu trạng thái hiện tại của trang để có thể quay lại sau khi đăng nhập.
+    const handleCheckLogin = async () =>{
+        if (!isLoggedIn) {
             navigate(`/login?returnTo=${location.pathname}`);
         }
-    };
-
-    const handleSendRentalRequest = () => {
+    }
+    const handleSendRentalRequest = async () => {
         if (isLoggedIn) {
             if (!isRentalRequested) {
-                setIsRentalRequested(true);
+                dispatch(setRentalStatus({ roomId, isRentalRequested: true }));
+                try {
+                    const response = await requestDetailService.sendRentaldReq(user_id, roomId);
+                    console.log(response);
+                } catch (error) {
+                    console.error("Error sending rental request:", error);
+                    dispatch(setRentalStatus({ roomId, isRentalRequested: false }));
+                }
             }
         } else {
             navigate(`/login?returnTo=${location.pathname}`);
         }
     };
-
     const handleCancelRentalRequest = () => {
-        setIsRentalRequested(false);
+        dispatch(setRentalStatus({ roomId, isRentalRequested: false }));
     };
-
+    const handleViewRequestStatus = () => {
+        navigate('/rental_manage/request');
+    }
     return (
         <BaseLayout>
             <div style={{ margin: "30px" }}>
@@ -124,7 +137,7 @@ const RoomValidDetail = () => {
                         </button>
                     </div>
                     <div className='col-md-4 d-flex justify-content-around'>
-                        <button className='btn btn-info' >
+                        <button className='btn btn-info'>
                             <DateTimePicker onChange={handleDateChange} value={value} />
                         </button>
                         {isRentalRequested ? (
@@ -133,11 +146,54 @@ const RoomValidDetail = () => {
                                 Hủy yêu cầu thuê
                             </button>
                         ) : (
-                            <button className='btn btn-primary' onClick={handleSendRentalRequest}>
+                            <button className='btn btn-primary' data-toggle="modal" data-target="#durationTimeModal"
+                            onClick={handleCheckLogin}>
                                 <i className="fa fa-paper-plane" aria-hidden="true"></i>
                                 Gửi yêu cầu thuê
                             </button>
                         )}
+
+                    </div>
+                </div>
+                {isRentalRequested ? (
+                    <div class="alert alert-info row" role="alert" style={{ position: "absolute", width: "30%", right: 0 }}>
+                        <span>Yêu cầu đã được gửi đến chủ trọ</span>
+                        <button type="button" className="btn btn-outline-secondary"
+                            onClick={handleViewRequestStatus} >Xem trạng thái y/c !</button>
+                    </div>
+                ) : (
+                    <div></div>
+                )}
+
+                <div className="modal fade" id="durationTimeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalLabel">Vui lòng chọn thời hạn thuê</h5>
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"/>
+                                        <label class="form-check-label" for="inlineRadio1">3 Tháng </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/>
+                                        <label class="form-check-label" for="inlineRadio2">6 Tháng</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" />
+                                        <label class="form-check-label" for="inlineRadio3">1 Năm </label>
+                                </div>
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                <button type="button" className="btn btn-primary" onClick={handleSendRentalRequest}>
+                                    Xác nhận & gửi</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

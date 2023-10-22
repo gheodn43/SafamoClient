@@ -45,6 +45,15 @@ const roomService = {
         }
     },
 
+    viewAllRentalRequestForRoom: async (room_id) => {
+        try {
+            const response = await api.post(`/rental_manage/req_rental/get_all?room_id=${room_id.toString()}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
 };
 
 export default roomService;

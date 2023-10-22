@@ -70,7 +70,7 @@ const CustomerPropertyDetail = () => {
                     <h2>Thông tin chi tiết BĐS</h2>
                     <div className='row d-flex justify-content-around' style={{height: "400px"}}>
                         <div className='room_preview col-md-4'>
-                            <img src={property.pictureUrl} alt="Ảnh tài sản" />
+                            <img src={property.pictureUrl} alt="Ảnh tài sản"  className='h-100 w-100'/>
                         </div>
                         <div className='map_render_rooms col-md-7'>
                             {error ? (
