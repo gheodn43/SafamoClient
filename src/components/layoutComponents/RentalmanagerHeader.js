@@ -30,7 +30,12 @@ const RentalmanagerHeader = () => {
                     </li>
                     <li className="nav-item">
                         <NavLink to="/rental_manage/request" className="nav-link" activeClassName="active">
-                            Yêu cầu
+                            Yêu cầu đã gửi
+                        </NavLink>
+                    </li>
+                    <li className="nav-item">
+                        <NavLink to="/rental_manage/request-receive" className="nav-link" activeClassName="active">
+                            Yêu cầu nhận về
                         </NavLink>
                     </li>
                     <li className="nav-item">

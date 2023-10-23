@@ -1,17 +1,25 @@
-// Services/userService.js
+
 import axios from 'axios';
 
 const userService = {
-  // Gọi API để lấy thông tin người dùng
-  getUserInfo: async () => {
+  getMYProfile: async () => {
     try {
-      const response = await axios.get('/user-profile/id=?'); // Thay đổi URL của API thật sự
+      const response = await axios.get('/user-profile/view_my_profile'); 
       return response.data;
     } catch (error) {
       throw error;
     }
   },
-  // Thêm các phương thức khác cho người dùng ở đây nếu cần
+
+  getUserInfo: async (userId) => {
+    try {
+      const response = await axios.get(`/user-profile?userId=${userId.toString()}`); 
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
 };
 
 export default userService;

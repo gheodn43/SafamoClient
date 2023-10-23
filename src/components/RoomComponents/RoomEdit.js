@@ -47,7 +47,7 @@ const RoomDetail = () => {
             setError(error.message);
         }
     }
-    const handleAccept = async (requestId) => {
+    const handleAccept = async (requestId, contractLink) => {
         try {
             const data = await requestDetailService.acceptRentalReq(requestId, contractLink);
             setRentalReqs(data);
@@ -132,7 +132,7 @@ const RoomDetail = () => {
                                         <td>{request.requestStatus}</td>
                                         <td>{request.timeStamp}</td>
                                         <td>
-                                            <button className='btn btn-primary' onClick={() => handleAccept(request.id)}>Chấp nhận</button>
+                                            <button className='btn btn-primary' onClick={() => handleAccept(request.id, contractLink)}>Chấp nhận</button>
                                             <button className='btn btn-secondary' onClick={() => handleReject(request.id)}>Từ chối</button>
                                         </td>
                                     </tr>

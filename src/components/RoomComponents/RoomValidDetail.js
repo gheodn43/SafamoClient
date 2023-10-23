@@ -23,6 +23,7 @@ const RoomValidDetail = () => {
     const [error, setError] = useState(null);
     const [value, setValue] = useState(new Date());
     const [formattedDate, setFormattedDate] = useState('');
+    const [duarationTime, setDuarationTime] = useState('');
     const isRentalRequested = useSelector((state) => state.roomRentalStatus[roomId]);
     const dispatch = useDispatch();
 
@@ -65,7 +66,7 @@ const RoomValidDetail = () => {
             if (!isRentalRequested) {
                 dispatch(setRentalStatus({ roomId, isRentalRequested: true }));
                 try {
-                    const response = await requestDetailService.sendRentaldReq(user_id, roomId);
+                    const response = await requestDetailService.sendRentaldReq(user_id, roomId,duarationTime);
                     console.log(response);
                 } catch (error) {
                     console.error("Error sending rental request:", error);
@@ -82,6 +83,9 @@ const RoomValidDetail = () => {
     const handleViewRequestStatus = () => {
         navigate('/rental_manage/request');
     }
+    const handleRadioChange = (event) => {
+        setDuarationTime(event.target.value);
+      };
     return (
         <BaseLayout>
             <div style={{ margin: "30px" }}>
@@ -176,21 +180,24 @@ const RoomValidDetail = () => {
                             </div>
                             <div className="modal-body">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"/>
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="3 Tháng"
+                                     checked={duarationTime === '3 Tháng'} onChange={handleRadioChange}/>
                                         <label class="form-check-label" for="inlineRadio1">3 Tháng </label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/>
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="6 Tháng"
+                                    checked={duarationTime === '6 Tháng'} onChange={handleRadioChange}/>
                                         <label class="form-check-label" for="inlineRadio2">6 Tháng</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" />
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="1 Năm" 
+                                     checked={duarationTime === '1 Năm'} onChange={handleRadioChange}/>
                                         <label class="form-check-label" for="inlineRadio3">1 Năm </label>
                                 </div>
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                                <button type="button" className="btn btn-primary" onClick={handleSendRentalRequest}>
+                                <button type="button" className="btn btn-primary" onClick={handleSendRentalRequest} data-dismiss="modal">
                                     Xác nhận & gửi</button>
                             </div>
                         </div>
