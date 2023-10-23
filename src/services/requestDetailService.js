@@ -87,6 +87,15 @@ const requestDetailService = {
       throw error;
     }
   },
+
+  deleteRentalReq: async (roomId) => {
+    try {
+      const response = await api.post(`/rental_manage/req_rentals/delete?roomId=${roomId.toString()}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
   
 };
 

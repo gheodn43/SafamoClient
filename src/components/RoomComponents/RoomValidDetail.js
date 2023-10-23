@@ -77,9 +77,16 @@ const RoomValidDetail = () => {
             navigate(`/login?returnTo=${location.pathname}`);
         }
     };
-    const handleCancelRentalRequest = () => {
-        dispatch(setRentalStatus({ roomId, isRentalRequested: false }));
+    const handleCancelRentalRequest = async () => {
+        try {
+            const response = await requestDetailService.deleteRentalReq(roomId);
+            dispatch(setRentalStatus({ roomId, isRentalRequested: false }));
+            console.log(response);
+        } catch (error) {
+            console.error("Error cancel rental request:", error);
+        }
     };
+    
     const handleViewRequestStatus = () => {
         navigate('/rental_manage/request');
     }

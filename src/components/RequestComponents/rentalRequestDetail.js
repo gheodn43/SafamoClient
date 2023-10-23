@@ -1,47 +1,49 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import BaseLayout from '../layoutComponents/BaseLayout';
 import userService from '../../services/userService';
 import requestDetailService from '../../services/requestDetailService';
+import PrepareContractAndInvoice from '../RoomComponents/prepareContractAndInvoice';
+
 const RentalRequestDetail = () => {
     const { requestId } = useParams();
     const [error, setError] = useState(0);
     const [sender, setSender] = useState(null);
     const [request, setRequest] = useState(null);
-
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await requestDetailService.getOneRentalReq(requestId);
-                setRequest(data);
-                senderInfor(data.user_id);
+                const requestData = await requestDetailService.getOneRentalReq(requestId);
+                setRequest(requestData);
+                const userId = requestData.user_id;
+                const senderData = await userService.getUserInfo(userId);
+                setSender(senderData);
             } catch (error) {
                 setError(error.message);
             }
         };
 
-        const senderInfor = async (userId) => {
-            try {
-                const data = await userService.getUserInfo(userId);
-                setSender(data);
-            } catch (error) {
-                setError(error.message);
-            }
-        }
+        fetchData(); // Call fetchData within useEffect
 
-        fetchData();
-    }, []);
+    }, [requestId]); // Make sure to include requestId in the dependency array
+
     const handleGoBack = () => {
         window.history.back();
     };
 
     const handleAcceptRequest = () => {
-        // Xử lý logic khi chấp nhận yêu cầu thuê
+        const { user_id, room_id } = request;
+        navigate(`/rental_manage/contract-prepare?user_id=${user_id}&room_id=${room_id}&requestId=${requestId}`);
+    };
+    const handleRejectRequest = () => {
     };
 
-    const handleRejectRequest = () => {
-        // Xử lý logic khi từ chối yêu cầu thuê
-    };
+    if (!request || !sender) {
+        // If request or sender is not loaded yet, you can display a loading message or spinner
+        return <div>Loading...</div>;
+    }
+
     return (
         <BaseLayout>
             <div className='container'>
