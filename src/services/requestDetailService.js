@@ -79,7 +79,14 @@ const requestDetailService = {
       throw error;
     }
   },
-
+  getOneRentalReq: async (request_id) => {
+    try {
+      const response = await api.get(`/rental_manage/view?requestId=${request_id.toString()}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
   
 };
 

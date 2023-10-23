@@ -1,11 +1,36 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import BaseLayout from '../layoutComponents/BaseLayout';
+import userService from '../../services/userService';
+import requestDetailService from '../../services/requestDetailService';
 const RentalRequestDetail = () => {
+    const { requestId } = useParams();
+    const [error, setError] = useState(0);
+    const [sender, setSender] = useState(null);
+    const [request, setRequest] = useState(null);
 
-    // lấy thông tin user
-    // lấy thông tin thuê
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await requestDetailService.getOneRentalReq(requestId);
+                setRequest(data);
+                senderInfor(data.user_id);
+            } catch (error) {
+                setError(error.message);
+            }
+        };
 
+        const senderInfor = async (userId) => {
+            try {
+                const data = await userService.getUserInfo(userId);
+                setSender(data);
+            } catch (error) {
+                setError(error.message);
+            }
+        }
 
+        fetchData();
+    }, []);
     const handleGoBack = () => {
         window.history.back();
     };
@@ -25,10 +50,17 @@ const RentalRequestDetail = () => {
                 </div>
                 <div className='row'>
                     <div className='col-md-8'>
-                        // thông tin user
+                        <p>Người gửi yêu cầu: {sender.fullname !== null ? sender.fullname : "<Chưa được cập nhật>"}</p>
+                        <p>NTNS: {sender.birthdate !== null ? sender.birthdate : "<Chưa được cập nhật>"}</p>
+                        <p>Số điện thoại: {sender.phone_number !== null ? sender.phone_number : "<Chưa được cập nhật>"}</p>
+                        <p>Email: {sender.email !== null ? sender.email : "<Chưa được cập nhật>"}</p>
+                        <p>Địa chỉ: {sender.address !== null ? sender.address : "<Chưa được cập nhật>"}</p>
                     </div>
                     <div className='col-md-4'>
-                        // thông tin yêu cầu
+                        <p>Mô tả: {request.description !== null ? request.description : "<Chưa được cập nhật>"}</p>
+                        <p>Thời hạn thuê: {request.duarationTime !== null ? request.duarationTime : "<Chưa được cập nhật>"}</p>
+                        <p>Yêu cầu được gửi lúc: {request.timeStamp !== null ? request.timeStamp : "<Chưa được cập nhật>"}</p>
+                        <p>Trạng thái yêu cầu: {request.requestStatus !== null ? request.requestStatus : "<Chưa được cập nhật>"}</p>
                     </div>
                 </div>
                 <div className='row'>

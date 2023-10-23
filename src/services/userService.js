@@ -1,10 +1,10 @@
 
-import axios from 'axios';
+import api from './api';
 
 const userService = {
   getMYProfile: async () => {
     try {
-      const response = await axios.get('/user-profile/view_my_profile'); 
+      const response = await api.get('/user-profile/view_my_profile'); 
       return response.data;
     } catch (error) {
       throw error;
@@ -13,7 +13,7 @@ const userService = {
 
   getUserInfo: async (userId) => {
     try {
-      const response = await axios.get(`/user-profile?userId=${userId.toString()}`); 
+      const response = await api.get(`/user-profile?userId=${userId.toString()}`); 
       return response.data;
     } catch (error) {
       throw error;
