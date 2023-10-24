@@ -1,23 +1,31 @@
-
 .row {
     margin: 15px;
 }
-.btn{
+
+.btn {
     margin: 0 5px
 }
+
 .progress-bar {
-    transition: width 0.3s ease-in-out; /* Điều chỉnh tốc độ và phong cách chuyển động */
-  }
-.nav-item.active{
+    transition: width 0.3s ease-in-out;
+    /* Điều chỉnh tốc độ và phong cách chuyển động */
+}
+
+.nav-item.active {
     background-color: #bfecfe;
     border-radius: 10px;
     margin: 0 5px;
 }
+
 .hover-effect:hover {
-    transform: scale(1.1); /* Khi di chuột vào, phóng to 110% */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Hiệu ứng đổ bóng mờ */
-    transition: transform 0.2s, box-shadow 0.2s; /* Áp dụng hiệu ứng trong 0.2 giây */
+    transform: scale(1.1);
+    /* Khi di chuột vào, phóng to 110% */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    /* Hiệu ứng đổ bóng mờ */
+    transition: transform 0.2s, box-shadow 0.2s;
+    /* Áp dụng hiệu ứng trong 0.2 giây */
 }
+
 .tag-card {
     background-color: #f0f0f0;
     color: #333;
@@ -27,12 +35,14 @@
     background-color: #007bff;
     color: #fff;
 }
-.card{
+
+.card {
     margin: 15px 0;
 }
+
 .tag-card-container {
     display: flex;
-    align-items: center; 
+    align-items: center;
     justify-content: center;
     height: 1.5rem;
     margin: 5px;
@@ -44,7 +54,8 @@
     text-align: center;
     margin: 0;
 }
-.fa{
+
+.fa {
     margin-right: 5px;
 }
 
@@ -52,10 +63,40 @@
 .alert-info {
     display: flex;
     justify-content: space-between;
-   
+
 }
 
-.alert-info > span {
+.alert-info>span {
     margin-left: auto;
-    
+
+}
+
+.dropzone {
+    width: 70%;
+    height: 200px;
+    border: solid rgba(70, 70, 70, 0.313) 5px;
+    background-color: rgba(102, 102, 102, 0.364);
+    border-radius: 1px;
+    border-style: dashed;
+    margin: 20px auto;
+}
+
+.centered-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.row-green-background {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    /* Tuỳ chỉnh màu chữ nếu cần */
+}
+
+.row-yellow-background {
+    background-color: yellow;
+    color: rgb(0, 0, 0);
+    /* Tuỳ chỉnh màu chữ nếu cần */
 }

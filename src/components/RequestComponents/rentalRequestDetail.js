@@ -24,9 +24,8 @@ const RentalRequestDetail = () => {
             }
         };
 
-        fetchData(); // Call fetchData within useEffect
-
-    }, [requestId]); // Make sure to include requestId in the dependency array
+        fetchData(); 
+    }, [requestId]); 
 
     const handleGoBack = () => {
         window.history.back();
@@ -40,7 +39,6 @@ const RentalRequestDetail = () => {
     };
 
     if (!request || !sender) {
-        // If request or sender is not loaded yet, you can display a loading message or spinner
         return <div>Loading...</div>;
     }
 

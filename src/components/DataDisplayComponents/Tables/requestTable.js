@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import requestDetailService from '../../../services/requestDetailService';
 
-const RequestTable = ({ requests }) => {
+const RequestTable = ({ requests, handleCancelRentalRequest}) => {
     const [filter, setFilter] = useState("Thuê phòng");
     const navigate = useNavigate();
     const handleDeleteClick = (reuqestId) => {
@@ -45,18 +46,24 @@ const RequestTable = ({ requests }) => {
                 <tbody>
                     {requests.map(request => (
                         (request.requestRole === filter) && (
-                            <tr key={request.id}>
+                            <tr key={request.id} className={request.requestStatus === "Được thông qua" ? "row-green-background" : ""}>
                                 <td>{request.requestRole}</td>
                                 <td>{request.description}</td>
                                 <td>{request.requestStatus}</td>
                                 <td>{request.timeStamp}</td>
                                 <td>
-                                    <button onClick={() => handleDeleteClick(request.id)}>Xóa</button>
-                                    <button onClick={() => handleDetailClick(request.id)}>Xem chi tiết</button>
+                                    {request.requestStatus === "Được thông qua" ? (
+                                        <button className='btn btn-success' onClick={() => handleDetailClick(request.id)}>Xem hợp đồng</button>
+                                    ) : (
+                                        <>
+                                            <button className='btn btn-secondary' onClick={() => handleCancelRentalRequest(request.room_id)}>Hủy yêu cầu</button>
+                                        </>
+                                    )}
                                 </td>
                             </tr>
                         )
                     ))}
+
                 </tbody>
             </table>
         </div>

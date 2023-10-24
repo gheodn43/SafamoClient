@@ -54,6 +54,14 @@ const roomService = {
         }
     },
 
+    draftContractForRoom: async (room_id) => {
+        try {
+            const response = await api.post(`/room/draft-contract/${room_id.toString()}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
 };
 
 export default roomService;
