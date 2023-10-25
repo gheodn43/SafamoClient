@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate} from 'react-router-dom';
 import BaseLayout from '../layoutComponents/BaseLayout';
 import requestDetailService from '../../services/requestDetailService';
 // import { useSelector } from 'react-redux';
@@ -10,6 +10,7 @@ import ContractService from '../../services/contractService';
 
 const PreviewContract = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const queryParams = new URLSearchParams(location.search);
     const requestId = queryParams.get('requestId');
     const [isChecked, setIsChecked] = useState(false);
@@ -17,9 +18,9 @@ const PreviewContract = () => {
     const [showAlert, setShowAlert] = useState(false);
     const [request, setRequest] = useState(null);
     const [roomid, setRoomId] = useState('');
+    const [rentRoomId, setRentRoomId] = useState('')
     const [room, setRoom] = useState(null);
     const [error, setError] = useState('');
-    // const rentRoomReudx = useSelector((state) => state.rentRoom);
     const [rentRoom, setRentRoom] = useState({
         contractCreationDate: '',
         contractEndDate: '',
@@ -100,9 +101,11 @@ const PreviewContract = () => {
     const handleJoinRoom = async () => {
         if (isChecked) {
             const rentRoom_id = await RentRoomService.joinRoom(roomid);
+            setRentRoomId(rentRoom_id);
             if(rentRoom_id){
                 await ContractService.generateContract(rentRoom_id, rentRoom);
                 await requestDetailService.deleteRentalReqAfterJoinRoom(requestId);
+                await roomService.changeStatusRoomIsRenting(roomid);
                 setIsConfirmed(true);
             }
             
@@ -112,7 +115,7 @@ const PreviewContract = () => {
     };
 
     const handleGoToYourRoom = () => {
-        window.history.back();
+        navigate(`/rental_manage/my-room?rent_room_Id=${rentRoomId}`);
     };
     return (
         <BaseLayout>

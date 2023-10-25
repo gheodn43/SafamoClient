@@ -37,6 +37,7 @@ const RoomsValid = () => {
                   tags={room.tags}
                   roomPrice={room.price}
                   roomId={room.room_id}
+                  ratingRult={room.ratingStar}
                 />
               ))
             ) : (

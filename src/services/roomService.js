@@ -62,6 +62,32 @@ const roomService = {
             throw error;
         }
     },
+
+    findCompound: async (room_id) => {
+        try {
+            const response = await api.post(`/room/find-compound/${room_id.toString()}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    cancelFindCompound: async (room_id) => {
+        try {
+            const response = await api.post(`/room/cancel-find-compound/${room_id.toString()}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+    changeStatusRoomIsRenting: async (room_id) => {
+        try {
+            const response = await api.post(`/room/join/${room_id.toString()}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
 };
 
 export default roomService;

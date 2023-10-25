@@ -1,14 +1,19 @@
-import React from 'react';
-import { Link , useLocation} from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import draftRentalPicture from '../../../assets/images/draftRentalPicture.png'
 import TagCardIntoRoom from './TagCardIntoRoom';
-const RoomCardOwner = ({ imageUrls, roomName, roomStatus, tags, roomPrice, roomId}) => {
+import StarRate from '../../StarRate';
+const RoomCardOwner = ({ imageUrls, roomName, roomStatus, tags, roomPrice, roomId, ratingRult, rentRoomId }) => {
     const location = useLocation();
     const isPropertyDetailPage = location.pathname.includes('/rental_manage/property_detail/');
-
-    const detailLink = isPropertyDetailPage
+    const isMyRoomsPage = location.pathname.includes('/my-rooms');
+    let linkTo = isPropertyDetailPage
         ? `/rental_manage/room-edit/${roomId}`
         : `/rooms-for-rent/${roomId}`;
+    
+    if (isMyRoomsPage) {
+        linkTo = `/rental_manage/my-room?rent_room_Id=${rentRoomId}`;
+    }
 
     return (
         <div className="card hover-effect " style={{ width: "18rem" }}>
@@ -47,7 +52,10 @@ const RoomCardOwner = ({ imageUrls, roomName, roomStatus, tags, roomPrice, roomI
                     }
                 </div>
                 <p className="card-text">Giá thuê/ Tháng: {roomPrice + ' VNĐ'}</p>
-                <Link to={detailLink} className="btn btn-primary">
+                <StarRate
+                    userRating={ratingRult}
+                />
+                <Link to={linkTo} className="btn btn-primary">
                     <i className="fa fa-eye"></i>
                     Xem chi tiết
                 </Link>
