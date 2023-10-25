@@ -19,9 +19,26 @@ const requestDetailService = {
       throw error;
     }
   },
+  requestsForLandlord: async () => {
+    try {
+      const response = await api.get('/rental_manage/req_rentals');
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
   sendLandlordReq: async (user_id, landlordRequest) => {
     try {
       const response = await api.post(`/rental_manage/req_landlord/${user_id.toString()}`, landlordRequest);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  sendRentaldReq: async (user_id, room_id, duarationTime) => {
+    try {
+      const response = await api.post(`/rental_manage/req_rental/send?user_id=${user_id.toString()}&room_id=${room_id.toString()}&duarationTime=${duarationTime}`);
       return response.data;
     } catch (error) {
       throw error;
@@ -45,6 +62,33 @@ const requestDetailService = {
       throw error;
     }
   },
+
+  acceptRentalReq: async (request_id, contractLink) => {
+    try {
+      const response = await api.post(`/rental_manage/req_rental/accept?requestId=${request_id.toString()}`, contractLink);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  rejectRentalReq: async (request_id) => {
+    try {
+      const response = await api.post(`/rental_manage/req_rental/reject?requestId=${request_id.toString()}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+  getOneRentalReq: async (request_id) => {
+    try {
+      const response = await api.get(`/rental_manage/view?requestId=${request_id.toString()}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+  
 };
 
 export default requestDetailService;

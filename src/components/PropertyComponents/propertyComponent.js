@@ -1,20 +1,33 @@
-import React, { useState } from 'react';
-import PropertyTable from '../DataDisplayComponents/Tables/propertyTable';
-import PropertyCreation from './CreatePropertyComponent/PropertyCreation';
-import CreateLandlordRequest from '../RequestComponents/createLandlordRequest';
+import React, { useState, useEffect } from 'react';
+import PropertySearch from './SearchProperty/PropertySearch'; 
+import { LISTPROPERTY } from './listProperty';
 
 const PropertyComponent = () => {
   const [isCreationVisible, setIsCreationVisible] = useState(false);
   const [isRequestFormVisible, setIsRequestFormVisible] = useState(false);
   const storedRolesJSON = localStorage.getItem('roles');
+  const [roles, setRoles] = useState([]); 
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
-  let roles = [];
-  if (storedRolesJSON) {
-    roles = JSON.parse(storedRolesJSON);
-  }
+  useEffect(() => {
+    if (storedRolesJSON) {
+      const parsedRoles = JSON.parse(storedRolesJSON);
+      setRoles(parsedRoles);
+    }
+  }, [storedRolesJSON]);
+
+  const propertySearch = new PropertySearch(LISTPROPERTY);
+
+  useEffect(() => {
+    const results = propertySearch.searchByName(searchTerm);
+    setSearchResults(results);
+  }, [searchTerm]);
+
   const handleCreatePropertyClick = () => {
     setIsCreationVisible(true);
   };
+
   const handleCreateLandlordRequest = () => {
     setIsRequestFormVisible(true);
   };
@@ -36,8 +49,6 @@ const PropertyComponent = () => {
         <div className="property-header row">
           <div className='col-sm-7'>
             <h2>Bất động sản</h2>
-            {/* chỉ xuất hiện khi user không phải là landlord */}
-            {/* còn nếu sau khi đăng ký thành công và đợi xét duyệt thì sao ? */}
             {!roles.includes('LANDLORD') && (
               <div className="alert alert-warning" role="alert">
                 Tài khoản chưa được mở khóa chức năng cho thuê.
@@ -53,7 +64,14 @@ const PropertyComponent = () => {
           </div>
         </div>
         <div className="property-content">
-          <PropertyTable />
+          <input
+            type="text"
+            placeholder="Tìm kiếm tài sản theo tên"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <h3>Kết quả tìm kiếm:</h3>
+          <PropertyTable data={searchResults} />
           {isCreationVisible && (
             <>
               <div className="overlay" onClick={handleOverlayClick}></div>

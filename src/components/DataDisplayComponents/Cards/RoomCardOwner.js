@@ -7,7 +7,7 @@ const RoomCardOwner = ({ imageUrls, roomName, roomStatus, tags, roomPrice, roomI
     const isPropertyDetailPage = location.pathname.includes('/rental_manage/property_detail/');
 
     const detailLink = isPropertyDetailPage
-        ? `/room-edit/${roomId}`
+        ? `/rental_manage/room-edit/${roomId}`
         : `/rooms-for-rent/${roomId}`;
 
     return (

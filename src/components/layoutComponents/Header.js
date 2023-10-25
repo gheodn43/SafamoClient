@@ -17,7 +17,7 @@ const Header = () => {
     };
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{ width: '100%'}}>
+        <nav className="header navbar navbar-expand-lg navbar-light bg-light" style={{ width: '100%'}}>
             <Link to="/" className="navbar-brand">
                 <img src={logoImage} alt="Safamo Logo" style={logoStyle} />
             </Link>
