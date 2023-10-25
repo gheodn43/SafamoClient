@@ -96,7 +96,7 @@
 }
 
 .row-yellow-background {
-    background-color: yellow;
-    color: rgb(0, 0, 0);
-    /* Tuỳ chỉnh màu chữ nếu cần */
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
 }

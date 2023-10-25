@@ -10,7 +10,7 @@ const RequestTable = ({ requests, handleCancelRentalRequest}) => {
     };
 
     const handleDetailClick = (requestId) => {
-        navigate(`/rental_manage/property_detail/${requestId}`);
+        navigate(`/rental_manage/previewContract?requestId=${requestId}`);
     };
 
     const handleFilterClick = (newFilter) => {

@@ -33,7 +33,7 @@ const RoomCardOwner = ({ imageUrls, roomName, roomStatus, tags, roomPrice, roomI
                     <span className="sr-only">Next</span>
                 </a>
             </div>
-            <div className="card-body">
+            <div className={`card-body ${roomStatus === 'Đang được thuê' ? 'row-green-background' : (roomStatus === 'Đang khởi tạo hợp đồng' ? 'row-yellow-background' : '')}`}>
                 <h5 className="card-title">{roomName}</h5>
                 <p className="card-text">{roomStatus}</p>
                 <div className='row'>

@@ -6,8 +6,11 @@ import GenerateContractDocument from '../ContractComponents/generateContractDocu
 import roomService from '../../services/roomService';
 import userService from '../../services/userService';
 import requestDetailService from '../../services/requestDetailService';
+import { useDispatch } from 'react-redux'; 
+import { setContractCreationDate, setContractEndDate, setDurationTime, setRoomId, setPartyAId, setPartyBId } from '../../redux/slices/rentRoomSlice';
 
 const PrepareContractAndInvoice = () => {
+    const dispatch = useDispatch();
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const [error, setError] = useState('');
@@ -28,7 +31,7 @@ const PrepareContractAndInvoice = () => {
     });
 
     const navigate = useNavigate();
-    const contractLink ="";
+    const contractLink = "";
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -40,6 +43,13 @@ const PrepareContractAndInvoice = () => {
                 setPartyA(party_a);
                 const party_b = await userService.getUserInfo(user_id);
                 setPartyB(party_b);
+
+                dispatch(setContractCreationDate(contract_creation_date));
+                dispatch(setContractEndDate(contract_end_date));
+                dispatch(setDurationTime(duarationTime));
+                dispatch(setRoomId(room_id));
+                dispatch(setPartyAId(partyA.userId));
+                dispatch(setPartyBId(partyB.userId));
             } catch (error) {
                 setError(error.message);
             }
@@ -52,20 +62,20 @@ const PrepareContractAndInvoice = () => {
         window.history.back();
     };
 
-    
+
 
     if (!roomInfo || !request || !partyA || !partyB) {
         return <div>Loading...</div>;
     }
     const handleAccept = (requestId, contractLink) => {
         requestDetailService.acceptRentalReq(requestId, contractLink)
-        .then(() => {
-            roomService.draftContractForRoom(room_id);
-            navigate('/rental_manage/request-receive');
-        })
-        .catch(error => {
-            setError(error.message);
-        });
+            .then(() => {
+                roomService.draftContractForRoom(room_id);
+                navigate('/rental_manage/request-receive');
+            })
+            .catch(error => {
+                setError(error.message);
+            });
     };
     const duarationTime = request.duarationTime;
     let durationTime;
@@ -120,8 +130,8 @@ const PrepareContractAndInvoice = () => {
     const partyB_cccd = partyB.cccd !== null ? partyB.cccd : 'invalid';
     const partyB_address = partyB.address !== null ? partyB.address : 'invalid';
 
-    console.log(contract_end_date);
-    console.log(durationTime);
+
+
     return (
         <BaseLayout>
             <div className='container'>
@@ -165,13 +175,13 @@ const PrepareContractAndInvoice = () => {
 
                         />}
                     <div className='row'>
-                    <div className='col'>
-                        <button className='btn btn-secondary' onClick={handleGoBack}>Quay lại</button>
+                        <div className='col'>
+                            <button className='btn btn-secondary' onClick={handleGoBack}>Quay lại</button>
+                        </div>
+                        <div className='col text-right'>
+                            <button className='btn btn-success' onClick={() => handleAccept(requestId, contractLink)}>Xác nhận và gửi</button>
+                        </div>
                     </div>
-                    <div className='col text-right'>
-                        <button className='btn btn-success' onClick={() => handleAccept(requestId, contractLink)}>Xác nhận và gửi</button>
-                    </div>
-                </div>
                 </div>
             </div>
         </BaseLayout>
