@@ -33,7 +33,7 @@ const MyRoomRentedDetail = () => {
     }
     
     const handleChange = () => {
-        setFindCompound(!findCompound); // Toggle giá trị của findCompound
+        setFindCompound(!findCompound); 
     };
     
     const handleGoBack = () => {
