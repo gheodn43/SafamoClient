@@ -111,7 +111,7 @@ function RoomSearch({ rooms, tagSuggestions }) {
   const sortedRooms = sortRoomsByTags(filteredRooms);
   return (
     <div>
-      <div>
+      {/* <div>
         <input
           class="form-control form-control-sm"
           type="text"
@@ -129,40 +129,49 @@ function RoomSearch({ rooms, tagSuggestions }) {
             ))
           }
         </div>
-      </div>
-      <div>
-        <div className='row'>
-          <input
-            type="text"
-            className='form-control col-md-2'
-            placeholder="Tìm kiếm theo tag"
-            value={tagSearch}
-            onChange={handleTagSearchChange}
-          />
-          <button type="button" class="btn btn-outline-light" onClick={handleSearch}>
-          <i class="fa fa-search" style={{color: "#000205"}}></i>
-          </button>
-        </div>
-        <div className='row'>
-          {tagSuggestions
-            .map((suggestion, index) => (
-              <TagCardIntoRoom
-                key={index}
-                tagname={suggestion}
-                onClick={() => setTagSearch(suggestion)}
+      </div> */}
+      <div className='row d-flex justify-content-around'>
+        <div className='col-md-7'>
+          <div>
+            <div className='row'>
+              <input
+                type="text"
+                className='form-control col-md-2'
+                placeholder="Tìm kiếm theo tag"
+                value={tagSearch}
+                onChange={handleTagSearchChange}
               />
-            ))}
+              <button type="button" class="btn btn-outline-light" onClick={handleSearch}>
+                <i class="fa fa-search" style={{ color: "#000205" }}></i>
+              </button>
+            </div>
+            <div className='row'>
+              {tagSuggestions
+                .map((suggestion, index) => (
+                  <TagCardIntoRoom
+                    key={index}
+                    tagname={suggestion}
+                    onClick={() => setTagSearch(suggestion)}
+                  />
+                ))}
+            </div>
+          </div>
+        </div>
+        <div className='col-md-4'>
+          <div className='row container'>
+            <p className="text-muted">Tìm kiếm theo khoản giá</p>
+          </div>
+          <div class="row">
+            <div className='col-md-6'>
+              <input class="form-control " type="number" id="minPrice" onChange={e => { setMinPrice(e.target.value); filterRooms(e.target.value, maxPrice); }} placeholder="Giá tối thiểu:" />
+            </div>
+            <div className='col-md-6'>
+              <input class="form-control " type="number" id="maxPrice" onChange={e => { setMaxPrice(e.target.value); filterRooms(minPrice, e.target.value); }} placeholder="Giá tối đa:" />
+            </div>
+          </div>
         </div>
       </div>
-      {/* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
-      <div class="d-flex justify-content-end">
-        <div className='col-md-2'>
-          <input class="form-control " type="number" id="minPrice" onChange={e => { setMinPrice(e.target.value); filterRooms(e.target.value, maxPrice); }} placeholder="Giá tối thiểu:" />
-        </div>
-        <div className='col-md-2'>
-          <input class="form-control " type="number" id="maxPrice" onChange={e => { setMaxPrice(e.target.value); filterRooms(minPrice, e.target.value); }} placeholder="Giá tối đa:" />
-        </div>
-      </div>
+
       {searchResult ? (
         <div>
           <h2>Thông tin phòng {searchResult.roomName}</h2>
@@ -194,7 +203,7 @@ function RoomSearch({ rooms, tagSuggestions }) {
           )}
         </div>
       ) : (
-        <div className='justify-content-end' style={{margin: "10px"}}>
+        <div className='justify-content-end' style={{ margin: "10px" }}>
           <div class="list-group" id="list-tab" role="tablist">
             {sortedRooms.map((room) => (
               <a

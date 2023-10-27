@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import draftRentalPicture from '../../../assets/images/draftRentalPicture.png'
 import TagCardIntoRoom from './TagCardIntoRoom';
-import StarRate from '../../StarRate';
+import StarRating from '../../Test/starRating';
 const RoomCardOwner = ({ imageUrls, roomName, roomStatus, tags, roomPrice, roomId, ratingRult, rentRoomId }) => {
     const location = useLocation();
     const isPropertyDetailPage = location.pathname.includes('/rental_manage/property_detail/');
@@ -52,9 +52,7 @@ const RoomCardOwner = ({ imageUrls, roomName, roomStatus, tags, roomPrice, roomI
                     }
                 </div>
                 <p className="card-text">Giá thuê/ Tháng: {roomPrice + ' VNĐ'}</p>
-                <StarRate
-                    userRating={ratingRult}
-                />
+                <StarRating value={ratingRult} />
                 <Link to={linkTo} className="btn btn-primary">
                     <i className="fa fa-eye"></i>
                     Xem chi tiết

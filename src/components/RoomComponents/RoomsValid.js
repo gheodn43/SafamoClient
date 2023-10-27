@@ -3,10 +3,8 @@ import BaseLayout from '../layoutComponents/BaseLayout';
 import RoomCardOwner from '../DataDisplayComponents/Cards/RoomCardOwner';
 import roomService from '../../services/roomService';
 import RoomSearch from '../Test/RoomComponents/RoomSearch';
-import StarRate from '../StarRate';
+// import StarRate from '../StarRate';
 import { useSelector } from 'react-redux';
-import TagCard from '../DataDisplayComponents/Cards/TagCard';
-
 
 const RoomsValid = () => {
   const [rooms, setRooms] = useState([]);
@@ -17,8 +15,6 @@ const RoomsValid = () => {
     roomService.getAllRoomIsValid()
       .then(data => {
         setRooms(data);
-  
-        // Lấy tất cả các tag từ danh sách các phòng
         const allTags = data.reduce((tags, room) => {
           room.tags.forEach(tag => {
             if (!tags.includes(tag)) {
@@ -47,9 +43,7 @@ const RoomsValid = () => {
             <p>{selectedRoom.picturesURL}</p>
             <p>{'Tên Phòng: '+ selectedRoom.roomName}</p>
             <p>{'Giá phòng: '+selectedRoom.price}</p>
-            {/* if(selectedRoom.price != 0){
-              <StarRate userRating={selectedRoom.ratingStar}/> 
-            } */}
+            
           </div>
         </div>
         <div className='row'>

@@ -14,6 +14,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import requestDetailService from '../../services/requestDetailService';
+import StarRating from '../Test/starRating';
 import { format } from 'date-fns';
 
 const RoomValidDetail = () => {
@@ -33,21 +34,21 @@ const RoomValidDetail = () => {
 
     const handleDateChange = (value) => {
         if (isLoggedIn) {
-          const selectedDate = value.toDate();
-          const currentDate = new Date();
-      
-          if (selectedDate >= currentDate) {
-            setValue(value);
-            setFormattedDate(format(selectedDate, 'MM/dd/yyyy hh:mm'));
-          } else {
-            setValue(dayjs());
-            alert('Vui lòng chọn ngày hiện tại hoặc trong tương lai.');
-          }
+            const selectedDate = value.toDate();
+            const currentDate = new Date();
+
+            if (selectedDate >= currentDate) {
+                setValue(value);
+                setFormattedDate(format(selectedDate, 'MM/dd/yyyy hh:mm'));
+            } else {
+                setValue(dayjs());
+                alert('Vui lòng chọn ngày hiện tại hoặc trong tương lai.');
+            }
         } else {
-          navigate(`/login?returnTo=${location.pathname}`);
+            navigate(`/login?returnTo=${location.pathname}`);
         }
-      };
-      
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -136,12 +137,12 @@ const RoomValidDetail = () => {
                                         />
                                     ))}
                                 </div>
-                                <p>Địa chỉ: {room.address}</p>
-                                <p>Mô tả: {room.description}</p>
-                                <p>Diện tích: {room.acreage} m²</p>
-                                <p>Giá thuê: {room.price} VND/tháng</p>
-                                <p>Số người tối đa: {room.maxQuantity}</p>
-                                <p>Trạng thái: {room.status}</p>
+                                <StarRating value={room.ratingStar} />
+                                <p><i className="fa fa-map-marker" aria-hidden="true"></i>Địa chỉ: {room.address}</p>
+                                <p><i className="fa fa-info"></i> Mô tả: {room.description}</p>
+                                <p><i class="fa fa-arrows-alt" aria-hidden="true"></i> Diện tích: {room.acreage} m²</p>
+                                <p><i class="fa fa-money" aria-hidden="true"></i>Giá thuê: {room.price} VND/tháng</p>
+                                <p><i class="fa fa-male" aria-hidden="true"></i>Số người tối đa: {room.maxQuantity}</p>
                             </div>
                         ) : (
                             <p>Đang tải thông tin phòng...</p>
@@ -212,7 +213,7 @@ const RoomValidDetail = () => {
                                             label="Chọn ngày bạn có thể chuyển đến"
                                             value={value}
                                             onChange={(newValue) => {
-                                                handleDateChange(newValue); 
+                                                handleDateChange(newValue);
                                             }}
                                         />
                                     </DemoContainer>
