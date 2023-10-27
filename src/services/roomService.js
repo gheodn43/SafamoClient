@@ -88,6 +88,15 @@ const roomService = {
             throw error;
         }
     },
+
+    publicGetRoomsOfProperty: async (roomIds) => {
+        try {
+            const response = await api.post('/auth/rooms-of-property',roomIds);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
 };
 
 export default roomService;

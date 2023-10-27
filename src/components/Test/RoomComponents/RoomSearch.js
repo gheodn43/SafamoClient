@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import TagCardIntoRoom from '../../DataDisplayComponents/Cards/TagCardIntoRoom';
 import { setImageUrls, setRoomName, setTags, setPrice, setRoomId, setRatingStar } from '../../../redux/slices/selectedRoomSlice'
 
-function RoomSearch({ rooms }) {
+function RoomSearch({ rooms, tagSuggestions }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResult, setSearchResult] = useState(null);
   const [minPrice, setMinPrice] = useState('');
@@ -14,9 +15,49 @@ function RoomSearch({ rooms }) {
 
 
   const dispatch = useDispatch();
+
+  const searchRoomByRoomNumber = (roomNumber) => {
+    const room = rooms.find((room) => room.roomName === roomNumber);
+    return room;
+  };
+
+  const handleSearch = () => {
+    const filteredRoomsByTag = rooms.filter((room) =>
+      room.tags.includes(tagSearch)
+    );
+    setFilteredRooms(filteredRoomsByTag);
+  };
+
+  const handleSearchInputChange = (event) => {
+    const newSearchTerm = event.target.value;
+    setSearchTerm(event.target.value);
+    const suggestedRooms = generateSuggestions(newSearchTerm);
+    setRoomSuggestions(suggestedRooms);
+  };
+
+  const handleTagSearchChange = (event) => {
+    setTagSearch(event.target.value);
+  };
+
+  const generateSuggestions = (input) => {
+    if (input === '') {
+      return [];
+    }
+    const filteredRooms = rooms.filter((room) =>
+      room.roomName.toLowerCase().includes(input.toLowerCase())
+    );
+    return filteredRooms.map((room) => room.roomName);
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setSearchTerm(suggestion);
+    setRoomSuggestions([]); // Clear the suggestions
+    const result = searchRoomByRoomNumber(suggestion); // Search for the room immediately
+    setSearchResult(result);
+  };
+  /////////////////////////////////////////////////////////////////////////////////////
   const filterRooms = (minPrice_a, maxPrice_a) => {
     console.log(maxPrice_a);
-    
     const filtered = filterRoomsByPrice(minPrice_a, maxPrice_a);
     const filteredRoomsByTag = tagSearch
       ? filtered.filter((room) =>
@@ -70,13 +111,56 @@ function RoomSearch({ rooms }) {
   const sortedRooms = sortRoomsByTags(filteredRooms);
   return (
     <div>
+      <div>
+        <input
+          class="form-control form-control-sm"
+          type="text"
+          placeholder="Tìm kiếm phòng theo số phòng"
+          value={searchTerm}
+          onChange={handleSearchInputChange}
+        />
+        <div className='row'>
+          {
+            roomSuggestions.map((suggestion, index) => (
+              <TagCardIntoRoom
+                key={index}
+                tagname={suggestion}
+              />
+            ))
+          }
+        </div>
+      </div>
+      <div>
+        <div className='row'>
+          <input
+            type="text"
+            className='form-control col-md-2'
+            placeholder="Tìm kiếm theo tag"
+            value={tagSearch}
+            onChange={handleTagSearchChange}
+          />
+          <button type="button" class="btn btn-outline-light" onClick={handleSearch}>
+          <i class="fa fa-search" style={{color: "#000205"}}></i>
+          </button>
+        </div>
+        <div className='row'>
+          {tagSuggestions
+            .map((suggestion, index) => (
+              <TagCardIntoRoom
+                key={index}
+                tagname={suggestion}
+                onClick={() => setTagSearch(suggestion)}
+              />
+            ))}
+        </div>
+      </div>
+      {/* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
       <div class="d-flex justify-content-end">
-
         <div className='col-md-2'>
-          <input class="form-control form-control-sm" type="number" id="minPrice"  onChange={e => {setMinPrice(e.target.value); filterRooms(e.target.value,maxPrice);}} placeholder="Giá tối thiểu:" />
+          <input class="form-control " type="number" id="minPrice" onChange={e => { setMinPrice(e.target.value); filterRooms(e.target.value, maxPrice); }} placeholder="Giá tối thiểu:" />
         </div>
         <div className='col-md-2'>
-          <input class="form-control form-control-sm" type="number" id="maxPrice"  onChange={e => {setMaxPrice(e.target.value); filterRooms(minPrice,e.target.value);}}  placeholder="Giá tối đa:" />
+          <input class="form-control " type="number" id="maxPrice" onChange={e => { setMaxPrice(e.target.value); filterRooms(minPrice, e.target.value); }} placeholder="Giá tối đa:" />
         </div>
       </div>
       {searchResult ? (
@@ -96,9 +180,21 @@ function RoomSearch({ rooms }) {
               ))}
             </div>
           )}
+          {searchResult.tags && searchResult.tags.length > 0 && (
+            <div>
+              {
+                searchResult.tags.map((tag, index) => (
+                  <TagCardIntoRoom
+                    key={index}
+                    tagname={tag}
+                  />
+                ))
+              }
+            </div>
+          )}
         </div>
       ) : (
-        <div className='justify-content-end'>
+        <div className='justify-content-end' style={{margin: "10px"}}>
           <div class="list-group" id="list-tab" role="tablist">
             {sortedRooms.map((room) => (
               <a

@@ -97,6 +97,16 @@ const propertyService = {
             throw error;
         }
     },
+
+    getPropertyDetailForGuest: async (property_id) => {
+        try {
+            const response = await api.get(`/auth/property/${property_id.toString()}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
 };
+
 
 export default propertyService;
