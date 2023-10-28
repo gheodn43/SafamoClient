@@ -5,7 +5,9 @@
 .btn {
     margin: 0 5px
 }
-
+i{
+    margin: auto 5px;
+}
 .progress-bar {
     transition: width 0.3s ease-in-out;
     /* Điều chỉnh tốc độ và phong cách chuyển động */

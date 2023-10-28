@@ -28,6 +28,7 @@ import PrepareContractAndInvoice from './components/RoomComponents/prepareContra
 import PreviewContract from './components/RoomComponents/PreviewContract';
 import MyRooms from './components/RoomComponents/MyRooms';
 import MyRoomRentedDetail from './components/RoomComponents/MyRoomDetail';
+import Profile from './components/UserProfile';
 
 
 import Test from './components/TestComponent';
@@ -52,10 +53,11 @@ function App() {
           )}
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/test" element={<Test/>} />
-          <Route path="/requests/landlord_req_detail" element={<LandlordReqDetail />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/confirm-otp" element={<ConfirmRegisterOtp />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/requests/landlord_req_detail" element={<LandlordReqDetail />} />
           <Route path="/rental_manage" element={<RentalManagerPage/>} />
           <Route path="/rental_manage/property" element={<PropertiesPage/>} />
           <Route path="/rental_manage/request" element={<RequestPage/>} />
