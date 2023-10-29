@@ -61,16 +61,16 @@ const AddressService = ({ onCitySelect, onDistrictSelect, onWardSelect }) => {
     const handleChangeCommune = (event) => {
         setCommuneValue(event.target.value);
         if (event.target.value === "0") {
-          onWardSelect('');
+            onWardSelect('');
         } else {
-          const selectedWard = event.target.options[event.target.selectedIndex].text;
-          onWardSelect(selectedWard);
+            const selectedWard = event.target.options[event.target.selectedIndex].text;
+            onWardSelect(selectedWard);
         }
-      };
+    };
     return (
         <div className="row">
-
-            <div className='col-md-5'>
+            <div className='form-group col-md-5'>
+                <label>Thành phố</label>
                 <select class="form-control" id="city-province" onChange={handleChangeProvince}>
                     <option value="0">&nbsp;Chọn Tỉnh/Thành Phố...</option>
                     <option value="01">&nbsp;Thành phố Hà Nội</option>
@@ -138,7 +138,8 @@ const AddressService = ({ onCitySelect, onDistrictSelect, onWardSelect }) => {
                     <option value="96">&nbsp;Tỉnh Cà Mau</option>
                 </select>
             </div>
-            <div className='col-md-4'>
+            <div className='form-group col-md-4'>
+                <label>Quận/Huyện</label>
                 <select className='form-control' id="district-town" value={districtValue} onChange={handleChangeDistrict}>
                     <option value="0">&nbsp;Chọn Quận/Huyện...</option>
                     {districtList.map((district) => (
@@ -154,7 +155,8 @@ const AddressService = ({ onCitySelect, onDistrictSelect, onWardSelect }) => {
                     </span>
                 )}
             </div>
-            <div className='col-md-3'>
+            <div className='form-group col-md-3'>
+                <label>Phường/Xã</label>
                 <select className='form-control' id="ward-commune" value={communeValue} onChange={handleChangeCommune}>
                     <option value="0">&nbsp;Chọn Phường/Xã...</option>
                     {communeList.map((commune) => (

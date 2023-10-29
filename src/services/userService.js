@@ -19,6 +19,14 @@ const userService = {
       throw error;
     }
   },
+  updateUserInfo: async (userId, formData) => {
+    try {
+      const response = await api.post(`/user-profile/update/${userId.toString()}`, formData); 
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
 
 };
 

@@ -67,3 +67,11 @@
 .clip-circle {
     clip-path: circle(60px at center);
 }
+
+.content-page>.profile-content{
+    position: absolute;
+    z-index: 2;
+    top: 8rem;
+    left: 10%;
+    right: 20%;
+}
