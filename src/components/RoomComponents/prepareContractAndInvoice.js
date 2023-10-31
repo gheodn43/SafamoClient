@@ -6,17 +6,29 @@ import GenerateContractDocument from '../ContractComponents/generateContractDocu
 import roomService from '../../services/roomService';
 import userService from '../../services/userService';
 import requestDetailService from '../../services/requestDetailService';
-import { useDispatch } from 'react-redux'; 
+import { useDispatch } from 'react-redux';
 import { setContractCreationDate, setContractEndDate, setDurationTime, setRoomId, setPartyAId, setPartyBId } from '../../redux/slices/rentRoomSlice';
+
 
 const PrepareContractAndInvoice = () => {
     const dispatch = useDispatch();
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const [error, setError] = useState('');
+
+    const villa_rental_contract = 'abc.docx'
+    const apartment_rental_contract = 'http://res.cloudinary.com/dlsvhqtfp/raw/upload/v1698739722/Cloudinary-React/tiyvtlhhqlisthtxdey6.docx'
+    const fullhouse_rental_contract = 'abc.docx'
+    const [isCustomTemplate, setIsCustomTemplate] = useState(false);
+    const [selectedTemplate, setSelectedTemplate] = useState("");
+
+
+
     const room_id = queryParams.get('room_id');
     const user_id = queryParams.get('user_id');
     const requestId = queryParams.get('requestId');
+
+
 
     const [roomInfo, setRoomInfo] = useState(null);
     const [request, setRequest] = useState(null);
@@ -86,7 +98,6 @@ const PrepareContractAndInvoice = () => {
     } else if (duarationTime === "1 Năm") {
         durationTime = 12;
     } else {
-        // Xử lý khi không khớp với các giá trị trên
         durationTime = 0; // Hoặc một giá trị mặc định khác
     }
     const today = new Date();
@@ -130,58 +141,105 @@ const PrepareContractAndInvoice = () => {
     const partyB_cccd = partyB.cccd !== null ? partyB.cccd : 'invalid';
     const partyB_address = partyB.address !== null ? partyB.address : 'invalid';
 
-
+    const handleSelectChange = (event) => {
+        const value = event.target.value;
+        if (value === "") {
+            setIsCustomTemplate(true);
+        } else {
+            setIsCustomTemplate(false);
+            setSelectedTemplate(value);
+        }
+    };
 
     return (
         <BaseLayout>
             <div className='container'>
-                <p>Room ID: {room_id}</p>
-                <p>User ID: {user_id}</p>
-                <p>Request ID: {requestId}</p>
                 <div>
-                    <h2>Upload a file</h2>
-                    <div {...getRootProps()} className="dropzone">
-                        <input {...getInputProps()} />
-                        <p className="centered-text">
-                            {uploadedFile ? `File selected: ${uploadedFile.name}` : 'Kéo thả file .docx hoặc click để chọn file'}
-                        </p>
+                    <div className='row'><h3>Tạo cam kết thuê</h3></div>
+                    <div className="input-group mb-3">
+                        <select className="custom-select" id="inputGroupSelect02" onChange={handleSelectChange}>
+                            <option selected>Chọn mẫu cam kết thuê ...</option>
+                            <option value={villa_rental_contract}>Biệt thự</option>
+                            <option value={apartment_rental_contract}>Căn hộ</option>
+                            <option value={fullhouse_rental_contract}>Nhà nguyên căn</option>
+                            <option value="">Tạo cam kết với mẫu của tôi</option>
+                        </select>
                     </div>
-                    {uploadedFile &&
-                        <GenerateContractDocument
-                            uploadedFile={uploadedFile}
-                            property_name={property_name}
-                            property_address={property_address}
+                    {isCustomTemplate && (
+                        <div>
+                            <div {...getRootProps()} className="dropzone">
+                                <input {...getInputProps()} />
+                                <p className="centered-text">
+                                    {uploadedFile ? `File selected: ${uploadedFile.name}` : 'Upload mẫu cam kết của bạn tại đây'}
+                                </p>
+                            </div>
+                            {uploadedFile &&
+                                <GenerateContractDocument
+                                    uploadedFile={uploadedFile}
+                                    property_name={property_name}
+                                    property_address={property_address}
 
-                            room_name={room_name}
-                            maximum_quantity={maximum_quantity}
-                            room_price={room_price}
-                            acreage={acreage}
+                                    room_name={room_name}
+                                    maximum_quantity={maximum_quantity}
+                                    room_price={room_price}
+                                    acreage={acreage}
 
-                            duarationTime={duarationTime}
-                            contract_creation_date={contract_creation_date}
-                            contract_end_date={contract_end_date}
+                                    duarationTime={duarationTime}
+                                    contract_creation_date={contract_creation_date}
+                                    contract_end_date={contract_end_date}
 
-                            partyA_fullname={partyA_fullname}
-                            partyA_birthdate={partyA_birthdate}
-                            partyA_phone_number={partyA_phone_number}
-                            partyA_cccd={partyA_cccd}
-                            partyA_address={partyA_address}
+                                    partyA_fullname={partyA_fullname}
+                                    partyA_birthdate={partyA_birthdate}
+                                    partyA_phone_number={partyA_phone_number}
+                                    partyA_cccd={partyA_cccd}
+                                    partyA_address={partyA_address}
 
-                            partyB_fullname={partyB_fullname}
-                            partyB_birthdate={partyB_birthdate}
-                            partyB_phone_number={partyB_phone_number}
-                            partyB_cccd={partyB_cccd}
-                            partyB_address={partyB_address}
-
-                        />}
-                    <div className='row'>
-                        <div className='col'>
-                            <button className='btn btn-secondary' onClick={handleGoBack}>Quay lại</button>
+                                    partyB_fullname={partyB_fullname}
+                                    partyB_birthdate={partyB_birthdate}
+                                    partyB_phone_number={partyB_phone_number}
+                                    partyB_cccd={partyB_cccd}
+                                    partyB_address={partyB_address}
+                                />}
                         </div>
-                        <div className='col text-right'>
-                            <button className='btn btn-success' onClick={() => handleAccept(requestId, contractLink)}>Xác nhận và gửi</button>
+                    )}
+                    {(selectedTemplate && !isCustomTemplate) && (
+                        // <div className='row'>
+                        //     <div className='col'>
+                        //         <button className='btn btn-secondary' onClick={handleGoBack}>Quay lại</button>
+                        //     </div>
+                        //     <div className='col text-right'>
+                        //         <button className='btn btn-success' onClick={() => handleAccept(requestId, contractLink)}>Xác nhận và gửi</button>
+                        //     </div>
+                        // </div>
+                        <div className='row'>
+                            <GenerateContractDocument
+                                    docxFileUrl={selectedTemplate}
+                                    property_name={property_name}
+                                    property_address={property_address}
+
+                                    room_name={room_name}
+                                    maximum_quantity={maximum_quantity}
+                                    room_price={room_price}
+                                    acreage={acreage}
+
+                                    duarationTime={duarationTime}
+                                    contract_creation_date={contract_creation_date}
+                                    contract_end_date={contract_end_date}
+
+                                    partyA_fullname={partyA_fullname}
+                                    partyA_birthdate={partyA_birthdate}
+                                    partyA_phone_number={partyA_phone_number}
+                                    partyA_cccd={partyA_cccd}
+                                    partyA_address={partyA_address}
+
+                                    partyB_fullname={partyB_fullname}
+                                    partyB_birthdate={partyB_birthdate}
+                                    partyB_phone_number={partyB_phone_number}
+                                    partyB_cccd={partyB_cccd}
+                                    partyB_address={partyB_address}
+                                />
                         </div>
-                    </div>
+                    )}
                 </div>
             </div>
         </BaseLayout>
