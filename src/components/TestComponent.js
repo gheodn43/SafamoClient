@@ -1,14 +1,13 @@
 import React, {useState} from 'react';
-import BaseLayout from './layoutComponents/BaseLayout';
-import StarRating from './Test/starRating';
+import DocxFileUpload from './Test/uploadDocxFile';
 const Test = () => {
+  const handleDocxUpload = (docxUrl) => {
+    console.log("DOCX uploaded:", docxUrl);
+  };
   return (
-    <BaseLayout>
-      <div>
-      <StarRating value={3.6} />
-      <StarRating value={3.8} />
+      <div className="container">
+        <DocxFileUpload onDocxUpload={handleDocxUpload} />
       </div>
-    </BaseLayout>
   );
 };
 
