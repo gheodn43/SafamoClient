@@ -140,9 +140,9 @@ const RoomValidDetail = () => {
                                 <StarRating value={room.ratingStar} />
                                 <p><i className="fa fa-map-marker" aria-hidden="true"></i>Địa chỉ: {room.address}</p>
                                 <p><i className="fa fa-info"></i> Mô tả: {room.description}</p>
-                                <p><i class="fa fa-arrows-alt" aria-hidden="true"></i> Diện tích: {room.acreage} m²</p>
-                                <p><i class="fa fa-money" aria-hidden="true"></i>Giá thuê: {room.price} VND/tháng</p>
-                                <p><i class="fa fa-male" aria-hidden="true"></i>Số người tối đa: {room.maxQuantity}</p>
+                                <p><i className="fa fa-arrows-alt" aria-hidden="true"></i> Diện tích: {room.acreage} m²</p>
+                                <p><i className="fa fa-money" aria-hidden="true"></i>Giá thuê: {room.price} VND/tháng</p>
+                                <p><i className="fa fa-male" aria-hidden="true"></i>Số người tối đa: {room.maxQuantity}</p>
                             </div>
                         ) : (
                             <p>Đang tải thông tin phòng...</p>
@@ -171,7 +171,7 @@ const RoomValidDetail = () => {
                     )}
                 </div>
                 {isRentalRequested ? (
-                    <div class="alert alert-info row" role="alert" style={{ position: "absolute", width: "30%", right: 0 }}>
+                    <div className="alert alert-info row" role="alert" style={{ position: "absolute", width: "30%", right: 0 }}>
                         <span>Yêu cầu đã được gửi đến chủ trọ</span>
                         <button type="button" className="btn btn-outline-secondary"
                             onClick={handleViewRequestStatus} >Xem trạng thái y/c !</button>
@@ -190,20 +190,20 @@ const RoomValidDetail = () => {
                                 </button>
                             </div>
                             <div className="modal-body">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="3 Tháng"
+                                <div className="form-check form-check-inline">
+                                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="3 Tháng"
                                         checked={duarationTime === '3 Tháng'} onChange={handleRadioChange} />
-                                    <label class="form-check-label" for="inlineRadio1">3 Tháng </label>
+                                    <label className="form-check-label" for="inlineRadio1">3 Tháng </label>
                                 </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="6 Tháng"
+                                <div className="form-check form-check-inline">
+                                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="6 Tháng"
                                         checked={duarationTime === '6 Tháng'} onChange={handleRadioChange} />
-                                    <label class="form-check-label" for="inlineRadio2">6 Tháng</label>
+                                    <label className="form-check-label" for="inlineRadio2">6 Tháng</label>
                                 </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="1 Năm"
+                                <div className="form-check form-check-inline">
+                                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="1 Năm"
                                         checked={duarationTime === '1 Năm'} onChange={handleRadioChange} />
-                                    <label class="form-check-label" for="inlineRadio3">1 Năm </label>
+                                    <label className="form-check-label" for="inlineRadio3">1 Năm </label>
                                 </div>
                             </div>
                             <div className='modal-body container'>

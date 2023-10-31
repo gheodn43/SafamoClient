@@ -22,15 +22,15 @@ const Footer = () => {
               <i className="fa fa-facebook"></i>
             </span>
             
-            <span class="logo-footer">
+            <span className="logo-footer">
               <i className="fa fa-instagram"></i>
             </span>
 
-            <span class="logo-footer">
+            <span className="logo-footer">
               <i className="fa fa-envelope"></i>
             </span>
 
-            <span class="logo-footer">
+            <span className="logo-footer">
               <i className="fa fa-twitter"></i>
             </span>
           </div>

@@ -113,7 +113,7 @@ function RoomSearch({ rooms, tagSuggestions }) {
     <div>
       {/* <div>
         <input
-          class="form-control form-control-sm"
+          "className=form-control form-control-sm"
           type="text"
           placeholder="Tìm kiếm phòng theo số phòng"
           value={searchTerm}
@@ -141,8 +141,8 @@ function RoomSearch({ rooms, tagSuggestions }) {
                 value={tagSearch}
                 onChange={handleTagSearchChange}
               />
-              <button type="button" class="btn btn-outline-light" onClick={handleSearch}>
-                <i class="fa fa-search" style={{ color: "#000205" }}></i>
+              <button type="button" className="btn btn-outline-light" onClick={handleSearch}>
+                <i className="fa fa-search" style={{ color: "#000205" }}></i>
               </button>
             </div>
             <div className='row'>
@@ -161,12 +161,12 @@ function RoomSearch({ rooms, tagSuggestions }) {
           <div className='row container'>
             <p className="text-muted">Tìm kiếm theo khoản giá</p>
           </div>
-          <div class="row">
+          <div className="row">
             <div className='col-md-6'>
-              <input class="form-control " type="number" id="minPrice" onChange={e => { setMinPrice(e.target.value); filterRooms(e.target.value, maxPrice); }} placeholder="Giá tối thiểu:" />
+              <input className="form-control " type="number" id="minPrice" onChange={e => { setMinPrice(e.target.value); filterRooms(e.target.value, maxPrice); }} placeholder="Giá tối thiểu:" />
             </div>
             <div className='col-md-6'>
-              <input class="form-control " type="number" id="maxPrice" onChange={e => { setMaxPrice(e.target.value); filterRooms(minPrice, e.target.value); }} placeholder="Giá tối đa:" />
+              <input className="form-control " type="number" id="maxPrice" onChange={e => { setMaxPrice(e.target.value); filterRooms(minPrice, e.target.value); }} placeholder="Giá tối đa:" />
             </div>
           </div>
         </div>
@@ -204,11 +204,11 @@ function RoomSearch({ rooms, tagSuggestions }) {
         </div>
       ) : (
         <div className='justify-content-end' style={{ margin: "10px" }}>
-          <div class="list-group" id="list-tab" role="tablist">
+          <div className="list-group" id="list-tab" role="tablist">
             {sortedRooms.map((room) => (
               <a
                 key={room.room_id}
-                class="list-group-item list-group-item-action "
+                className="list-group-item list-group-item-action "
                 id="list-home-list"
                 data-toggle="list"
                 href="#list-home"

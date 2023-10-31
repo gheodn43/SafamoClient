@@ -136,7 +136,7 @@ const RoomDetail = () => {
                                         <td>
                                             {request.requestStatus === "Đã từ chối" ? (
                                                 <button className='btn btn-danger' onClick={() => handleDeleteRequest(request.id)}>
-                                                    <i class="fa fa-trash" aria-hidden="true"></i>Xóa</button>
+                                                    <i className="fa fa-trash" aria-hidden="true"></i>Xóa</button>
                                             ) : (
                                                 <>
                                                     <button className='btn btn-primary' onClick={() => handleAcceptRequest(request.user_id, request.room_id, request.id)}>Chấp nhận</button>
@@ -162,17 +162,17 @@ const RoomDetail = () => {
                     </div>
                     <div className='col-md-4 d-flex justify-content-around'>
                         <button className='btn btn-info' >
-                            <i class="fa fa-pen"></i>
+                            <i className="fa fa-pen"></i>
                             Chỉnh sửa thông tin
                         </button>
                         {isLocked ? (
                             <button className='btn btn-secondary' onClick={handleUnlockRoom}>
-                                <i class="fa fa-unlock" aria-hidden="true"></i>
+                                <i className="fa fa-unlock" aria-hidden="true"></i>
                                 Mở khóa phòng này
                             </button>
                         ) : (
                             <button className='btn btn-primary' onClick={handleLockRoom}>
-                                <i class="fa fa-lock"></i>
+                                <i className="fa fa-lock"></i>
                                 Tạm khóa phòng này
                             </button>
                         )}

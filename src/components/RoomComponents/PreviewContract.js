@@ -127,8 +127,8 @@ const PreviewContract = () => {
 
                 <div className='container'>
                     <h5>Thanh toán lần đầu</h5>
-                    <table class="table">
-                        <thead class="thead-dark">
+                    <table className="table">
+                        <thead className="thead-dark">
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Khoản thanh toán</th>
@@ -158,31 +158,31 @@ const PreviewContract = () => {
                             </tr>
                         </tbody>
                     </table>
-                    <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" checked disabled />
-                        <label class="form-check-label" for="exampleRadios3">
+                    <div className="form-check disabled">
+                        <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" checked disabled />
+                        <label className="form-check-label" for="exampleRadios3">
                             Thanh toán khi gặp chủ nhà
                         </label>
                     </div>
 
-                    <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" disabled />
-                        <label class="form-check-label" for="exampleRadios1">
+                    <div className="form-check disabled">
+                        <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" disabled />
+                        <label className="form-check-label" for="exampleRadios1">
                             Thanh toán bằng VNPay
                         </label>
                     </div>
                 </div>
 
                 <div className='container'>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
+                    <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="checkbox" id="inlineCheckbox1"
                             value="option1"
                             checked={isChecked}
                             onChange={() => {
                                 setIsChecked(!isChecked);
                                 setShowAlert(false);
                             }} />
-                        <label class="form-check-label" for="inlineCheckbox1">Xác nhận ký và đồng ý các điều khoản trong hợp đồng</label>
+                        <label className="form-check-label" for="inlineCheckbox1">Xác nhận ký và đồng ý các điều khoản trong hợp đồng</label>
                     </div>
                     {showAlert && (
                         <div className="alert alert-danger" role="alert">

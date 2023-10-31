@@ -92,19 +92,19 @@ const Profile = () => {
                         <div className='status-color'></div>
                     </div>
                     <div className='profile-edit row'>
-                        <button type="button" class="btn btn-outline-primary" onClick={handleOpen}>
+                        <button type="button" className="btn btn-outline-primary" onClick={handleOpen}>
                             Chỉnh sửa thông tin
-                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                            <i className="fa fa-pencil" aria-hidden="true"></i>
                         </button>
                     </div>
                     <div className='profile-content container'>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">{userProfile.fullname}</li>
-                            <li class="list-group-item">{userProfile.birthdate}</li>
-                            <li class="list-group-item">{userProfile.cccd}</li>
-                            <li class="list-group-item">{userProfile.phone_number}</li>
-                            <li class="list-group-item">{userProfile.email}</li>
-                            <li class="list-group-item">{userProfile.address}</li>
+                        <ul className="list-group list-group-flush">
+                            <li className="list-group-item">{userProfile.fullname}</li>
+                            <li className="list-group-item">{userProfile.birthdate}</li>
+                            <li className="list-group-item">{userProfile.cccd}</li>
+                            <li className="list-group-item">{userProfile.phone_number}</li>
+                            <li className="list-group-item">{userProfile.email}</li>
+                            <li className="list-group-item">{userProfile.address}</li>
                         </ul>
                     </div>
                 </div>
@@ -180,12 +180,12 @@ const Profile = () => {
                                         onChange={handleInputChange}
                                     />
                                 </div>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <span><label >Địa chỉ chính xác</label></span>
                                     <span><small><label >(Bao gồm thông tin về Thành phố, phường, xã)</label></small></span>
                                     <input
                                         type="text"
-                                        class="form-control"
+                                        className="form-control"
                                         aria-describedby="emailHelp"
                                         placeholder="Địa chỉ chính xác"
                                         name="address"

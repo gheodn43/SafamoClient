@@ -71,7 +71,7 @@ const AddressService = ({ onCitySelect, onDistrictSelect, onWardSelect }) => {
         <div className="row">
             <div className='form-group col-md-5'>
                 <label>Thành phố</label>
-                <select class="form-control" id="city-province" onChange={handleChangeProvince}>
+                <select className="form-control" id="city-province" onChange={handleChangeProvince}>
                     <option value="0">&nbsp;Chọn Tỉnh/Thành Phố...</option>
                     <option value="01">&nbsp;Thành phố Hà Nội</option>
                     <option value="79">&nbsp;Thành phố Hồ Chí Minh</option>

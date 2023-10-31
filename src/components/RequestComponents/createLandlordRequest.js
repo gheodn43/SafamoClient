@@ -60,7 +60,7 @@ const CreateLandlordRequest = () => {
                 
                 <textarea
                     id="description"
-                    class="form-control" rows="3"
+                    className="form-control" rows="3"
                     name="description"
                     value={landlordRequest.description}
                     onChange={handleDescriptionChange}
