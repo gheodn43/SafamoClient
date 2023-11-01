@@ -135,6 +135,7 @@ const PrepareContractAndInvoice = () => {
     const partyA_address = partyA.address !== null ? partyA.address : 'invalid';
 
 
+    const partyB_id = partyB.userId;
     const partyB_fullname = partyB.fullname !== null ? partyB.fullname : 'invalid';
     const partyB_birthdate = partyB.birthdate !== null ? partyB.birthdate : 'invalid';
     const partyB_phone_number = partyB.phone_number !== null ? partyB.phone_number : 'invalid';
@@ -179,6 +180,7 @@ const PrepareContractAndInvoice = () => {
                                     property_name={property_name}
                                     property_address={property_address}
 
+                                    room_id={room_id}
                                     room_name={room_name}
                                     maximum_quantity={maximum_quantity}
                                     room_price={room_price}
@@ -188,12 +190,14 @@ const PrepareContractAndInvoice = () => {
                                     contract_creation_date={contract_creation_date}
                                     contract_end_date={contract_end_date}
 
+                                    partyA_id={user_id}
                                     partyA_fullname={partyA_fullname}
                                     partyA_birthdate={partyA_birthdate}
                                     partyA_phone_number={partyA_phone_number}
                                     partyA_cccd={partyA_cccd}
                                     partyA_address={partyA_address}
 
+                                    partyB_id={partyB_id}
                                     partyB_fullname={partyB_fullname}
                                     partyB_birthdate={partyB_birthdate}
                                     partyB_phone_number={partyB_phone_number}
@@ -203,41 +207,36 @@ const PrepareContractAndInvoice = () => {
                         </div>
                     )}
                     {(selectedTemplate && !isCustomTemplate) && (
-                        // <div className='row'>
-                        //     <div className='col'>
-                        //         <button className='btn btn-secondary' onClick={handleGoBack}>Quay lại</button>
-                        //     </div>
-                        //     <div className='col text-right'>
-                        //         <button className='btn btn-success' onClick={() => handleAccept(requestId, contractLink)}>Xác nhận và gửi</button>
-                        //     </div>
-                        // </div>
                         <div className='row'>
                             <GenerateContractDocument
-                                    docxFileUrl={selectedTemplate}
-                                    property_name={property_name}
-                                    property_address={property_address}
+                                docxFileUrl={selectedTemplate}
+                                property_name={property_name}
+                                property_address={property_address}
 
-                                    room_name={room_name}
-                                    maximum_quantity={maximum_quantity}
-                                    room_price={room_price}
-                                    acreage={acreage}
+                                room_id={room_id}
+                                room_name={room_name}
+                                maximum_quantity={maximum_quantity}
+                                room_price={room_price}
+                                acreage={acreage}
 
-                                    duarationTime={duarationTime}
-                                    contract_creation_date={contract_creation_date}
-                                    contract_end_date={contract_end_date}
+                                duarationTime={duarationTime}
+                                contract_creation_date={contract_creation_date}
+                                contract_end_date={contract_end_date}
 
-                                    partyA_fullname={partyA_fullname}
-                                    partyA_birthdate={partyA_birthdate}
-                                    partyA_phone_number={partyA_phone_number}
-                                    partyA_cccd={partyA_cccd}
-                                    partyA_address={partyA_address}
+                                partyA_id={user_id}
+                                partyA_fullname={partyA_fullname}
+                                partyA_birthdate={partyA_birthdate}
+                                partyA_phone_number={partyA_phone_number}
+                                partyA_cccd={partyA_cccd}
+                                partyA_address={partyA_address}
 
-                                    partyB_fullname={partyB_fullname}
-                                    partyB_birthdate={partyB_birthdate}
-                                    partyB_phone_number={partyB_phone_number}
-                                    partyB_cccd={partyB_cccd}
-                                    partyB_address={partyB_address}
-                                />
+                                partyB_id={partyB_id}
+                                partyB_fullname={partyB_fullname}
+                                partyB_birthdate={partyB_birthdate}
+                                partyB_phone_number={partyB_phone_number}
+                                partyB_cccd={partyB_cccd}
+                                partyB_address={partyB_address}
+                            />
                         </div>
                     )}
                 </div>

@@ -4,11 +4,16 @@ import Docxtemplater from 'docxtemplater';
 import PizZip from 'pizzip';
 import { saveAs } from 'file-saver';
 
+import DocxFileUpload from '../Test/uploadDocxFile';
+import ContractService from '../../services/contractService';
+import A4 from '../../assets/images/A4.png';
+
 const GenerateContractDocument = ({
   uploadedFile,
   docxFileUrl,
   property_name,
   property_address,
+  room_id,
   room_name,
   maximum_quantity,
   room_price,
@@ -16,17 +21,22 @@ const GenerateContractDocument = ({
   duarationTime,
   contract_creation_date,
   contract_end_date,
+  partyA_id,
   partyA_fullname,
   partyA_birthdate,
   partyA_phone_number,
   partyA_cccd,
   partyA_address,
+  partyB_id,
   partyB_fullname,
   partyB_birthdate,
   partyB_phone_number,
   partyB_cccd,
   partyB_address,
 }) => {
+  const [isGenerated, setIsGenerated] = useState(false);
+  const [res, setRes] = useState('');
+  const [contractLink, setContractLinl] =useState(null);
   const generateDocument = async () => {
     const handleFileContent = (content) => {
       var zip = new PizZip(content);
@@ -78,12 +88,14 @@ const GenerateContractDocument = ({
         handleFileContent(content);
       };
       fileReader.readAsArrayBuffer(uploadedFile);
+      setIsGenerated(true);
     } else if (docxFileUrl) {
       // Nếu có liên kết tải tệp trực tuyến
       try {
         const response = await axios.get(docxFileUrl, { responseType: 'arraybuffer' });
         const content = response.data;
         handleFileContent(content);
+        setIsGenerated(true);
       } catch (error) {
         console.error('Lỗi khi tải tệp DOCX trực tuyến:', error);
       }
@@ -92,11 +104,50 @@ const GenerateContractDocument = ({
     }
   };
 
+  const handleDocxUpload = async (docxUrl) => {
+    const rentRoomInfo = {
+      contractCreationDate: contract_creation_date,
+      contractEndDate: contract_end_date,
+      durationTime: duarationTime,
+      room_id: room_id,
+      partyA_id: partyA_id,
+      partyB_id: partyB_id,
+      contractLink: docxUrl,
+  };
+    const response = ContractService.generateContract(rentRoomInfo);
+    if(response){
+      setRes(response);
+      setContractLinl(docxUrl);
+    }
+
+  };
+  
   return (
-    <div className="p-2 text-right">
-      <button className="btn btn-primary" onClick={generateDocument}>
-        Tạo hợp đồng
+    <div className='container'>
+      <div className='row'>
+      <button className="btn btn-primary btn-lg btn-block" onClick={generateDocument}>
+        Tạo cam kết thuê
       </button>
+      </div>
+      {isGenerated && (
+        <div className='container'>
+          <DocxFileUpload onDocxUpload={handleDocxUpload} />
+        </div>
+      )}
+      {contractLink ? (
+              <div className='row d-flex justify-content-center'>
+              <a
+                href={contractLink} 
+                target="_blank"
+                style={{textAlign: 'center'}}
+              >
+                <img src={A4} alt='cam ket thue nha' />
+                <p>Bản cam kết thuê phòng</p>
+              </a>
+            </div>
+      ): (
+        <div></div>
+      )}
     </div>
   );
 };

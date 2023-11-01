@@ -103,7 +103,7 @@ const PreviewContract = () => {
             const rentRoom_id = await RentRoomService.joinRoom(roomid);
             setRentRoomId(rentRoom_id);
             if(rentRoom_id){
-                await ContractService.generateContract(rentRoom_id, rentRoom);
+                await ContractService.generateContract( rentRoom);
                 await requestDetailService.deleteRentalReqAfterJoinRoom(requestId);
                 await roomService.changeStatusRoomIsRenting(roomid);
                 setIsConfirmed(true);
