@@ -35,8 +35,8 @@ const GenerateContractDocument = ({
   partyB_address,
 }) => {
   const [isGenerated, setIsGenerated] = useState(false);
-  const [res, setRes] = useState('');
-  const [contractLink, setContractLinl] =useState(null);
+  const [contractId, setContractId] = useState('');
+  const [contractLink, setContractLinl] = useState(null);
   const generateDocument = async () => {
     const handleFileContent = (content) => {
       var zip = new PizZip(content);
@@ -113,21 +113,21 @@ const GenerateContractDocument = ({
       partyA_id: partyA_id,
       partyB_id: partyB_id,
       contractLink: docxUrl,
-  };
+    };
     const response = ContractService.generateContract(rentRoomInfo);
-    if(response){
-      setRes(response);
+    if (response) {
+      setContractId(response);
       setContractLinl(docxUrl);
     }
 
   };
-  
+
   return (
     <div className='container'>
       <div className='row'>
-      <button className="btn btn-primary btn-lg btn-block" onClick={generateDocument}>
-        Tạo cam kết thuê
-      </button>
+        <button className="btn btn-primary btn-lg btn-block" onClick={generateDocument}>
+          Tạo cam kết thuê
+        </button>
       </div>
       {isGenerated && (
         <div className='container'>
@@ -135,17 +135,22 @@ const GenerateContractDocument = ({
         </div>
       )}
       {contractLink ? (
-              <div className='row d-flex justify-content-center'>
-              <a
-                href={contractLink} 
-                target="_blank"
-                style={{textAlign: 'center'}}
-              >
-                <img src={A4} alt='cam ket thue nha' />
-                <p>Bản cam kết thuê phòng</p>
-              </a>
-            </div>
-      ): (
+        <div>
+          <div className='row d-flex justify-content-center'>
+            <a
+              href={contractLink}
+              target="_blank"
+              style={{ textAlign: 'center' }}
+            >
+              <img src={A4} alt='cam ket thue nha' />
+              <p>Bản cam kết thuê phòng</p>
+            </a>
+          </div>
+          <div className='row'>
+            
+          </div>
+        </div>
+      ) : (
         <div></div>
       )}
     </div>
