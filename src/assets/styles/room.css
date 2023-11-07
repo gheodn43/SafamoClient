@@ -1,0 +1,10 @@
+.map_render_rooms,
+.room_preview {
+    border: solid 3px rgba(53, 138, 243, 0.545);
+    border-radius: 10px;
+    max-height: 500px;
+
+}
+.room_preview {
+    overflow: auto;
+}

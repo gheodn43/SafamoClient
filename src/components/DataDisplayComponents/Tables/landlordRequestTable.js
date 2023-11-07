@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import apiGetListService from '../../../services/listService';
+import requestDetailService from '../../../services/requestDetailService';
 import { useNavigate } from 'react-router-dom';
 const LanlordRequestTable = () => {
   const [requests, setRequests] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
     // Gọi hàm rentalRequestsForAdmin để lấy danh sách yêu cầu
-    apiGetListService.rentalRequestsForAdmin()
+    requestDetailService.requestsForAdmin()
       .then(data => {
         setRequests(data);
       })

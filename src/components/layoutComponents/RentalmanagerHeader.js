@@ -12,7 +12,7 @@ const RentalmanagerHeader = () => {
     };
     const storedUsername = localStorage.getItem('username');
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{ width: '100%' }}>
+        <nav className=" header navbar navbar-expand-lg navbar-light bg-light" style={{ width: '100%' }}>
             <Link to="/rental_manage" className="navbar-brand">
                 <img src={logoImage} alt="Safamo Logo" style={{ width: '150px', height: 'auto' }} />
             </Link>
@@ -29,12 +29,17 @@ const RentalmanagerHeader = () => {
                         </NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink to="/rental_manage/requests" className="nav-link" activeClassName="active">
-                            Yêu cầu
+                        <NavLink to="/rental_manage/request" className="nav-link" activeClassName="active">
+                            Yêu cầu đã gửi
                         </NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink to="/myRoom" className="nav-link" activeClassName="active">
+                        <NavLink to="/rental_manage/request-receive" className="nav-link" activeClassName="active">
+                            Yêu cầu nhận về
+                        </NavLink>
+                    </li>
+                    <li className="nav-item">
+                        <NavLink to="/rental_manage/my-rooms" className="nav-link" activeClassName="active">
                             Phòng của tôi
                         </NavLink>
                     </li>

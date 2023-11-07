@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import authService from '../../services/authService';
 import logoImage from '../../assets/images/safamo.png';
+
 const Register = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -16,6 +17,7 @@ const Register = () => {
         height: 'auto',
     };
     const [error, setError] = useState(null); // Trạng thái lưu thông báo lỗi
+    const [isLoading, setIsLoading] = useState(false); // Trạng thái tải dữ liệu
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -24,24 +26,36 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true); // Bắt đầu hiển thị loading
+
+        if (formData.password !== formData.confirmPassword) {
+            setError("Mật khẩu và xác nhận mật khẩu không khớp.");
+            setIsLoading(false); // Kết thúc hiển thị loading
+            return;
+        }
+
+        if (!/^(?=.*[A-Z]).{6,12}$/.test(formData.password)) {
+            setError("Mật khẩu phải có ít nhất 1 ký tự viết hoa và từ 6 đến 12 ký tự.");
+            setIsLoading(false); // Kết thúc hiển thị loading
+            return;
+        }
+
         try {
             console.log(formData);
-            // Gọi hàm otpAuthentication trong authService để xử lý API
             const message = await authService.otpAuthentication(formData.email, formData.username);
-            console.log(message); // Log thông báo từ API
-
-            // Chuyển hướng đến /confirm-otp
             navigate('/confirm-otp', { state: formData });
         } catch (error) {
             console.error(error);
             if (error.response && error.response.status === 400) {
-                // Nếu có lỗi status 400, lấy thông báo lỗi từ response và cập nhật state error
                 setError(error.response.data);
             } else {
-                setError('Có lỗi xảy ra. Vui lòng thử lại sau.'); // Hoặc thông báo lỗi tổng quát
+                setError('Thông tin đăng ký đã được sử dụng');
             }
+        } finally {
+            setIsLoading(false); // Kết thúc hiển thị loading
         }
     };
+
     return (
         <div className="container">
             <div className='row justify-content-center mt-5'>
@@ -101,7 +115,9 @@ const Register = () => {
                                         required
                                     />
                                 </div>
-                                <button type="submit" className="btn btn-primary btn-block">Đăng ký</button>
+                                <button type="submit" className="btn btn-primary btn-block" disabled={isLoading}>
+                                    {isLoading ? 'Đang tải...' : 'Đăng ký'}
+                                </button>
                                 {error && <p className="mt-3 text-center text-danger">{error}</p>}
                             </form>
                             <p className="mt-3 text-center">Bạn đã có tài khoản? <a href="/login">Đăng nhập</a></p>

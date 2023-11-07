@@ -1,16 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import draftRentalPicture from '../../../assets/images/draftRentalPicture.png'
-const RoomCardOwner = ({ imageUrls, roomName, roomStatus, tags, roomPrice }) => {
+import TagCardIntoRoom from './TagCardIntoRoom';
+import StarRating from '../../Test/starRating';
+const RoomCardOwner = ({ imageUrls, roomName, roomStatus, tags, roomPrice, roomId, ratingRult, rentRoomId }) => {
+    const location = useLocation();
+    const isPropertyDetailPage = location.pathname.includes('/rental_manage/property_detail/');
+    const isMyRoomsPage = location.pathname.includes('/my-rooms');
+    let linkTo = isPropertyDetailPage
+        ? `/rental_manage/room-edit/${roomId}`
+        : `/rooms-for-rent/${roomId}`;
+    
+    if (isMyRoomsPage) {
+        linkTo = `/rental_manage/my-room?rent_room_Id=${rentRoomId}`;
+    }
+
     return (
-        <div className="card hover-effect" style={{ width: "18rem", margin: "20px"}}>
+        <div className="card hover-effect " style={{ width: "18rem" }}>
             <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
-                <div className="carousel-inner">
+                <div className="carousel-inner" style={{ height: "200px" }}>
                     {imageUrls.map((imageUrl, index) => (
                         <div key={index} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
                             <img
-                                className="d-block w-100"
-                                src={imageUrls.length > 0 ? imageUrl: draftRentalPicture}
-                                alt={`Slide 1`}  
+                                className="d-block w-100 h-100"
+                                src={imageUrls.length > 0 ? imageUrl : draftRentalPicture}
+                                alt={`Slide 1`}
                             />
                         </div>
                     ))}
@@ -24,16 +38,25 @@ const RoomCardOwner = ({ imageUrls, roomName, roomStatus, tags, roomPrice }) => 
                     <span className="sr-only">Next</span>
                 </a>
             </div>
-            <div className="card-body">
+            <div className={`card-body ${roomStatus === 'Đang được thuê' ? 'row-green-background' : (roomStatus === 'Đang khởi tạo hợp đồng' ? 'row-yellow-background' : '')}`}>
                 <h5 className="card-title">{roomName}</h5>
                 <p className="card-text">{roomStatus}</p>
-                <ul>
-                    {tags.map((tag, index) => (
-                        <li key={index}>{tag}</li>
-                    ))}
-                </ul>
-                <p className="card-text">Price: {roomPrice}</p>
-                <a href="#" className="btn btn-primary">Go somewhere</a>
+                <div className='row'>
+                    {
+                        tags.map((tag, index) => (
+                            <TagCardIntoRoom
+                                key={index}
+                                tagname={tag}
+                            />
+                        ))
+                    }
+                </div>
+                <p className="card-text">Giá thuê/ Tháng: {roomPrice + ' VNĐ'}</p>
+                <StarRating value={ratingRult} />
+                <Link to={linkTo} className="btn btn-primary">
+                    <i className="fa fa-eye"></i>
+                    Xem chi tiết
+                </Link>
             </div>
         </div>
     );

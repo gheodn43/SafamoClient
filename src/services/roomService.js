@@ -45,6 +45,58 @@ const roomService = {
         }
     },
 
+    viewAllRentalRequestForRoom: async (room_id) => {
+        try {
+            const response = await api.post(`/rental_manage/req_rental/get_all?room_id=${room_id.toString()}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    draftContractForRoom: async (room_id) => {
+        try {
+            const response = await api.post(`/room/draft-contract/${room_id.toString()}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    findCompound: async (room_id) => {
+        try {
+            const response = await api.post(`/room/find-compound/${room_id.toString()}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    cancelFindCompound: async (room_id) => {
+        try {
+            const response = await api.post(`/room/cancel-find-compound/${room_id.toString()}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+    changeStatusRoomIsRenting: async (room_id) => {
+        try {
+            const response = await api.post(`/room/join/${room_id.toString()}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    publicGetRoomsOfProperty: async (roomIds) => {
+        try {
+            const response = await api.post('/auth/rooms-of-property',roomIds);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
 };
 
 export default roomService;

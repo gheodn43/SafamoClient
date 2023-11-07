@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ProgressBar from '../../ProcessComponents/processComponent'
-//step1
+import AddressService from '../../../services/addressService';
+
 const PropertyBasicInfoForm = ({ propertyInfo, setPropertyInfo, onNextStep }) => {
   // State để theo dõi thông tin cơ bản của tài sản
   const [formValues, setFormValues] = useState({
@@ -9,7 +10,9 @@ const PropertyBasicInfoForm = ({ propertyInfo, setPropertyInfo, onNextStep }) =>
     unitForRent: propertyInfo.unitForRent || '',
     propertyRole: propertyInfo.propertyRole || '',
   });
-
+  const [selectedCity, setSelectedCity] = useState('');
+  const [selectedDistrict, setSelectedDistrict] = useState('');
+  const [selectedWard, setSelectedWard] = useState('');
   // Xử lý thay đổi giá trị trên form
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,10 +21,14 @@ const PropertyBasicInfoForm = ({ propertyInfo, setPropertyInfo, onNextStep }) =>
       [name]: value,
     });
   };
-
   const handleNext = () => {
     if (formValues.propertyName && formValues.address && formValues.unitForRent && formValues.propertyRole) {
-      setPropertyInfo(formValues);
+      const updatedFormValues = {
+        ...formValues,
+        address: `${selectedCity ? selectedCity + ',' : ''}${selectedDistrict ? selectedDistrict + ',' : ''}${selectedWard ? selectedWard + ', ' : ''}${formValues.address}`,
+      };
+
+      setPropertyInfo(updatedFormValues);
       onNextStep();
     } else {
       alert('Vui lòng điền đầy đủ thông tin.');
@@ -45,7 +52,14 @@ const PropertyBasicInfoForm = ({ propertyInfo, setPropertyInfo, onNextStep }) =>
           />
         </div>
         <div className="form-group">
-          <label htmlFor="address">Địa chỉ:</label>
+          <AddressService
+            onCitySelect={setSelectedCity}
+            onDistrictSelect={setSelectedDistrict}
+            onWardSelect={setSelectedWard}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="address">Số nhà tên đường:</label>
           <input
             className='form-control'
             type="text"
