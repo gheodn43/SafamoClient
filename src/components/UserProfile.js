@@ -99,7 +99,7 @@ const Profile = () => {
                     </div>
                     <div className='profile-content container'>
                         <ul className="list-group list-group-flush">
-                            <li className="list-group-item">{userProfile.fullname}</li>
+                            <li className="list-group-item">Full name: {userProfile.fullname}</li>
                             <li className="list-group-item">{userProfile.birthdate}</li>
                             <li className="list-group-item">{userProfile.cccd}</li>
                             <li className="list-group-item">{userProfile.phone_number}</li>
