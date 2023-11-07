@@ -9,8 +9,10 @@ import './assets/styles/footer.css'
 import './assets/styles/sidebar.css'
 import './assets/styles/property.css'
 import './assets/styles/room.css'
+import './assets/styles/profile.css'
 import './assets/styles/map.css'
 import './assets/styles/address.css'
+import './assets/styles/startRate.css'
 import 'react-datetime-picker/dist/DateTimePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import 'react-clock/dist/Clock.css';
@@ -20,6 +22,7 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.min.css'
 import '@maptiler/sdk/dist/maptiler-sdk.css';
+
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';

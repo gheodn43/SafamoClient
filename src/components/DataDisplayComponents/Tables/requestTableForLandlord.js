@@ -19,7 +19,7 @@ const RequestTableForLandlord = ({ requests }) => {
             <select value={filter} onChange={handleFilterChange}>
                 <option value="Chờ xét duyệt">Chờ xét duyệt</option>
                 <option value="Đã từ chối">Đã từ chối</option>
-                <option value="Đã thông qua">Đã thông qua</option>
+                <option value="Được thông qua">Đã thông qua</option>
             </select>
             <table className="table">
                 <thead>

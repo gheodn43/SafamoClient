@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate} from 'react-router-dom';
 import BaseLayout from '../layoutComponents/BaseLayout';
 import requestDetailService from '../../services/requestDetailService';
 // import { useSelector } from 'react-redux';
@@ -10,6 +10,7 @@ import ContractService from '../../services/contractService';
 
 const PreviewContract = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const queryParams = new URLSearchParams(location.search);
     const requestId = queryParams.get('requestId');
     const [isChecked, setIsChecked] = useState(false);
@@ -17,9 +18,9 @@ const PreviewContract = () => {
     const [showAlert, setShowAlert] = useState(false);
     const [request, setRequest] = useState(null);
     const [roomid, setRoomId] = useState('');
+    const [rentRoomId, setRentRoomId] = useState('')
     const [room, setRoom] = useState(null);
     const [error, setError] = useState('');
-    // const rentRoomReudx = useSelector((state) => state.rentRoom);
     const [rentRoom, setRentRoom] = useState({
         contractCreationDate: '',
         contractEndDate: '',
@@ -100,9 +101,11 @@ const PreviewContract = () => {
     const handleJoinRoom = async () => {
         if (isChecked) {
             const rentRoom_id = await RentRoomService.joinRoom(roomid);
+            setRentRoomId(rentRoom_id);
             if(rentRoom_id){
-                await ContractService.generateContract(rentRoom_id, rentRoom);
+                await ContractService.generateContract( rentRoom);
                 await requestDetailService.deleteRentalReqAfterJoinRoom(requestId);
+                await roomService.changeStatusRoomIsRenting(roomid);
                 setIsConfirmed(true);
             }
             
@@ -112,7 +115,7 @@ const PreviewContract = () => {
     };
 
     const handleGoToYourRoom = () => {
-        window.history.back();
+        navigate(`/rental_manage/my-room?rent_room_Id=${rentRoomId}`);
     };
     return (
         <BaseLayout>
@@ -124,8 +127,8 @@ const PreviewContract = () => {
 
                 <div className='container'>
                     <h5>Thanh toán lần đầu</h5>
-                    <table class="table">
-                        <thead class="thead-dark">
+                    <table className="table">
+                        <thead className="thead-dark">
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Khoản thanh toán</th>
@@ -155,31 +158,31 @@ const PreviewContract = () => {
                             </tr>
                         </tbody>
                     </table>
-                    <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" checked disabled />
-                        <label class="form-check-label" for="exampleRadios3">
+                    <div className="form-check disabled">
+                        <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" checked disabled />
+                        <label className="form-check-label" for="exampleRadios3">
                             Thanh toán khi gặp chủ nhà
                         </label>
                     </div>
 
-                    <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" disabled />
-                        <label class="form-check-label" for="exampleRadios1">
+                    <div className="form-check disabled">
+                        <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" disabled />
+                        <label className="form-check-label" for="exampleRadios1">
                             Thanh toán bằng VNPay
                         </label>
                     </div>
                 </div>
 
                 <div className='container'>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
+                    <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="checkbox" id="inlineCheckbox1"
                             value="option1"
                             checked={isChecked}
                             onChange={() => {
                                 setIsChecked(!isChecked);
                                 setShowAlert(false);
                             }} />
-                        <label class="form-check-label" for="inlineCheckbox1">Xác nhận ký và đồng ý các điều khoản trong hợp đồng</label>
+                        <label className="form-check-label" for="inlineCheckbox1">Xác nhận ký và đồng ý các điều khoản trong hợp đồng</label>
                     </div>
                     {showAlert && (
                         <div className="alert alert-danger" role="alert">

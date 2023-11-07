@@ -107,6 +107,15 @@ const requestDetailService = {
     }
   },
 
+  deletedRentalReq: async (requestId) => {
+    try {
+      const response = await api.post(`/rental_manage/req_rental/deleted?requestId=${requestId.toString()}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
   deleteRentalReqAfterJoinRoom: async (requestId) => {
     try {
       const response = await api.post(`/rental_manage/req_rental/delete?requestId=${requestId.toString()}`);
@@ -115,6 +124,8 @@ const requestDetailService = {
       throw error;
     }
   },
+
+
   
 };
 

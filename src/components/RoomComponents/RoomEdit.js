@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import BaseLayout from '../layoutComponents/BaseLayout';
 import roomService from '../../services/roomService';
 import requestDetailService from '../../services/requestDetailService';
@@ -10,13 +10,14 @@ import { useDispatch } from 'react-redux';
 
 
 const RoomDetail = () => {
+    const navigate = useNavigate();
     const { roomId } = useParams();
     const [room, setRoom] = useState(null);
     const [tags, setTags] = useState([]);
     const [rentalReqs, setRentalReqs] = useState([]);
     const [error, setError] = useState(null);
     const [isLocked, setIsLocked] = useState(false);
-    const contractLink ="";
+    const contractLink = "";
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -38,24 +39,18 @@ const RoomDetail = () => {
         }
 
         fetchData();
-    }, [roomId]);
+    }, []);
     const handleReject = async (requestId) => {
         try {
-            const data = await requestDetailService.rejectRentalReq(requestId);
-            setRentalReqs(data);
+             await requestDetailService.rejectRentalReq(requestId);
         } catch (error) {
             setError(error.message);
         }
     }
-    const handleAccept = async (requestId, contractLink) => {
-        try {
-            const data = await requestDetailService.acceptRentalReq(requestId, contractLink);
-            setRentalReqs(data);
-        } catch (error) {
-            setError(error.message);
-        }
-    };
 
+    const handleAcceptRequest = (user_id, room_id, request_id) => {
+        navigate(`/rental_manage/contract-prepare?user_id=${user_id}&room_id=${room_id}&requestId=${request_id}`);
+    };
     const handleGoBack = () => {
         window.history.back();
     };
@@ -70,6 +65,13 @@ const RoomDetail = () => {
         setIsLocked(false);
     };
 
+    const handleDeleteRequest = async (reuqestId) => {
+        try {
+            await requestDetailService.deletedRentalReq(reuqestId);
+       } catch (error) {
+           setError(error.message);
+       }
+    };
     return (
         <BaseLayout>
             <div style={{ margin: "30px" }}>
@@ -132,15 +134,22 @@ const RoomDetail = () => {
                                         <td>{request.requestStatus}</td>
                                         <td>{request.timeStamp}</td>
                                         <td>
-                                            <button className='btn btn-primary' onClick={() => handleAccept(request.id, contractLink)}>Chấp nhận</button>
-                                            <button className='btn btn-secondary' onClick={() => handleReject(request.id)}>Từ chối</button>
+                                            {request.requestStatus === "Đã từ chối" ? (
+                                                <button className='btn btn-danger' onClick={() => handleDeleteRequest(request.id)}>
+                                                    <i className="fa fa-trash" aria-hidden="true"></i>Xóa</button>
+                                            ) : (
+                                                <>
+                                                    <button className='btn btn-primary' onClick={() => handleAcceptRequest(request.user_id, request.room_id, request.id)}>Chấp nhận</button>
+                                                    <button className='btn btn-secondary' onClick={() => handleReject(request.id)}>Từ chối</button>
+                                                </>
+                                            )}
                                         </td>
                                     </tr>
-
                                 ))
                             ) : (
                                 <p>Không có yêu cầu thuê nào.</p>
                             )}
+
                         </tbody>
                     </table>
                 </div>
@@ -153,17 +162,17 @@ const RoomDetail = () => {
                     </div>
                     <div className='col-md-4 d-flex justify-content-around'>
                         <button className='btn btn-info' >
-                            <i class="fa fa-pen"></i>
+                            <i className="fa fa-pen"></i>
                             Chỉnh sửa thông tin
                         </button>
                         {isLocked ? (
                             <button className='btn btn-secondary' onClick={handleUnlockRoom}>
-                                <i class="fa fa-unlock" aria-hidden="true"></i>
+                                <i className="fa fa-unlock" aria-hidden="true"></i>
                                 Mở khóa phòng này
                             </button>
                         ) : (
                             <button className='btn btn-primary' onClick={handleLockRoom}>
-                                <i class="fa fa-lock"></i>
+                                <i className="fa fa-lock"></i>
                                 Tạm khóa phòng này
                             </button>
                         )}

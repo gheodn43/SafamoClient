@@ -1,0 +1,77 @@
+.cover-page,
+.content-page {
+    width: 100%;
+    position: relative;
+}
+
+.cover-page {
+    min-height: 120px;
+    background-color: rgb(0, 106, 255);
+    color: white;
+    
+}
+
+.content-page {
+    min-height: 500px;
+}
+
+.cover-page>.avatar {
+    margin-left: 20px;
+    position: absolute;
+    z-index: 1;
+    bottom: -60px;
+    border-radius: 50%;
+    background-color: white;
+    border: solid white 7px;
+}
+.cover-page>.profile-title {
+    position: absolute;
+    z-index: 1;
+    left: 12rem;
+    bottom: 0.3rem;
+}
+.cover-page>.profile-sub-title {
+    position: absolute;
+    z-index: 2;
+    left: 12rem;
+    bottom: 0;
+    color: #ffffffb6;
+}
+
+.content-page>.profile-status {
+    position: absolute;
+    z-index: 2;
+    left: 11rem;
+    color: gray;
+}
+.status-color{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: greenyellow;
+    margin: auto 3px;
+}
+
+.content-page>.profile-edit {
+    position: absolute;
+    z-index: 2;
+    right: 5rem;
+    color: gray;
+}
+
+.avatar>img {
+    height: 120px;
+    width: 120px;
+}
+
+.clip-circle {
+    clip-path: circle(60px at center);
+}
+
+.content-page>.profile-content{
+    position: absolute;
+    z-index: 2;
+    top: 8rem;
+    left: 10%;
+    right: 20%;
+}

@@ -68,7 +68,7 @@ const RentalRequestDetail = () => {
                         <button className='btn btn-secondary' onClick={handleGoBack}>Quay lại</button>
                     </div>
                     <div className='col text-right'>
-                        <button className='btn btn-success' onClick={handleAcceptRequest}>Chấp nhận yêu cầu thuê</button>
+                        <button className='btn btn-success' onClick={handleAcceptRequest}>Soạn cam kết thuê</button>
                         <button className='btn btn-danger' onClick={handleRejectRequest}>Từ chối yêu cầu</button>
                     </div>
                 </div>

@@ -27,6 +27,11 @@ import RentalRequestDetail from './components/RequestComponents/rentalRequestDet
 import PrepareContractAndInvoice from './components/RoomComponents/prepareContractAndInvoice';
 import PreviewContract from './components/RoomComponents/PreviewContract';
 import MyRooms from './components/RoomComponents/MyRooms';
+import MyRoomRentedDetail from './components/RoomComponents/MyRoomDetail';
+import Profile from './components/UserProfile';
+
+
+import Test from './components/TestComponent';
 function App() {
   const { roles } = authService.getUserInfo();
   return (
@@ -47,14 +52,17 @@ function App() {
             </>
           )}
           <Route path="*" element={<NotFoundPage />} />
-          <Route path="/requests/landlord_req_detail" element={<LandlordReqDetail />} />
+          <Route path="/test" element={<Test/>} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/confirm-otp" element={<ConfirmRegisterOtp />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/requests/landlord_req_detail" element={<LandlordReqDetail />} />
           <Route path="/rental_manage" element={<RentalManagerPage/>} />
           <Route path="/rental_manage/property" element={<PropertiesPage/>} />
           <Route path="/rental_manage/request" element={<RequestPage/>} />
           <Route path="/rental_manage/my-rooms" element={<MyRooms/>} />
+          <Route path="/rental_manage/my-room" element={<MyRoomRentedDetail/>} />
           <Route path="/rental_manage/request-receive" element={<RequestPage/>} />
           <Route path="/rental_manage/addProperty" element={<PropertyRegisStepper/>} />
           <Route path="/rental_manage/property_detail/:requestId" element={<CustomerPropertyDetail/>} />

@@ -8,8 +8,13 @@ import TagCardIntoRoom from '../DataDisplayComponents/Cards/TagCardIntoRoom';
 import CarouselPicture from '../DataDisplayComponents/Carousel';
 import DisplayLocation from '../MapComponents/displayRoomLocation';
 import AuthService from '../../services/authService';
-import DateTimePicker from 'react-datetime-picker';
+import dayjs from 'dayjs';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import requestDetailService from '../../services/requestDetailService';
+import StarRating from '../Test/starRating';
 import { format } from 'date-fns';
 
 const RoomValidDetail = () => {
@@ -21,24 +26,29 @@ const RoomValidDetail = () => {
     const [room, setRoom] = useState(null);
     const [tags, setTags] = useState([]);
     const [error, setError] = useState(null);
-    const [value, setValue] = useState(new Date());
     const [formattedDate, setFormattedDate] = useState('');
     const [duarationTime, setDuarationTime] = useState('');
+    const [value, setValue] = useState(dayjs());
     const isRentalRequested = useSelector((state) => state.roomRentalStatus[roomId]);
     const dispatch = useDispatch();
 
-    const handleDateChange = (newValue) => {
+    const handleDateChange = (value) => {
         if (isLoggedIn) {
-            if (newValue >= new Date()) {
-                setValue(newValue);
-                setFormattedDate(format(newValue, 'yyyy-MM-dd HH:mm'));
+            const selectedDate = value.toDate();
+            const currentDate = new Date();
+
+            if (selectedDate >= currentDate) {
+                setValue(value);
+                setFormattedDate(format(selectedDate, 'MM/dd/yyyy hh:mm'));
             } else {
+                setValue(dayjs());
                 alert('Vui lòng chọn ngày hiện tại hoặc trong tương lai.');
             }
         } else {
             navigate(`/login?returnTo=${location.pathname}`);
         }
     };
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -56,7 +66,7 @@ const RoomValidDetail = () => {
     const handleGoBack = () => {
         window.history.back();
     };
-    const handleCheckLogin = async () =>{
+    const handleCheckLogin = async () => {
         if (!isLoggedIn) {
             navigate(`/login?returnTo=${location.pathname}`);
         }
@@ -66,7 +76,7 @@ const RoomValidDetail = () => {
             if (!isRentalRequested) {
                 dispatch(setRentalStatus({ roomId, isRentalRequested: true }));
                 try {
-                    const response = await requestDetailService.sendRentaldReq(user_id, roomId,duarationTime);
+                    const response = await requestDetailService.sendRentaldReq(user_id, roomId, duarationTime);
                     console.log(response);
                 } catch (error) {
                     console.error("Error sending rental request:", error);
@@ -86,13 +96,13 @@ const RoomValidDetail = () => {
             console.error("Error cancel rental request:", error);
         }
     };
-    
+
     const handleViewRequestStatus = () => {
         navigate('/rental_manage/request');
     }
     const handleRadioChange = (event) => {
         setDuarationTime(event.target.value);
-      };
+    };
     return (
         <BaseLayout>
             <div style={{ margin: "30px" }}>
@@ -127,12 +137,12 @@ const RoomValidDetail = () => {
                                         />
                                     ))}
                                 </div>
-                                <p>Địa chỉ: {room.address}</p>
-                                <p>Mô tả: {room.description}</p>
-                                <p>Diện tích: {room.acreage} m²</p>
-                                <p>Giá thuê: {room.price} VND/tháng</p>
-                                <p>Số người tối đa: {room.maxQuantity}</p>
-                                <p>Trạng thái: {room.status}</p>
+                                <StarRating value={room.ratingStar} />
+                                <p><i className="fa fa-map-marker" aria-hidden="true"></i>Địa chỉ: {room.address}</p>
+                                <p><i className="fa fa-info"></i> Mô tả: {room.description}</p>
+                                <p><i className="fa fa-arrows-alt" aria-hidden="true"></i> Diện tích: {room.acreage} m²</p>
+                                <p><i className="fa fa-money" aria-hidden="true"></i>Giá thuê: {room.price} VND/tháng</p>
+                                <p><i className="fa fa-male" aria-hidden="true"></i>Số người tối đa: {room.maxQuantity}</p>
                             </div>
                         ) : (
                             <p>Đang tải thông tin phòng...</p>
@@ -140,34 +150,28 @@ const RoomValidDetail = () => {
                     </div>
                 </div>
 
-                <div className='row'>
-                    <div className='col-md-8'>
-                        <button className='btn btn-secondary' onClick={handleGoBack}>
-                            <i className="fa fa-arrow-left" aria-hidden="true"></i>
-                            Quay lại
-                        </button>
-                    </div>
-                    <div className='col-md-4 d-flex justify-content-around'>
-                        <button className='btn btn-info'>
-                            <DateTimePicker onChange={handleDateChange} value={value} />
-                        </button>
-                        {isRentalRequested ? (
-                            <button className='btn btn-secondary' onClick={handleCancelRentalRequest}>
-                                <i className="fa fa-paper-plane" aria-hidden="true"></i>
-                                Hủy yêu cầu thuê
-                            </button>
-                        ) : (
-                            <button className='btn btn-primary' data-toggle="modal" data-target="#durationTimeModal"
-                            onClick={handleCheckLogin}>
-                                <i className="fa fa-paper-plane" aria-hidden="true"></i>
-                                Gửi yêu cầu thuê
-                            </button>
-                        )}
+                <div className='d-flex justify-content-between'>
+                    <button className='btn btn-secondary' onClick={handleGoBack}>
+                        <i className="fa fa-arrow-left" aria-hidden="true"></i>
+                        Quay lại
+                    </button>
 
-                    </div>
+
+                    {isRentalRequested ? (
+                        <button className='btn btn-secondary' onClick={handleCancelRentalRequest}>
+                            <i className="fa fa-paper-plane" aria-hidden="true"></i>
+                            Hủy yêu cầu thuê
+                        </button>
+                    ) : (
+                        <button className='btn btn-primary' data-toggle="modal" data-target="#durationTimeModal"
+                            onClick={handleCheckLogin}>
+                            <i className="fa fa-paper-plane" aria-hidden="true"></i>
+                            Gửi yêu cầu thuê
+                        </button>
+                    )}
                 </div>
                 {isRentalRequested ? (
-                    <div class="alert alert-info row" role="alert" style={{ position: "absolute", width: "30%", right: 0 }}>
+                    <div className="alert alert-info row" role="alert" style={{ position: "absolute", width: "30%", right: 0 }}>
                         <span>Yêu cầu đã được gửi đến chủ trọ</span>
                         <button type="button" className="btn btn-outline-secondary"
                             onClick={handleViewRequestStatus} >Xem trạng thái y/c !</button>
@@ -186,27 +190,43 @@ const RoomValidDetail = () => {
                                 </button>
                             </div>
                             <div className="modal-body">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="3 Tháng"
-                                     checked={duarationTime === '3 Tháng'} onChange={handleRadioChange}/>
-                                        <label class="form-check-label" for="inlineRadio1">3 Tháng </label>
+                                <div className="form-check form-check-inline">
+                                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="3 Tháng"
+                                        checked={duarationTime === '3 Tháng'} onChange={handleRadioChange} />
+                                    <label className="form-check-label" for="inlineRadio1">3 Tháng </label>
                                 </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="6 Tháng"
-                                    checked={duarationTime === '6 Tháng'} onChange={handleRadioChange}/>
-                                        <label class="form-check-label" for="inlineRadio2">6 Tháng</label>
+                                <div className="form-check form-check-inline">
+                                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="6 Tháng"
+                                        checked={duarationTime === '6 Tháng'} onChange={handleRadioChange} />
+                                    <label className="form-check-label" for="inlineRadio2">6 Tháng</label>
                                 </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="1 Năm" 
-                                     checked={duarationTime === '1 Năm'} onChange={handleRadioChange}/>
-                                        <label class="form-check-label" for="inlineRadio3">1 Năm </label>
+                                <div className="form-check form-check-inline">
+                                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="1 Năm"
+                                        checked={duarationTime === '1 Năm'} onChange={handleRadioChange} />
+                                    <label className="form-check-label" for="inlineRadio3">1 Năm </label>
                                 </div>
+                            </div>
+                            <div className='modal-body container'>
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DemoContainer components={['DateTimePicker', 'DateTimePicker']}>
+                                        <DateTimePicker
+                                            label="Chọn ngày bạn có thể chuyển đến"
+                                            value={value}
+                                            onChange={(newValue) => {
+                                                handleDateChange(newValue);
+                                            }}
+                                        />
+                                    </DemoContainer>
+                                </LocalizationProvider>
+
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Hủy</button>
                                 <button type="button" className="btn btn-primary" onClick={handleSendRentalRequest} data-dismiss="modal">
                                     Xác nhận & gửi</button>
                             </div>
+
+
                         </div>
                     </div>
                 </div>

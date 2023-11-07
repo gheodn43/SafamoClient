@@ -119,7 +119,7 @@ const CustomerPropertyDetail = () => {
                                 />
                             </div>
                         ) : (
-                            <div class="alert alert-warning" role="alert" style={{ width: "18rem" }}>
+                            <div className="alert alert-warning" role="alert" style={{ width: "18rem" }}>
                                 BĐS đang ở trạng thái {property.status}! không thể thêm phòng.
                             </div>
                         )}
