@@ -22,8 +22,6 @@ const PrepareContractAndInvoice = () => {
     const [isCustomTemplate, setIsCustomTemplate] = useState(false);
     const [selectedTemplate, setSelectedTemplate] = useState("");
 
-
-
     const room_id = queryParams.get('room_id');
     const user_id = queryParams.get('user_id');
     const requestId = queryParams.get('requestId');
@@ -128,6 +126,7 @@ const PrepareContractAndInvoice = () => {
     const room_price = roomInfo.price;
     const acreage = roomInfo.acreage;
 
+    const partyA_id = localStorage.getItem('user_id');;
     const partyA_fullname = partyA.fullname !== null ? partyA.fullname : 'invalid';
     const partyA_birthdate = partyA.birthdate !== null ? partyA.birthdate : 'invalid';
     const partyA_phone_number = partyA.phone_number !== null ? partyA.phone_number : 'invalid';
@@ -135,7 +134,7 @@ const PrepareContractAndInvoice = () => {
     const partyA_address = partyA.address !== null ? partyA.address : 'invalid';
 
 
-    const partyB_id = partyB.userId;
+    const partyB_id = user_id;
     const partyB_fullname = partyB.fullname !== null ? partyB.fullname : 'invalid';
     const partyB_birthdate = partyB.birthdate !== null ? partyB.birthdate : 'invalid';
     const partyB_phone_number = partyB.phone_number !== null ? partyB.phone_number : 'invalid';
@@ -190,7 +189,7 @@ const PrepareContractAndInvoice = () => {
                                     contract_creation_date={contract_creation_date}
                                     contract_end_date={contract_end_date}
 
-                                    partyA_id={user_id}
+                                    partyA_id={partyA_id}
                                     partyA_fullname={partyA_fullname}
                                     partyA_birthdate={partyA_birthdate}
                                     partyA_phone_number={partyA_phone_number}
@@ -223,7 +222,7 @@ const PrepareContractAndInvoice = () => {
                                 contract_creation_date={contract_creation_date}
                                 contract_end_date={contract_end_date}
 
-                                partyA_id={user_id}
+                                partyA_id={partyA_id}
                                 partyA_fullname={partyA_fullname}
                                 partyA_birthdate={partyA_birthdate}
                                 partyA_phone_number={partyA_phone_number}
@@ -239,6 +238,9 @@ const PrepareContractAndInvoice = () => {
                             />
                         </div>
                     )}
+                    <div className='row'>
+                        
+                    </div>
                 </div>
             </div>
         </BaseLayout>
