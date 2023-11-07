@@ -38,7 +38,7 @@ const RentalmanagerHeader = () => {
                         </NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink to="/myRoom" className="nav-link" activeClassName="active">
+                        <NavLink to="/rental_manage/my-rooms" className="nav-link" activeClassName="active">
                             Phòng của tôi
                         </NavLink>
                     </li>

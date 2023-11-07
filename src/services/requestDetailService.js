@@ -88,6 +88,33 @@ const requestDetailService = {
       throw error;
     }
   },
+
+  getMyRentalReq: async (request_id) => {
+    try {
+      const response = await api.get(`/rental_manage/viewMyRequest?requestId=${request_id.toString()}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  deleteRentalReq: async (roomId) => {
+    try {
+      const response = await api.post(`/rental_manage/req_rentals/delete?roomId=${roomId.toString()}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  deleteRentalReqAfterJoinRoom: async (requestId) => {
+    try {
+      const response = await api.post(`/rental_manage/req_rental/delete?requestId=${requestId.toString()}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
   
 };
 

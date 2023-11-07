@@ -10,9 +10,9 @@ const RoomCreateSuccess = () => {
             <ProgressBar initialValue={90} targetValue={100} />
             <div
                 className='container'>
-                <image
+                <img
                     src={picture}
-                    style={{ width: "100%" }}
+                    style={{ width: "50%", margin: "25% 25%"}}
                 />
             </div>
         </div>

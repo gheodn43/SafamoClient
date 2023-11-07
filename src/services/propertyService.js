@@ -89,6 +89,14 @@ const propertyService = {
             throw error;
         }
     },
+    getLandlord: async (property_id) => {
+        try {
+            const response = await api.get(`/properties/getOwner/${property_id.toString()}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
 };
 
 export default propertyService;
