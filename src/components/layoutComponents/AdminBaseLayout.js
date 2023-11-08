@@ -7,17 +7,17 @@ const AdminBaseLayout = ({ children }) => {
     return (
         <div>
             <div className='page-header'><AdminHeader /></div>
-            <div className='container'>
-            <div className="row">
-                <div className="col-md-2">
-                    <Sidebar />
-                </div>
-                <div className="col-md-10">
+            <div className='grid-container'>
+
+
+                <Sidebar />
+
+                <div className="main-container">
                     {children}
                 </div>
+
             </div>
-            </div>
-            <div className='page-footer'><Footer/></div>
+            <div className='page-footer'><Footer /></div>
         </div>
     );
 };

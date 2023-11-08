@@ -13,10 +13,8 @@ const MyRooms = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await RentRoomService.getMyRoomsRented();
-                setRooms(response);
                 const response1 = await RentRoomService.getAllRentRooms();
-                setRentRooms(response1);
+                setRooms(response1);
             } catch (error) {
                 setError(error.message);
             }
@@ -25,8 +23,8 @@ const MyRooms = () => {
         fetchData();
     }, []);
 
-    if ((!rooms || rooms.length === 0) && (!rentRooms || rentRooms.length === 0)) {
-        return <div>Loading...</div>;
+    if (!rooms || rooms.length === 0) {
+        return <BaseLayout><div>Loading...</div>;</BaseLayout>
     }
 
     return (
@@ -34,11 +32,6 @@ const MyRooms = () => {
             <div className='container'>
                 <div className='row d-flex justify-content-around'>
                     {rooms.map((room,index) => {
-                        const rentRoom = rentRooms.find(rent => rent.room_id === room.room_id);
-                        if (!rentRoom) {
-                            return null; 
-                        }
-
                         return (
                             <RoomCardOwner
                                 key={index}
@@ -48,7 +41,6 @@ const MyRooms = () => {
                                 roomPrice={room.price}
                                 roomId={room.room_id}
                                 ratingRult={room.ratingStar}
-                                rentRoomId={rentRoom.id}
                             />
                         );
                     })}

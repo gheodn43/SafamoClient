@@ -62,9 +62,9 @@ const requestDetailService = {
     }
   },
 
-  acceptRentalReq: async (request_id, contractLink) => {
+  acceptRentalReq: async (request_id) => {
     try {
-      const response = await api.post(`/rental_manage/req_rental/accept?requestId=${request_id.toString()}`, contractLink);
+      const response = await api.post(`/rental_manage/req_rental/accept?requestId=${request_id.toString()}`);
       return response.data;
     } catch (error) {
       throw error;

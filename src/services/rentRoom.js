@@ -10,9 +10,9 @@ const RentRoomService = {
     }
   },
 
-  joinRoom: async (room_id) => {
+  joinRoom: async (rentRoomData) => {
     try {
-      const response = await api.post(`/rentRoom/joinRoom?room_id=${room_id.toString()}`);
+      const response = await api.post('/rentRoom/joinRoom', rentRoomData);
       return response.data;
     } catch (error) {
       throw error;
@@ -37,14 +37,30 @@ const RentRoomService = {
     }
   },
 
-  getMyRoomRentedDetail: async (rentRoom_id) => {
+  getMyRoomRentedDetail: async (room_id) => {
     try {
-      const response = await api.get(`/MyRoomRentedDetail?rentRoom_id=${rentRoom_id.toString()}`);
+      const response = await api.get(`/MyRoomRentedDetail?room_id=${room_id.toString()}`);
       return response.data;
     } catch (error) {
       throw error;
     }
   },
+  getRentRooms: async (room_id) => {
+    try {
+      const response = await api.get(`/getRentRooms?room_id=${room_id.toString()}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+  // getOne: async (room_id) => {
+  //   try {
+  //     const response = await api.get(`/getRentRoom?room_id=${room_id.toString()}`);
+  //     return response.data;
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // },
 };
 
 export default RentRoomService;

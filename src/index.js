@@ -12,6 +12,7 @@ import './assets/styles/room.css'
 import './assets/styles/profile.css'
 import './assets/styles/map.css'
 import './assets/styles/address.css'
+import './assets/styles/admin.css'
 import './assets/styles/startRate.css'
 import 'react-datetime-picker/dist/DateTimePicker.css';
 import 'react-calendar/dist/Calendar.css';

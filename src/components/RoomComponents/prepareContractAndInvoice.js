@@ -41,7 +41,6 @@ const PrepareContractAndInvoice = () => {
     });
 
     const navigate = useNavigate();
-    const contractLink = "";
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -77,10 +76,9 @@ const PrepareContractAndInvoice = () => {
     if (!roomInfo || !request || !partyA || !partyB) {
         return <div>Loading...</div>;
     }
-    const handleAccept = (requestId, contractLink) => {
-        requestDetailService.acceptRentalReq(requestId, contractLink)
+    const handleAccept = () => {
+        requestDetailService.acceptRentalReq(requestId)
             .then(() => {
-                roomService.draftContractForRoom(room_id);
                 navigate('/rental_manage/request-receive');
             })
             .catch(error => {
@@ -239,7 +237,8 @@ const PrepareContractAndInvoice = () => {
                         </div>
                     )}
                     <div className='row'>
-                        
+                        <button onClick={handleGoBack} className="btn btn-secondary mr-2">Back</button>
+                        <button onClick={handleAccept} className="btn btn-primary">Accept</button>
                     </div>
                 </div>
             </div>

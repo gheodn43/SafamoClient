@@ -12,7 +12,7 @@ const RoomCardOwner = ({ imageUrls, roomName, roomStatus, tags, roomPrice, roomI
         : `/rooms-for-rent/${roomId}`;
     
     if (isMyRoomsPage) {
-        linkTo = `/rental_manage/my-room?rent_room_Id=${rentRoomId}`;
+        linkTo = `/rental_manage/my-room?room_id=${roomId}`;
     }
 
     return (

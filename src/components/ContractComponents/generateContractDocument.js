@@ -7,6 +7,7 @@ import { saveAs } from 'file-saver';
 import DocxFileUpload from '../Test/uploadDocxFile';
 import ContractService from '../../services/contractService';
 import A4 from '../../assets/images/A4.png';
+import RentRoomService from '../../services/rentRoom';
 
 const GenerateContractDocument = ({
   uploadedFile,
@@ -34,6 +35,7 @@ const GenerateContractDocument = ({
   partyB_cccd,
   partyB_address,
 }) => {
+  
   const [isGenerated, setIsGenerated] = useState(false);
   const [contractId, setContractId] = useState('');
   const [contractLink, setContractLinl] = useState(null);
@@ -103,7 +105,13 @@ const GenerateContractDocument = ({
       alert('Vui lòng tải lên một tệp hoặc cung cấp liên kết tới tệp DOCX trước khi tạo tài liệu.');
     }
   };
+  const [rentRoomData, setRentRoomData]= useState({
+    user_id: partyB_id,
+    room_id: room_id,
+    contract_id: 0,
+    dependent_user_id: partyB_id,
 
+  });
   const handleDocxUpload = async (docxUrl) => {
     const rentRoomInfo = {
       contractCreationDate: contract_creation_date,
@@ -114,12 +122,20 @@ const GenerateContractDocument = ({
       partyB_id: partyB_id,
       contractLink: docxUrl,
     };
-    const response = ContractService.generateContract(rentRoomInfo);
+
+    const response = await ContractService.generateContract(rentRoomInfo);
     if (response) {
       setContractId(response);
       setContractLinl(docxUrl);
+      const rentRoomData = {
+        user_id: partyB_id,
+        room_id: room_id,
+        contract_id: response.toString(),
+        dependent_user_id: partyB_id,
+      };
+      const res = RentRoomService.joinRoom(rentRoomData);
     }
-
+    
   };
 
   return (
