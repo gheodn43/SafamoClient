@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import BaseLayout from './layoutComponents/BaseLayout';
-import RoomCardOwner from './DataDisplayComponents/Cards/RoomCardOwner';
+import React, { useEffect, useState } from 'react';
 import roomService from '../services/roomService';
-import { useResolvedPath } from 'react-router-dom';
+import RoomCardOwner from './DataDisplayComponents/Cards/RoomCardOwner';
+import BaseLayout from './layoutComponents/BaseLayout';
 
 const HomePage = () => {
   // const storedUsername = localStorage.getItem('username');
