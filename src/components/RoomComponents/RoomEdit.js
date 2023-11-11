@@ -57,11 +57,13 @@ const RoomDetail = () => {
 
     const handleLockRoom = () => {
         if (!isLocked) {
+            roomService.pauseActive(roomId);
             setIsLocked(true);
         }
     };
 
     const handleUnlockRoom = () => {
+        roomService.resumeActive(roomId);
         setIsLocked(false);
     };
 
@@ -134,7 +136,7 @@ const RoomDetail = () => {
                                         <td>{request.requestStatus}</td>
                                         <td>{request.timeStamp}</td>
                                         <td>
-                                            {request.requestStatus === "Đã từ chối" ? (
+                                            {request.requestStatus === "Đã từ chối" || request.requestStatus === "Được thông qua"? (
                                                 <button className='btn btn-danger' onClick={() => handleDeleteRequest(request.id)}>
                                                     <i className="fa fa-trash" aria-hidden="true"></i>Xóa</button>
                                             ) : (

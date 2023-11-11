@@ -18,10 +18,6 @@ const AdminPropertyTable = () => {
       });
   }, []);
 
-  const handleDeleteClick = (propertyId) => {
-    console.log(`Xóa yêu cầu có ID: ${propertyId}`);
-  };
-
   const handleDetailClick = (requestId) => {
     navigate(`/admin/property/detail/${requestId}`);
   };
@@ -71,8 +67,7 @@ const AdminPropertyTable = () => {
                 <td>{property.propertyRole}</td>
                 <td>{property.status}</td>
                 <td>
-                  <button onClick={() => handleDeleteClick(property.id)}>Xóa</button>
-                  <button onClick={() => handleDetailClick(property.id)}>Xem chi tiết</button>
+                  <button className='btn btn-primary' onClick={() => handleDetailClick(property.id)}>Xem chi tiết</button>
                 </td>
               </tr>
             )

@@ -97,6 +97,31 @@ const roomService = {
             throw error;
         }
     },
+    pauseActive: async (roomId) => {
+        try {
+            const response = await api.post(`/room/pause_activity/${roomId.toString()}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+    resumeActive: async (roomId) => {
+        try {
+            const response = await api.post(`/room/resume_activity/${roomId.toString()}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    getOne: async (roomId) => {
+        try {
+            const response = await api.get(`/room/${roomId.toString()}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
 };
 
 export default roomService;

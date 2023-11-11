@@ -17,33 +17,34 @@ const PreviewContract = () => {
     const [isConfirmed, setIsConfirmed] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [request, setRequest] = useState(null);
-    const [roomid, setRoomId] = useState('');
-    const [rentRoom, setRentRoom] = useState(null)
+    const [room, setRoom] = useState(null);
     const [error, setError] = useState('');
-
-
+    const [room_id, setRoom_id] = useState('');
 
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const requestInfo = await requestDetailService.getMyRentalReq(requestId);
+
                 if (requestInfo) {
                     setRequest(requestInfo);
-                    const property_id = requestInfo.property_id;
-                    setRoomId(requestInfo.room_id);
+                    const roomId = requestInfo.room_id;
+                    setRoom_id(roomId);
+
+                    const res = await RentRoomService.getOne(roomId);
+                    setRoom(res);
+
+                    // Now that we have the room data, you can proceed here.
                 }
-                const res = await RentRoomService.getOne(roomid); 
-                setRentRoom(res);
             } catch (error) {
                 setError(error.message);
             }
         };
-
         fetchData();
     }, [requestId]);
 
-
+    console.log("hello" + room);
 
     if (!request) {
         return <div>Loading...</div>;
@@ -53,8 +54,8 @@ const PreviewContract = () => {
     };
     const handleJoinRoom = async () => {
         if (isChecked) {
-            // await requestDetailService.deleteRentalReqAfterJoinRoom(requestId);
-            await roomService.changeStatusRoomIsRenting(roomid);
+            await requestDetailService.deleteRentalReqAfterJoinRoom(requestId);
+            // await roomService.changeStatusRoomIsRenting(room.room_id);
             setIsConfirmed(true);
         } else {
             setShowAlert(true);
@@ -62,7 +63,7 @@ const PreviewContract = () => {
     };
 
     const handleGoToYourRoom = () => {
-        navigate(`/rental_manage/my-room?room_id=${roomid}`);
+        navigate(`/rental_manage/my-room?room_id=${room_id}`);
     };
     return (
         <BaseLayout>
@@ -87,16 +88,16 @@ const PreviewContract = () => {
                             <tr>
                                 <th scope="row">1</th>
                                 <td>Tiền cọc hợp đồng</td>
-                                <td>Giá tiền</td>
+                                <td>1.200.000 VNĐ</td>
                                 <td>01 tháng</td>
-                                <td>thành tiền</td>
+                                <td>1.200.000 VNĐ</td>
                             </tr>
                             <tr>
                                 <th scope="row">2</th>
                                 <td>Tiền phòng</td>
-                                <td>Giá tiền</td>
+                                <td>1.200.000 VNĐ</td>
                                 <td>02 tháng</td>
-                                <td>Thành tiền</td>
+                                <td>2.400.000 VNĐ</td>
                             </tr>
                             <tr>
                                 <td colspan="4"><strong>Tổng tiền</strong></td>

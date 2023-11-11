@@ -52,10 +52,25 @@ const requestDetailService = {
       throw error;
     }
   },
-
-  acceptLandlordReq: async (user_id) => {
+  rejectLandlordReq: async (request_id) => {
     try {
-      const response = await api.post(`/administration/grantAdminRole?user_id=${user_id}`);
+      const response = await api.post(`/rental_manage/req_landlord/reject?requestId=${request_id.toString()}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+  acceptLandlordReq: async (request_id) => {
+    try {
+      const response = await api.post(`/rental_manage/req_landlord/accept?requestId=${request_id.toString()}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+  grandLandlordReq: async (user_id) => {
+    try {
+      const response = await api.post(`/administration/grantAdminRole?user_id=${user_id.toString()}`);
       return response.data;
     } catch (error) {
       throw error;

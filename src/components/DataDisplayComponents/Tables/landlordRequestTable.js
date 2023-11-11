@@ -5,7 +5,6 @@ const LanlordRequestTable = () => {
   const [requests, setRequests] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    // Gọi hàm rentalRequestsForAdmin để lấy danh sách yêu cầu
     requestDetailService.requestsForAdmin()
       .then(data => {
         setRequests(data);
@@ -16,18 +15,37 @@ const LanlordRequestTable = () => {
   }, []);
 
   // Xử lý sự kiện khi người dùng nhấn vào nút "Xóa"
-  const handleDeleteClick = (requestId) => {
-    console.log(`Xóa yêu cầu có ID: ${requestId}`);
+
+  const handleAcceptClick = (requestId, userId) => {
+    requestDetailService.grandLandlordReq(userId)
+      .then(() => {
+        return requestDetailService.acceptLandlordReq(requestId);
+      })
+      .then(() => {
+        console.log(`Xem chi tiết yêu cầu có ID: ${userId}`);
+      })
+      .catch((error) => {
+        console.error("An error occurred:", error);
+      });
   };
 
-  const handleDetailClick = (requestId) => {
-    navigate('/requests/landlord_req_detail');
-    console.log(`Xem chi tiết yêu cầu có ID: ${requestId}`);
+
+  const handleRejectClick = (requestId, userId) => {
+    // navigate(`/requests/landlord_req_detail?request_id=${requestId}& user_id=${userId}`);
+    console.log(`Xem chi tiết yêu cầu có ID: ${userId}`);
   };
 
+  const handleViewRoom = (requestId, userId) => {
+    // navigate(`/requests/landlord_req_detail?request_id=${requestId}& user_id=${userId}`);
+    console.log(`Xem chi tiết yêu cầu có ID: ${userId}`);
+  };
+  const handleViewDetails = (requestId, userId) => {
+    // navigate(`/requests/landlord_req_detail?request_id=${requestId}& user_id=${userId}`);
+    console.log(`Xem chi tiết yêu cầu có ID: ${userId}`);
+  };
   return (
     <div>
-      <h2>Danh sách yêu cầu Cấp quyền cho thuê</h2>
+      <h2>Danh sách yêu cầu</h2>
       <table className="table">
         <thead>
           <tr>
@@ -40,7 +58,7 @@ const LanlordRequestTable = () => {
           </tr>
         </thead>
         <tbody>
-          {requests.map(request => (
+          {requests.map((request) => (
             <tr key={request.id}>
               <td>{request.username}</td>
               <td>{request.requestRole}</td>
@@ -48,16 +66,34 @@ const LanlordRequestTable = () => {
               <td>{request.requestStatus}</td>
               <td>{request.timeStamp}</td>
               <td>
-                {/* Nút "Xóa" */}
-                <button onClick={() => handleDeleteClick(request.id)}>Xóa</button>
-                {/* Nút "Xem chi tiết" */}
-                <button onClick={() => handleDetailClick(request.id)}>Xem chi tiết</button>
+                {request.requestRole === "Thuê phòng" ? (
+                  <button className="btn btn-primary" onClick={() => handleViewRoom(request.id, request.user_id)}>
+                    Xem phòng
+                  </button>
+                ) : (
+                  request.requestRole === "Cấp quyền cho thuê" && request.requestStatus !== "Chờ xét duyệt" ? (
+                    <button className="btn btn-info" onClick={() => handleViewDetails(request.id, request.user_id)}>
+                      Xem chi tiết
+                    </button>
+                  ) : (
+                    <>
+                      <button className="btn btn-primary" onClick={() => handleAcceptClick(request.id, request.user_id)}>
+                        Chấp nhận
+                      </button>
+                      <button className="btn btn-secondary" onClick={() => handleRejectClick(request.id, request.user_id)}>
+                        Từ chối
+                      </button>
+                    </>
+                  )
+                )}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
+
+
   );
 };
 

@@ -24,7 +24,7 @@ const MyRooms = () => {
     }, []);
 
     if (!rooms || rooms.length === 0) {
-        return <BaseLayout><div>Loading...</div>;</BaseLayout>
+        return <BaseLayout><div>Loading...</div></BaseLayout>
     }
 
     return (

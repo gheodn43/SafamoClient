@@ -31,9 +31,7 @@ const MyRoomRentedDetail = () => {
     }, []);
 
     console.log(users);
-    if (!room) {
-        return <div>Loading...</div>;
-    }
+
 
     const handleChange = () => {
         // setFindCompound(!findCompound); 
