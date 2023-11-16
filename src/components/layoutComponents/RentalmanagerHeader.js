@@ -12,7 +12,7 @@ const RentalmanagerHeader = () => {
     };
     const storedUsername = localStorage.getItem('username');
     return (
-        <nav className=" header navbar navbar-expand-lg navbar-light bg-light" style={{ width: '100%' }}>
+        <nav className="header navbar navbar-expand-lg navbar-light bg-light" style={{ width: '100%' }}>
             <Link to="/rental_manage" className="navbar-brand">
                 <img src={logoImage} alt="Safamo Logo" style={{ width: '150px', height: 'auto' }} />
             </Link>

@@ -19,7 +19,7 @@ const BaseLayout = ({ children }) => {
   }, [currentPath]);
 
   return (
-    <div>
+    <div className='main-body'>
       {isRentalManagerPage ? <RentalmanagerHeader /> : <Header />}
       {children}
       <Footer/>

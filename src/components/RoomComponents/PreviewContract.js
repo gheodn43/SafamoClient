@@ -2,11 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import BaseLayout from '../layoutComponents/BaseLayout';
 import requestDetailService from '../../services/requestDetailService';
-// import { useSelector } from 'react-redux';
-import roomService from '../../services/roomService';
-import propertyService from '../../services/propertyService';
 import RentRoomService from '../../services/rentRoom';
-import ContractService from '../../services/contractService';
+import { PayPalButtons } from '@paypal/react-paypal-js';
 
 const PreviewContract = () => {
     const location = useLocation();
@@ -34,8 +31,6 @@ const PreviewContract = () => {
 
                     const res = await RentRoomService.getOne(roomId);
                     setRoom(res);
-
-                    // Now that we have the room data, you can proceed here.
                 }
             } catch (error) {
                 setError(error.message);
@@ -105,21 +100,21 @@ const PreviewContract = () => {
                             </tr>
                         </tbody>
                     </table>
-                    <div className="form-check disabled">
-                        <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" checked disabled />
+                    <div className="form-check ">
+                        <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="traditional" checked  />
                         <label className="form-check-label" for="exampleRadios3">
                             Thanh toán khi gặp chủ nhà
                         </label>
                     </div>
 
-                    <div className="form-check disabled">
-                        <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" disabled />
+                    <div className="form-check ">
+                        <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="paypal"  />
                         <label className="form-check-label" for="exampleRadios1">
-                            Thanh toán bằng VNPay
+                            Thanh toán bằng Paypal
                         </label>
                     </div>
                 </div>
-
+                <PayPalButtons />
                 <div className='container'>
                     <div className="form-check form-check-inline">
                         <input className="form-check-input" type="checkbox" id="inlineCheckbox1"

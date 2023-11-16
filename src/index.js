@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import './index.css';
+import './App.css'
 import './assets/styles/style.css'
 import './assets/styles/header.css'
 import './assets/styles/footer.css'
