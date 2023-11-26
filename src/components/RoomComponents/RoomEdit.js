@@ -42,7 +42,7 @@ const RoomDetail = () => {
     }, []);
     const handleReject = async (requestId) => {
         try {
-             await requestDetailService.rejectRentalReq(requestId);
+            await requestDetailService.rejectRentalReq(requestId);
         } catch (error) {
             setError(error.message);
         }
@@ -70,49 +70,88 @@ const RoomDetail = () => {
     const handleDeleteRequest = async (reuqestId) => {
         try {
             await requestDetailService.deletedRentalReq(reuqestId);
-       } catch (error) {
-           setError(error.message);
-       }
+        } catch (error) {
+            setError(error.message);
+        }
     };
+    const displaySelectedImage = (event, containerId) => {
+        const imageContainer = document.getElementById(containerId);
+        const fileInput = event.target;
+
+        imageContainer.innerHTML = ''; // Clear previous images
+
+        if (fileInput.files && fileInput.files.length > 0) {
+            for (const file of fileInput.files) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.alt = 'Selected Image';
+                    img.style.width = '150px';
+                    imageContainer.appendChild(img);
+                };
+
+                reader.readAsDataURL(file);
+            }
+        }
+    }
     return (
         <BaseLayout>
             <div style={{ margin: "30px" }}>
-                <div className='row'>
-                    {room ? (
-                        <>
-                            <h2>{room.propertyName + '-' + room.roomName}</h2>
-                            <div className='row'>
 
-                                <div className='col-md-5'>
+                {room ? (
+                    <>
+                        <h2>{room.propertyName + '-' + room.roomName}</h2>
+                        <div className='row'>
+
+                            <div className='col-md-4'>
+                                {room.picturesURL.length > 0 ? (
                                     <CarouselPicture
                                         imageUrls={room.picturesURL} />
-                                </div>
-                                <div className='col-md-7'>
-                                    <div className='row'>
-                                        {tags.map((tag, index) => (
-                                            <TagCardIntoRoom
-                                                key={index}
-                                                tagname={tag} />
-                                        ))}
-                                    </div>
-                                    <div className='row'>
-                                        <div className='col-md-5'>
-                                            <p>Địa chỉ: {room.address}</p>
-                                            <p>Mô tả: {room.description}</p>
-                                            <p>Diện tích: {room.acreage} m²</p>
+                                ) : (
+                                    <div>
+                                        <div className="mb-4 d-flex justify-content-center" id="selectedImage">
+                                            <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg"
+                                                alt="example placeholder" style={{ width: "300px" }} />
                                         </div>
-                                        <div className='col-md-5'>
-                                            <p>Giá thuê: {room.price} VND/tháng</p>
-                                            <p>Số người tối đa: {room.maxQuantity}</p>
-                                            <p>Trạng thái: {room.status}</p>
+                                        <div className="d-flex justify-content-center">
+                                            <div className="btn btn-primary btn-rounded">
+                                                <label className="form-label text-white m-1" for="customFile1">Chọn ảnh cho phòng của bạn!</label>
+                                                <input type="file" multiple className="form-control d-none files[]" id="customFile1"
+                                                    onChange={(e) => displaySelectedImage(e, 'selectedImage')} />
+                                            </div>
                                         </div>
                                     </div>
+                                )}
+
+                            </div>
+                            <div className='col-md-8'>
+                                <div className='row'>
+                                    {tags.map((tag, index) => (
+                                        <TagCardIntoRoom
+                                            key={index}
+                                            tagname={tag} />
+                                    ))}
                                 </div>
-                            </div></>
-                    ) : (
-                        <p>Đang tải thông tin phòng...</p>
-                    )}
-                </div>
+                                <div className='row'>
+                                    <div className='col-md-8'>
+                                        <p>Địa chỉ: {room.address}</p>
+                                        <p>Mô tả: {room.description}</p>
+                                        <p>Diện tích: {room.acreage} m²</p>
+                                    </div>
+                                    <div className='col-md-4'>
+                                        <p>Giá thuê: {room.price} VND/tháng</p>
+                                        <p>Số người tối đa: {room.maxQuantity}</p>
+                                        <p>Trạng thái: {room.status}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div></>
+                ) : (
+                    <p>Đang tải thông tin phòng...</p>
+                )}
+
                 <div className='row'>
                     <h5>Danh sách yêu cầu thuê</h5>
                     <table className="table">
@@ -136,7 +175,7 @@ const RoomDetail = () => {
                                         <td>{request.requestStatus}</td>
                                         <td>{request.timeStamp}</td>
                                         <td>
-                                            {request.requestStatus === "Đã từ chối" || request.requestStatus === "Được thông qua"? (
+                                            {request.requestStatus === "Đã từ chối" || request.requestStatus === "Được thông qua" ? (
                                                 <button className='btn btn-danger' onClick={() => handleDeleteRequest(request.id)}>
                                                     <i className="fa fa-trash" aria-hidden="true"></i>Xóa</button>
                                             ) : (

@@ -91,6 +91,7 @@ const PropertyImageUpload = ({ pictureUrl, onImageUpload }) => {
           </div>
         ) : (
           uploadSuccess ? (
+            
             <div className="pb-8 pt-4">
               Tải ảnh thành công
               public id: {url}, url: {imageURL}
